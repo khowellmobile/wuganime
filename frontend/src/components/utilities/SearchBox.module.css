@@ -1,0 +1,16 @@
+.input {
+    height: 2.5rem;
+    padding-left: 0.25rem;
+
+    color: var(--primary-text-color);
+    background-color: var(--secondary-background-color);
+    font-family: "poppins";
+    font-size: var(--small-font-size);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    outline: none;
+}
+
+.warn {
+    background-color: rgba(250, 180, 180, 0.356);
+}
