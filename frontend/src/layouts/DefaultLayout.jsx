@@ -1,4 +1,5 @@
 import classes from "./DefaultLayout.module.css";
+import Footer from "./layout-sections/Footer";
 import Header from "./layout-sections/header";
 import Menu from "./layout-sections/Menu";
 
@@ -12,11 +13,11 @@ const DefaultLayout = (props) => {
             <div className={classes.headerContainer}>
                 <Header />
             </div>
-            <div className={classes.bottomContainer}>
-                <div className={classes.menuContainer}>
-                    <Menu />
-                </div>
+            <div className={classes.midContainer}>
                 <div className={classes.contentContainer}>{props.children}</div>
+            </div>
+            <div className={classes.bottomContainer}>
+                <Footer />
             </div>
         </div>
     );

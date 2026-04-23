@@ -4,7 +4,7 @@
     padding: 1rem;
 
     background-color: var(--tertiary-background-color);
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 
     display: flex;
     align-items: center;
@@ -17,6 +17,7 @@
 }
 
 .left > p {
+    color: var(--primary-color);
     font-size: var(--large-header-font-size);
     font-weight: 500;
 

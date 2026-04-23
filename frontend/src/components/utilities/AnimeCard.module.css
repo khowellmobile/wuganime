@@ -1,0 +1,41 @@
+.mainContainer {
+    width: 15rem;
+    height: 20rem;
+
+    border-radius: 0.25rem;
+}
+
+.pictureSection {
+    width: 100%;
+    height: 65%;
+    border-radius: 0.25rem 0.25rem 0 0;
+
+    background-color: #3434476c;
+}
+
+.textSection {
+    width: 100%;
+    height: 35%;
+    padding: 0.5rem;
+    border-radius: 0 0 0.25rem 0.25rem;
+
+    background-color: var(--secondary-color-border);
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: 600;
+    font-size: var(--large-font-size);
+}
+
+.lineClamp {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

@@ -1,0 +1,30 @@
+.mainContainer {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContainer > h2 {
+    font-size: var(--header-font-size);
+    font-weight: 500;
+}
+
+.listing {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.listing > * {
+    flex: 0 0 auto;
+}
+
+.listing > div:not(:last-child) {
+    margin-right: 1rem;
+}

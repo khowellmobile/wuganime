@@ -19,39 +19,6 @@
     overflow: hidden;
 }
 
-.mainContainer:hover {
-    width: 16rem;
-
-    background-color: var(--background-color);
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-.emailDiv {
-
-}
-
-.dropdownContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.icon {
-    width: 1.25rem;
-    height: 1.25rem;
-
-    user-select: none;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.noDisplay {
-    display: none;
-}
-
 .divIcon {
     width: 2.5rem;
     height: 2.5rem;
@@ -71,15 +38,4 @@
 
     position: relative;
     top: 0.05rem;
-}
-
-.expandedStyle {
-    width: 16rem;
-    height: 16rem;
-
-    background-color: var(--background-color);
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-
-    position: relative;
-    top: 6.25rem;
 }

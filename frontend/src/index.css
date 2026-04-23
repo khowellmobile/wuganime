@@ -13,19 +13,24 @@
 }
 
 :root {
-    --primary-color: rgb(42, 42, 209);
+    --primary-color: #baff29;
+    --secondary-color: #191923;
+    --secondary-color-border: #343447;
+    --tertiary-color: #323536;
+    --quarternary-color: #c7d6d5;
 
-    --border-color: rgba(128, 128, 128, 0.301);
+    --border-color: var(--secondary-color-border);
     --hover-color: rgba(231, 231, 231, 0.308);
-    --background-color: #FFFFFF;
-    --secondary-background-color: #F6F6F6;
-    --tertiary-background-color: #ECECEC;
-    --primary-text-color: #1d1d1d;
-    --secondary-text-color: rgb(78, 78, 78);
+    --background-color: var(--secondary-color);
+    --secondary-background-color: var(--secondary-color-border);
+    --tertiary-background-color: var(--secondary-color);
+    --primary-text-color: #e6e6e6;
+    --secondary-text-color: rgb(190, 190, 190);
     --tertiary-text-color: rgb(150, 150, 150);
 
     --base-font-size: 1rem;
-    --small-font-size: 0.9rem;
+    --small-font-size: 0.7rem;
+    --large-font-size: 1.1rem;
     --header-font-size: 1.3rem;
     --large-header-font-size: 1.4rem;
     --primary-font: "poppins";
