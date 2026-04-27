@@ -14,16 +14,16 @@ import { AnimeCtxProvider } from "./contexts/AnimeCtx";
 function App() {
     return (
         <>
-            <ModalCtxProvider>
-                <AuthCtxProvider>
-                    <AnimeCtxProvider>
+            <AuthCtxProvider>
+                <AnimeCtxProvider>
+                    <ModalCtxProvider>
                         <Routes>
                             <Route path="/" element={<SplashPage />} />
                             <Route path="/app/*" element={<AuthenticatedApp />} />
                         </Routes>
-                    </AnimeCtxProvider>
-                </AuthCtxProvider>
-            </ModalCtxProvider>
+                    </ModalCtxProvider>
+                </AnimeCtxProvider>
+            </AuthCtxProvider>
         </>
     );
 }

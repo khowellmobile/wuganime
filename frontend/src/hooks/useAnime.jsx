@@ -9,5 +9,5 @@ export function useAnime() {
     }
 
     // Return the function directly from context
-    return context.getAnime;
+    return context;
 }

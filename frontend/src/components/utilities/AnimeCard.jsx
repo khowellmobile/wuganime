@@ -1,13 +1,17 @@
 import { useModal } from "../../contexts/ModalCtx";
+import { useAnime } from "../../hooks/useAnime";
 import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "./Tag";
 
-const AnimeCard = ({ title, stars, tags }) => {
+const AnimeCard = ({ id }) => {
     const { showModal } = useModal();
+    const { getAnime } = useAnime();
+
+    const anime = getAnime(id);
 
     const handleClick = () => {
-        showModal(AnimeModal, { title: "Example Modal", stars: "" });
+        showModal(AnimeModal, { id: id });
     };
 
     return (
@@ -15,12 +19,12 @@ const AnimeCard = ({ title, stars, tags }) => {
             <section className={classes.pictureSection}></section>
             <section className={classes.textSection}>
                 <div className={`${classes.titleDiv} ${classes.lineClamp}`}>
-                    <p className={classes.title}>{title}</p>
+                    <p className={classes.title}>{anime?.title}</p>
                 </div>
                 <div className={classes.suppItems}>
-                    <p>{stars}</p>
+                    <p>{anime?.stars}</p>
                     <div className={classes.tags}>
-                        {tags?.length > 0 && tags.map((tag, index) => <Tag tagName={tag} key={index} />)}
+                        {anime?.tags?.length > 0 && anime?.tags.map((tag, index) => <Tag tagName={tag} key={index} />)}
                     </div>
                 </div>
             </section>

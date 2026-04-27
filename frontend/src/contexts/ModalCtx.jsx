@@ -32,7 +32,7 @@ export const ModalCtxProvider = ({ children }) => {
     return (
         <ModalCtx.Provider value={contextValue}>
             {children}
-            {modal.isVisible && ActiveModal && <ActiveModal {...ModalCtx.props} closeModal={closeModal} />}
+            {modal.isVisible && ActiveModal && <ActiveModal {...modal.props} closeModal={closeModal} />}
         </ModalCtx.Provider>
     );
 };
