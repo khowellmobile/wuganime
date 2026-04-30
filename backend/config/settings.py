@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "djoser",
     "corsheaders",  # Added for CORS with react frontend
     "accounts",
+    "anime",
 ]
 
 REST_FRAMEWORK = {
