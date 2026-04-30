@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useState, useCallback, useEffect } from "react";
 
 const ModalCtx = createContext(null);
 
@@ -8,6 +8,19 @@ export const ModalCtxProvider = ({ children }) => {
         content: null,
         props: {},
     });
+
+    // Locks document scrolling when modal is visible.
+    useEffect(() => {
+        if (modal.isVisible) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [modal.isVisible]);
 
     const showModal = useCallback((Component, props = {}) => {
         setModal({

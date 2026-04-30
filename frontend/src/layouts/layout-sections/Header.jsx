@@ -2,7 +2,7 @@ import classes from "./Header.module.css";
 
 import DashIcon from "../../assets/dash-icon.svg";
 import SearchBox from "../../components/utilities/SearchBox";
-import ProfileDropdown from "../../components/utilities/ProfileDropdown";
+import Dropdown from "../../components/utilities/Dropdown";
 
 const Header = () => {
     return (
@@ -17,7 +17,7 @@ const Header = () => {
                 <SearchBox type="text" name="search" value={""} placeholder={"Search"} />
             </div>
             <div className={classes.right}>
-                <ProfileDropdown />
+                <Dropdown />
             </div>
         </div>
     );

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/UseAuth";
 
-import classes from "./ProfileDropdown.module.css";
+import classes from "./Dropdown.module.css";
 
 import upChevIcon from "../../assets/chevron-up-icon.svg";
 import downChevIcon from "../../assets/chevron-down-icon.svg";
 
-const ProfileDropdown = ({}) => {
+const Dropdown = ({ options, onSelect, label }) => {
     const { user } = useAuth();
 
     return (
@@ -20,4 +20,4 @@ const ProfileDropdown = ({}) => {
     );
 };
 
-export default ProfileDropdown;
+export default Dropdown;
