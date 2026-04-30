@@ -4,10 +4,18 @@ import { useAnime } from "../../hooks/useAnime";
 
 import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
+import { useState } from "react";
 
+const options = ["Watched", "To Be Watched", "Up Next", "Did Not Finish"];
 
 const AnimeModal = ({ id, closeModal }) => {
     const { getAnime } = useAnime();
+
+    const [activelabel, setActiveLabel] = useState("Watched");
+
+    const changeLabel = (label) => {
+        setActiveLabel(label);
+    };
 
     const anime = getAnime(id);
 
@@ -24,7 +32,7 @@ const AnimeModal = ({ id, closeModal }) => {
                                 {anime?.tags?.length > 0 &&
                                     anime?.tags.map((tag, index) => <Tag tagName={tag} key={index} />)}
                             </div>
-                            <Dropdown />
+                            <Dropdown options={options} onSelect={changeLabel} label={activelabel} />
                         </div>
                     </div>
                     <div className={classes.bottomDiv}>

@@ -1,12 +1,10 @@
 .mainContainer {
-    width: 3.5rem;
-    height: 3.5rem;
-    padding: 0.5rem;
+    width: 12rem;
+    height: 2rem;
+    margin-top: 0.5rem; /* TO BE REMOVED */
 
-    background-color: var(--seconadry-background-color);
     user-select: none;
     cursor: pointer;
-    border-radius: 0.5rem;
 
     display: flex;
     justify-content: space-between;
@@ -15,27 +13,82 @@
 
     position: relative;
     top: 0rem;
-
-    overflow: hidden;
 }
 
-.divIcon {
-    width: 2.5rem;
-    height: 2.5rem;
+.mainContainer:hover {
+    box-shadow:
+        rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
 
-    border-radius: 50%;
-    background-color: var(--primary-color);
+.display {
+    width: 10rem;
+    height: 2rem;
+    padding-left: 0.5rem;
 
+    background-color: var(--secondary-background-color);
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.display {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-.divIcon > p {
-    color: white;
-    font-size: var(--large-header-font-size);
-    font-weight: 600;
+.display > p {
+    font-size: var(--small-font-size);
+}
 
+.arrow {
+    width: 2rem;
+    height: 2rem;
+
+    background-color: var(--secondary-background-color);
+    border-radius: 0 0.25rem 0.25rem 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.anchor {
     position: relative;
-    top: 0.05rem;
+}
+
+.dropdownContent {
+    width: 12rem;
+
+    background-color: var(--secondary-background-color);
+    border-radius: 0.25rem;
+    user-select: none;
+    box-shadow:
+        rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    top: 2.25rem;
+    right: 0px;
+}
+
+.dropdownContent > p {
+    padding: 0.25rem 0.5rem;
+
+    font-size: var(--small-font-size);
+    font-weight: 400;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.dropdownContent > p:hover {
+    background-color: var(--hover-color);
 }

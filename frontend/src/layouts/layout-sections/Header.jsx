@@ -17,7 +17,7 @@ const Header = () => {
                 <SearchBox type="text" name="search" value={""} placeholder={"Search"} />
             </div>
             <div className={classes.right}>
-                <Dropdown />
+                {/* <Dropdown /> */}
             </div>
         </div>
     );

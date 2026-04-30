@@ -20,7 +20,7 @@
     --quarternary-color: #c7d6d5;
 
     --border-color: var(--secondary-color-border);
-    --hover-color: rgba(231, 231, 231, 0.308);
+    --hover-color: rgba(102, 102, 102, 0.308);
     --background-color: var(--secondary-color);
     --secondary-background-color: var(--secondary-color-border);
     --tertiary-background-color: var(--secondary-color);

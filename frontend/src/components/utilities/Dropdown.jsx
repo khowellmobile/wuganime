@@ -3,18 +3,40 @@ import { useAuth } from "../../hooks/UseAuth";
 
 import classes from "./Dropdown.module.css";
 
-import upChevIcon from "../../assets/chevron-up-icon.svg";
-import downChevIcon from "../../assets/chevron-down-icon.svg";
+import upChevIcon from "../../assets/chevron-up-icon-white.svg";
+import downChevIcon from "../../assets/chevron-down-icon-white.svg";
 
 const Dropdown = ({ options, onSelect, label }) => {
     const { user } = useAuth();
 
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const chooseOption = (option) => {
+        onSelect(option);
+        setIsExpanded(false);
+    };
+
     return (
         <div>
             <div className={`${classes.mainContainer}`}>
-                <div className={classes.divIcon}>
-                    <p>P</p>
+                <div className={classes.display} onClick={() => setIsExpanded((preVal) => !preVal)}>
+                    <p>{label}</p>
                 </div>
+                <div className={classes.arrow} onClick={() => setIsExpanded((preVal) => !preVal)}>
+                    <img src={isExpanded ? upChevIcon : downChevIcon} className={classes.icon} />
+                </div>
+                {isExpanded && (
+                    <div className={classes.anchor}>
+                        <div className={classes.dropdownContent}>
+                            {options?.length > 0 &&
+                                options.map((val, index) => (
+                                    <p onClick={() => chooseOption(val)} key={index}>
+                                        {val}
+                                    </p>
+                                ))}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
