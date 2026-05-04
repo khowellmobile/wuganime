@@ -15,6 +15,8 @@ urlpatterns = [
                 # Djoser user management endpoints and JWT verify endpoint.
                 path("auth/", include("djoser.urls")),
                 path("auth/", include("djoser.urls.jwt")),
+                # Anime endpoints.
+                path("", include("anime.urls")),
             ]
         ),
     ),
