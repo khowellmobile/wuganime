@@ -24,7 +24,7 @@ const AnimeCard = ({ id }) => {
                 <div className={classes.suppItems}>
                     <p>{anime?.stars}</p>
                     <div className={classes.tags}>
-                        {anime?.tags?.length > 0 && anime?.tags.map((tag, index) => <Tag tagName={tag} key={index} />)}
+                        {anime?.tags?.length > 0 && anime?.tags.map((tag, index) => <Tag tag={tag} key={index} />)}
                     </div>
                 </div>
             </section>

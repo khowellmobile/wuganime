@@ -30,7 +30,7 @@ const AnimeModal = ({ id, closeModal }) => {
                             <p>{anime?.stars}</p>
                             <div className={classes.tags}>
                                 {anime?.tags?.length > 0 &&
-                                    anime?.tags.map((tag, index) => <Tag tagName={tag} key={index} />)}
+                                    anime?.tags.map((tag, index) => <Tag tag={tag} key={index} />)}
                             </div>
                             <Dropdown options={options} onSelect={changeLabel} label={activelabel} />
                         </div>
