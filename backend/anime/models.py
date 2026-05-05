@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Anime(models.Model):
     class TypeChoices(models.TextChoices):
         TV = "TV", "TV"
@@ -16,6 +23,7 @@ class Anime(models.Model):
 
     title = models.CharField(max_length=255)
     synopsis = models.TextField(null=True, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="animes")
     type = models.CharField(
         max_length=50, choices=TypeChoices.choices, null=True, blank=True
     )
@@ -36,7 +44,7 @@ class Anime(models.Model):
 class UserAnime(models.Model):
     class UserStatus(models.TextChoices):
         WATCHED = "WATCHED", "Watched"
-        TO_BE_WATCHED = "TO_BE_WATCHED", "To Be Watched"
+        TO_BE_WATCHED = "TO_WATCH", "To Watch"
         UP_NEXT = "UP_NEXT", "Up Next"
         DNF = "DNF", "Did Not Finish"
 

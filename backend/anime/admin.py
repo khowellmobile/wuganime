@@ -1,13 +1,32 @@
 from django.contrib import admin
-from .models import Anime, UserAnime
+from .models import Anime, UserAnime, Tag
 
 
 # Register your models here.
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
+
+
 @admin.register(Anime)
 class AnimeAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "type", "episodes", "status", "created_at")
+    list_display = (
+        "id",
+        "title",
+        "get_tags",
+        "type",
+        "episodes",
+        "status",
+        "created_at",
+    )
     search_fields = ("title",)
     list_filter = ("type", "status")
+
+    def get_tags(self, obj):
+        return ", ".join([tag.name for tag in obj.tags.all()])
+
+    get_tags.short_description = "Tags"
 
 
 @admin.register(UserAnime)
