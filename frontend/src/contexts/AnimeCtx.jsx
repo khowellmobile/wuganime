@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState, useCallback } from "react";
+import { useFetchAnime } from "../hooks/useFetchAnime";
 
 const aList = [
     { id: 1, title: "Babel", stars: "★★★★★", tags: ["css", "idea", "goal"] },
@@ -53,17 +54,22 @@ const AnimeCtx = createContext({
 });
 
 export function AnimeCtxProvider(props) {
+    const { animeList, isLoading, mutate } = useFetchAnime();
     const [ctxAnimeList, setCtxAnimeList] = useState(aList);
+
     const getAnime = useCallback(
         (id) => {
-            return ctxAnimeList.find((anime) => anime.id == id);
+            return animeList.find((anime) => anime.id == id);
         },
         [ctxAnimeList],
     );
 
     const context = {
+        ctxAnimeList1: animeList,
         ctxAnimeList,
         getAnime,
+        isLoading,
+        refreshAnime: mutate,
     };
 
     return <AnimeCtx.Provider value={context}>{props.children}</AnimeCtx.Provider>;

@@ -4,7 +4,7 @@ import AuthCtx from "../contexts/AuthCtx";
 import { api } from "../Client";
 
 export function useAuth() {
-    const { setIsAuthenticated, setCtxUserData } = useContext(AuthCtx);
+    const { isAuthenticated, setIsAuthenticated, setCtxUserData } = useContext(AuthCtx);
 
     const login = async (email, password) => {
         try {
@@ -61,5 +61,6 @@ export function useAuth() {
         login,
         logout,
         getUser,
+        isAuthenticated,
     };
 }

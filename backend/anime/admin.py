@@ -5,7 +5,7 @@ from .models import Anime, UserAnime
 # Register your models here.
 @admin.register(Anime)
 class AnimeAdmin(admin.ModelAdmin):
-    list_display = ("title", "type", "episodes", "status", "created_at")
+    list_display = ("id", "title", "type", "episodes", "status", "created_at")
     search_fields = ("title",)
     list_filter = ("type", "status")
 

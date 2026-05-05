@@ -9,11 +9,14 @@ const HomePage = () => {
 
     const list3 = [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
+    const list4 = [1, 2, 3];
+
     return (
         <div className={classes.mainContainer}>
-            <CardList title={"Currently Reading"} list={list1} />
+            <CardList title={"Currently Reading"} list={list4} />
+            {/* <CardList title={"Currently Reading"} list={list1} />
             <CardList title={"Already Read"} list={list2} />
-            <CardList title={"Reccomendations"} list={list3} />
+            <CardList title={"Reccomendations"} list={list3} /> */}
         </div>
     );
 };
