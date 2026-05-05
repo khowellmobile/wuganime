@@ -6,18 +6,18 @@ import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
 import { useState } from "react";
 
-const options = ["Watched", "To Be Watched", "Up Next", "Did Not Finish"];
+const options = ["Watched", "To Watch", "Up Next", "Did Not Finish", ""];
 
 const AnimeModal = ({ id, closeModal }) => {
     const { getAnime } = useAnime();
 
-    const [activelabel, setActiveLabel] = useState("Watched");
+    const anime = getAnime(id);
+
+    const [activelabel, setActiveLabel] = useState(anime?.status ?? "To Watch");
 
     const changeLabel = (label) => {
         setActiveLabel(label);
     };
-
-    const anime = getAnime(id);
 
     return (
         <div className={classes.modalOverlay} onClick={closeModal}>
@@ -36,14 +36,7 @@ const AnimeModal = ({ id, closeModal }) => {
                         </div>
                     </div>
                     <div className={classes.bottomDiv}>
-                        <p>
-                            In a world where the gravity-defying sport of "Aero-Tag" determines the fate of entire
-                            floating islands, Kaito, a spirited underdog with a mysterious past, dreams of joining the
-                            elite Sky-Guard. Though he lacks the flashy gadgets of his rivals, Kaito possesses an
-                            uncanny ability to read the wind currents that others ignore. Alongside his loyal crew of
-                            misfits, he must master the ancient "Gale-Force" technique to protect his home from an
-                            encroaching shadow and prove that true strength comes from the heart, not just the gear.
-                        </p>
+                        <p>{anime?.synopsis}</p>
                     </div>
                 </div>
                 <div className={classes.rightDiv}></div>
