@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    color = models.CharField(max_length=7, default="#000000")  
 
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@ from .models import Anime, UserAnime, Tag
 # Register your models here.
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("name","color")
     search_fields = ("name",)
 
 
