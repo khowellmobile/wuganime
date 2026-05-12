@@ -5,11 +5,11 @@ from .models import Anime, UserAnime, Tag
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ["id", "name"]
+        fields = ["id", "name", "color"]
 
 
 class AnimeSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(many=True, read_only=True, slug_field="name")
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Anime
