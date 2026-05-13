@@ -6,7 +6,7 @@ import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
 import { useState } from "react";
 
-const options = ["Watched", "To Watch", "Up Next", "Did Not Finish", ""];
+const options = ["Watched", "To Watch", "Up Next", "Did Not Finish", "Uncategorized"];
 
 const AnimeModal = ({ id, closeModal }) => {
     const { getAnime } = useAnime();

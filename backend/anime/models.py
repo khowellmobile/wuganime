@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    color = models.CharField(max_length=7, default="#000000")  
+    color = models.CharField(max_length=7, default="#000000")
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class UserAnime(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     status = models.CharField(
-        max_length=20, choices=UserStatus.choices, default=UserStatus.TO_BE_WATCHED
+        max_length=20, choices=UserStatus.choices, blank=True, null=True
     )
     episodes_watched = models.PositiveIntegerField(default=0)
     score = models.PositiveIntegerField(null=True, blank=True)
