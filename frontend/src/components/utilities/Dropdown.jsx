@@ -29,9 +29,9 @@ const Dropdown = ({ options, onSelect, label }) => {
                     <div className={classes.anchor}>
                         <div className={classes.dropdownContent}>
                             {options?.length > 0 &&
-                                options.map((val, index) => (
-                                    <p onClick={() => chooseOption(val)} key={index}>
-                                        {val}
+                                options.map((option, index) => (
+                                    <p onClick={() => chooseOption(option)} key={index}>
+                                        {option.label}
                                     </p>
                                 ))}
                         </div>
