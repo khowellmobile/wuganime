@@ -13,7 +13,43 @@ class AnimeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Anime
-        fields = "__all__"
+        fields = [
+            "id",
+            "title",
+            "synopsis",
+            "tags",
+            "type",
+            "episodes",
+            "status",
+            "image_url",
+            "external_id",
+            "is_deleted",
+            "created_at",
+            "updated_at",
+        ]
+
+
+class AnimeWithUserStatusSerializer(AnimeSerializer):
+    user_status = serializers.SerializerMethodField()
+
+    class Meta(AnimeSerializer.Meta):
+        fields = AnimeSerializer.Meta.fields + ["user_status"]
+
+    def get_user_status(self, obj):
+        request = self.context.get("request")
+        if not request or not request.user.is_authenticated:
+            return "UNCATEGORIZED"
+
+        prefetched = getattr(obj, "request_user_relations", None)
+        if prefetched is not None:
+            if not prefetched:
+                return "UNCATEGORIZED"
+            return prefetched[0].status or "UNCATEGORIZED"
+
+        relation = UserAnime.objects.filter(user=request.user, anime=obj).only("status").first()
+        if relation is None:
+            return "UNCATEGORIZED"
+        return relation.status or "UNCATEGORIZED"
 
 
 class UserAnimeSerializer(serializers.ModelSerializer):
@@ -30,3 +66,12 @@ class UserAnimeSerializer(serializers.ModelSerializer):
             "score",
             "updated_at",
         ]
+
+
+class UserAnimeStatusMutationSerializer(serializers.Serializer):
+    anime = serializers.PrimaryKeyRelatedField(queryset=Anime.objects.all())
+    status = serializers.ChoiceField(
+        choices=[*UserAnime.UserStatus.values, "UNCATEGORIZED"]
+    )
+    episodes_watched = serializers.IntegerField(required=False, min_value=0)
+    score = serializers.IntegerField(required=False, min_value=0, allow_null=True)

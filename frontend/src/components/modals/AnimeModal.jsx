@@ -5,18 +5,29 @@ import { useAnime } from "../../hooks/useAnime";
 import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
 import { useState } from "react";
+import { useUserAnime } from "../../hooks/useUserAnime";
 
-const options = ["Watched", "To Watch", "Up Next", "Did Not Finish", ""];
+const ANIME_STATUS_OPTIONS = [
+    { label: "Watched", value: "WATCHED" },
+    { label: "To Watch", value: "TO_WATCH" },
+    { label: "Up Next", value: "UP_NEXT" },
+    { label: "Did Not Finish", value: "DNF" },
+    { label: "Uncategorized", value: "UNCATEGORIZED" },
+];
 
 const AnimeModal = ({ id, closeModal }) => {
+    const { setStatus } = useUserAnime();
     const { getAnime } = useAnime();
 
     const anime = getAnime(id);
 
-    const [activelabel, setActiveLabel] = useState(anime?.status ?? "To Watch");
+    console.log(anime);
 
-    const changeLabel = (label) => {
-        setActiveLabel(label);
+    const [activelabel, setActiveLabel] = useState(anime?.user_status ?? "uncategorized");
+
+    const changeLabel = (option) => {
+        setActiveLabel(option.label);
+        setStatus(id, option.value);
     };
 
     return (
@@ -32,7 +43,7 @@ const AnimeModal = ({ id, closeModal }) => {
                                 {anime?.tags?.length > 0 &&
                                     anime?.tags.map((tag, index) => <Tag tag={tag} key={index} />)}
                             </div>
-                            <Dropdown options={options} onSelect={changeLabel} label={activelabel} />
+                            <Dropdown options={ANIME_STATUS_OPTIONS} onSelect={changeLabel} label={activelabel} />
                         </div>
                     </div>
                     <div className={classes.bottomDiv}>
