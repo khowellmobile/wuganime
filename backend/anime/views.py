@@ -52,7 +52,11 @@ class UserAnimeViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return UserAnime.objects.filter(user=self.request.user).select_related("anime")
+        qs = UserAnime.objects.filter(user=self.request.user).select_related("anime")
+        status_param = self.request.query_params.get("status")
+        if status_param:
+            qs = qs.filter(status=status_param)
+        return qs
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -80,9 +84,7 @@ class UserAnimeViewSet(viewsets.ModelViewSet):
 
         defaults = {"status": desired_status}
         if "episodes_watched" in serializer.validated_data:
-            defaults["episodes_watched"] = serializer.validated_data[
-                "episodes_watched"
-            ]
+            defaults["episodes_watched"] = serializer.validated_data["episodes_watched"]
         if "score" in serializer.validated_data:
             defaults["score"] = serializer.validated_data["score"]
 
