@@ -13,10 +13,6 @@ export function useUserAnime() {
 
     const userAnime = data || [];
 
-    useEffect(() => {
-        console.log(userAnime);
-    }, [userAnime]);
-
     const getAnime = useCallback(
         (id) => {
             const userAnimeItem = userAnime.find((item) => item.anime === id);
