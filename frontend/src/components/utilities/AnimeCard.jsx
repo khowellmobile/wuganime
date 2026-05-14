@@ -1,12 +1,12 @@
 import { useModal } from "../../contexts/ModalCtx";
-import { useAnime } from "../../hooks/useAnime";
+import { useUserAnime } from "../../hooks/useUserAnime";
 import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "./Tag";
 
 const AnimeCard = ({ id }) => {
     const { showModal } = useModal();
-    const { getAnime } = useAnime();
+    const { getAnime } = useUserAnime();
 
     const anime = getAnime(id);
 

@@ -1,10 +1,9 @@
-import classes from "./AnimeModal.module.css";
+import { useState } from "react";
 
-import { useAnime } from "../../hooks/useAnime";
+import classes from "./AnimeModal.module.css";
 
 import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
-import { useState } from "react";
 import { useUserAnime } from "../../hooks/useUserAnime";
 
 const ANIME_STATUS_OPTIONS = [
@@ -17,11 +16,9 @@ const ANIME_STATUS_OPTIONS = [
 
 const AnimeModal = ({ id, closeModal }) => {
     const { setStatus } = useUserAnime();
-    const { getAnime } = useAnime();
+    const { getAnime } = useUserAnime();
 
     const anime = getAnime(id);
-
-    console.log(anime);
 
     const [activelabel, setActiveLabel] = useState(anime?.user_status ?? "uncategorized");
 
