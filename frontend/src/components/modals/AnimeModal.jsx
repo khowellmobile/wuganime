@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { act, useState } from "react";
 
 import classes from "./AnimeModal.module.css";
 
@@ -14,17 +14,24 @@ const ANIME_STATUS_OPTIONS = [
     { label: "Uncategorized", value: "UNCATEGORIZED" },
 ];
 
+const VALUES_TO_LABELS = {
+    WATCHED: "Watched",
+    TO_WATCH: "To Watch",
+    UP_NEXT: "Up Next",
+    DNF: "Did Not Finish",
+    UNCATEGORIZED: "Uncategorized",
+};
+
 const AnimeModal = ({ id, closeModal }) => {
     const { setStatus } = useUserAnime();
     const { getAnime } = useUserAnime();
 
     const anime = getAnime(id);
 
-    const [activelabel, setActiveLabel] = useState(anime?.user_status ?? "uncategorized");
+    const activeLabel = VALUES_TO_LABELS[anime?.user_status] ?? VALUES_TO_LABELS.UNCATEGORIZED;
 
     const changeLabel = (option) => {
-        setActiveLabel(option.label);
-        setStatus(id, option.value);
+        if (anime?.user_status !== option.value) setStatus(id, option.value);
     };
 
     return (
@@ -40,7 +47,7 @@ const AnimeModal = ({ id, closeModal }) => {
                                 {anime?.tags?.length > 0 &&
                                     anime?.tags.map((tag, index) => <Tag tag={tag} key={index} />)}
                             </div>
-                            <Dropdown options={ANIME_STATUS_OPTIONS} onSelect={changeLabel} label={activelabel} />
+                            <Dropdown options={ANIME_STATUS_OPTIONS} onSelect={changeLabel} label={activeLabel} />
                         </div>
                     </div>
                     <div className={classes.bottomDiv}>

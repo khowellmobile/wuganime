@@ -6,7 +6,6 @@ import { useAnime } from "./useAnime";
 import { useAuth } from "./useAuth";
 
 export function useUserAnime() {
-    const { refreshAnime } = useAnime();
     const { isAuthenticated } = useAuth();
 
     const { data, mutate, error } = useSWR(isAuthenticated ? ["/api/user-anime/"] : null, ([url]) => api.get(url));
@@ -34,7 +33,7 @@ export function useUserAnime() {
             });
 
             // Re-fetch the anime list so the UI updates globally
-            await refreshAnime();
+            await mutate();
         } catch (err) {
             console.error("Failed to update status", err);
         }

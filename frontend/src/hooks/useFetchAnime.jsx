@@ -11,6 +11,6 @@ export function useFetchAnime() {
     return {
         animeList: data || [],
         isLoading: !error && !data,
-        mutate,
+        refreshAnime: mutate,
     };
 }
