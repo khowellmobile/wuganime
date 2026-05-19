@@ -21,8 +21,6 @@ const ProfileDropdown = () => {
 
     const { logout, ctxUserData } = useAuth();
 
-    console.log(ctxUserData);
-
     const [isExpanded, setIsExpanded] = useState(false);
 
     const style = {
