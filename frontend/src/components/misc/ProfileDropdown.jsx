@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import classes from "./ProfileDropdown.module.css";
 
 import downChevron from "../../assets/chevron-down-icon-white.svg";
@@ -9,44 +9,54 @@ import statsIcon from "../../assets/light-notification-icon.svg";
 import logoutIcon from "../../assets/arrow-left-icon.svg";
 
 const optionList = [
-    { name: "Lists", icon: listsIcon },
-    { name: "Stats", icon: statsIcon },
-    { name: "Settings", icon: settingsIcon },
-    { name: "Logout", icon: logoutIcon },
+    { name: "Lists", icon: listsIcon, route: "/app/lists" },
+    { name: "Stats", icon: statsIcon, route: "/app/stats" },
+    { name: "Settings", icon: settingsIcon, route: "/app/settings" },
+    { name: "Logout", icon: logoutIcon, route: "/app/lists" },
 ];
 
 const ProfileDropdown = () => {
-    const [isExpanded, setIsExpanded] = useState(true);
+    const navigate = useNavigate();
+
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const style = {
         backgroundColor: "var(--secondary-background-color)",
     };
 
+    const directTo = (route) => {
+        setIsExpanded(false);
+        navigate(route);
+    };
+
     return (
-        <div className={classes.mainContainer} style={isExpanded ? style : {}}>
-            <div className={classes.top} onClick={() => setIsExpanded((prev) => !prev)}>
+        <div className={classes.mainContainer}>
+            <div className={classes.top} onClick={() => setIsExpanded((prev) => !prev)} style={isExpanded ? style : {}}>
                 <div className={classes.iconSm}></div>
                 <img src={downChevron} className={classes.dwnChev} />
             </div>
             {isExpanded && (
-                <div className={classes.anchor}>
-                    <div className={classes.dropdownContent}>
-                        <div className={classes.nameSection}>
-                            <div className={classes.iconLg}></div>
-                            <div className={classes.name}>
-                                <h3>WugWug</h3>
+                <>
+                    <div className={classes.anchor}>
+                        <div className={classes.dropdownContent}>
+                            <div className={classes.nameSection}>
+                                <div className={classes.iconLg}></div>
+                                <div className={classes.name}>
+                                    <h3>WugWug</h3>
+                                </div>
+                            </div>
+                            <div className={classes.listing}>
+                                {optionList.map((option, index) => (
+                                    <div className={classes.option} onClick={() => directTo(option.route)} key={index}>
+                                        <img src={option.icon} className={classes.imgIcon} />
+                                        <p>{option.name}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                        <div className={classes.listing}>
-                            {optionList.map((opt) => (
-                                <div className={classes.option}>
-                                    <img src={opt.icon} className={classes.imgIcon}/>
-                                    <p>{opt.name}</p>
-                                </div>
-                            ))}
-                        </div>
                     </div>
-                </div>
+                    <div className={classes.overlay} />
+                </>
             )}
         </div>
     );

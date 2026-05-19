@@ -1,3 +1,14 @@
+.overlay {
+    background-color: rgba(0, 0, 0, 0.25);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
 .mainContainer {
     height: 100%;
 
@@ -5,10 +16,6 @@
     flex-direction: column;
 
     transition: 0.25s all ease;
-}
-
-.mainContainer:hover {
-    background-color: var(--secondary-background-color);
 }
 
 .top {
@@ -21,6 +28,13 @@
     display: flex;
     align-items: center;
     justify-content: end;
+
+    position: relative;
+    z-index: 11;
+}
+
+.top:hover {
+    background-color: var(--secondary-background-color);
 }
 
 .iconSm {
@@ -60,6 +74,7 @@
 
     position: absolute;
     right: -1rem;
+    z-index: 11;
 }
 
 .nameSection {
