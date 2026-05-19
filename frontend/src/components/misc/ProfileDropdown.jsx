@@ -19,7 +19,9 @@ const optionList = [
 const ProfileDropdown = () => {
     const navigate = useNavigate();
 
-    const { logout } = useAuth();
+    const { logout, ctxUserData } = useAuth();
+
+    console.log(ctxUserData);
 
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -39,7 +41,9 @@ const ProfileDropdown = () => {
     return (
         <div className={classes.mainContainer}>
             <div className={classes.top} onClick={() => setIsExpanded((prev) => !prev)} style={isExpanded ? style : {}}>
-                <div className={classes.iconSm}></div>
+                <div className={`${classes.icon} ${classes.iconSm}`}>
+                    <p>{ctxUserData?.username?.charAt(0).toUpperCase() ?? ""}</p>
+                </div>
                 <img src={downChevron} className={classes.dwnChev} />
             </div>
             {isExpanded && (
@@ -47,9 +51,14 @@ const ProfileDropdown = () => {
                     <div className={classes.anchor}>
                         <div className={classes.dropdownContent}>
                             <div className={classes.nameSection}>
-                                <div className={classes.iconLg}></div>
+                                <div className={`${classes.icon} ${classes.iconLg}`}>
+                                    <p>{ctxUserData?.username?.charAt(0).toUpperCase() ?? ""}</p>
+                                </div>
                                 <div className={classes.name}>
-                                    <h3>WugWug</h3>
+                                    <h3>
+                                        {ctxUserData?.username?.charAt(0).toUpperCase() +
+                                            ctxUserData?.username?.slice(1) ?? ""}
+                                    </h3>
                                 </div>
                             </div>
                             <div className={classes.listing}>
@@ -62,7 +71,7 @@ const ProfileDropdown = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={classes.overlay} onClick={() => setIsExpanded(false)}/>
+                    <div className={classes.overlay} onClick={() => setIsExpanded(false)} />
                 </>
             )}
         </div>

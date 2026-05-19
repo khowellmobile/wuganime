@@ -37,20 +37,33 @@
     background-color: var(--secondary-background-color);
 }
 
+.icon {
+    border-radius: 50%;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon p {
+    color: black;
+    font-size: var(--large-header-font-size);
+    font-weight: 500;
+}
+
 .iconSm {
     width: 2.5rem;
     height: 2.5rem;
-
-    border-radius: 50%;
-    background-color: white;
 }
 
 .iconLg {
     width: 3.5rem;
     height: 3.5rem;
+}
 
-    border-radius: 50%;
-    background-color: white;
+.iconLg p {
+    font-size: 2rem;
 }
 
 .dwnChev {
