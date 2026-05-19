@@ -1,0 +1,138 @@
+.overlay {
+    background-color: rgba(0, 0, 0, 0.25);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.mainContainer {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: 0.25s all ease;
+}
+
+.top {
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    position: relative;
+    z-index: 11;
+}
+
+.top:hover {
+    background-color: var(--secondary-background-color);
+}
+
+.icon {
+    border-radius: 50%;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon p {
+    color: black;
+    font-size: var(--large-header-font-size);
+    font-weight: 500;
+}
+
+.iconSm {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.iconLg {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.iconLg p {
+    font-size: 2rem;
+}
+
+.dwnChev {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.anchor {
+    position: relative;
+}
+
+.dropdownContent {
+    width: 19rem;
+
+    background-color: var(--secondary-background-color);
+    user-select: none;
+
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    right: -1rem;
+    z-index: 11;
+}
+
+.nameSection {
+    width: 100%;
+    height: 5rem;
+    padding: 0 1rem;
+
+    border-bottom: 1px solid var(--quarternary-color);
+
+    display: flex;
+    align-items: center;
+}
+
+.name h3 {
+    margin-left: 0.5rem;
+    font-weight: 400;
+}
+
+.listing {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    width: 100%;
+    padding: 0.5rem 1rem;
+
+    cursor: pointer;
+
+    display: flex;
+}
+
+.option:hover {
+    background-color: var(--hover-color);
+}
+
+.option:last-child {
+    border-top: 1px solid var(--quarternary-color);
+}
+
+.option p {
+    margin-left: 0.5rem;
+}
+
+.imgIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+}

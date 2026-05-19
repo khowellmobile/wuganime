@@ -15,15 +15,14 @@
 :root {
     --primary-color: #baff29;
     --secondary-color: #191923;
-    --secondary-color-border: #343447;
-    --tertiary-color: #323536;
-    --quarternary-color: #c7d6d5;
+    --tertiary-color: #343447;
+    --quarternary-color: #6e6e6e;
 
-    --border-color: var(--secondary-color-border);
+    --border-color: var(--tertiary-color);
     --hover-color: rgba(102, 102, 102, 0.308);
     --background-color: var(--secondary-color);
-    --secondary-background-color: var(--secondary-color-border);
-    --tertiary-background-color: var(--secondary-color);
+    --secondary-background-color: var(--tertiary-color);
+    --tertiary-background-color: var(--quarternary-color);
     --primary-text-color: #e6e6e6;
     --secondary-text-color: rgb(190, 190, 190);
     --tertiary-text-color: rgb(150, 150, 150);
