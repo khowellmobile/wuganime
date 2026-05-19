@@ -7,16 +7,19 @@ import settingsIcon from "../../assets/settings-icon.svg";
 import listsIcon from "../../assets/pen-icon.svg";
 import statsIcon from "../../assets/light-notification-icon.svg";
 import logoutIcon from "../../assets/arrow-left-icon.svg";
+import { useAuth } from "../../hooks/UseAuth";
 
 const optionList = [
     { name: "Lists", icon: listsIcon, route: "/app/lists" },
     { name: "Stats", icon: statsIcon, route: "/app/stats" },
     { name: "Settings", icon: settingsIcon, route: "/app/settings" },
-    { name: "Logout", icon: logoutIcon, route: "/app/lists" },
+    { name: "Logout", icon: logoutIcon, route: "/" },
 ];
 
 const ProfileDropdown = () => {
     const navigate = useNavigate();
+
+    const { logout } = useAuth();
 
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -24,9 +27,13 @@ const ProfileDropdown = () => {
         backgroundColor: "var(--secondary-background-color)",
     };
 
-    const directTo = (route) => {
+    const handleClick = (option) => {
+        if (option.name === "Logout") {
+            logout();
+        }
+
         setIsExpanded(false);
-        navigate(route);
+        navigate(option.route);
     };
 
     return (
@@ -47,7 +54,7 @@ const ProfileDropdown = () => {
                             </div>
                             <div className={classes.listing}>
                                 {optionList.map((option, index) => (
-                                    <div className={classes.option} onClick={() => directTo(option.route)} key={index}>
+                                    <div className={classes.option} onClick={() => handleClick(option)} key={index}>
                                         <img src={option.icon} className={classes.imgIcon} />
                                         <p>{option.name}</p>
                                     </div>
@@ -55,7 +62,7 @@ const ProfileDropdown = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={classes.overlay} />
+                    <div className={classes.overlay} onClick={() => setIsExpanded(false)}/>
                 </>
             )}
         </div>
