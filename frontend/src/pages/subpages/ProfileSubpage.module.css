@@ -1,0 +1,58 @@
+.mainContainer {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0 0.5rem 0.5rem 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    width: 100%;
+    height: 10rem;
+
+    background-color: var(--tertiary-background-color);
+}
+
+.icon {
+    width: 5rem;
+    height: 5rem;
+
+    border-radius: 50%;
+    background-color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    top: calc(10rem - 2.5rem);
+    left: 1rem;
+}
+
+.icon > p {
+    color: black;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.options {
+    width: 100%;
+    padding: 3.5rem 1rem 1rem 1rem;
+}
+
+.usernameDiv {
+    height: 5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.usernameDiv > p {
+    color: var(--secondary-text-color);
+    font-size: var(--small-font-size);
+    font-weight: 400;
+}
