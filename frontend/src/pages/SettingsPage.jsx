@@ -1,10 +1,26 @@
 import { useState } from "react";
 import classes from "./SettingsPage.module.css";
+import ProfileSubpage from "./subpages/ProfileSubpage";
 
 const subPages = ["Profile", "Preferences", "Account", "Notifications"];
 
 const SettingsPage = () => {
     const [activeSubPage, setActiveSubPage] = useState("Profile");
+
+    const getActivePage = (pageName) => {
+        switch (pageName) {
+            case "Profile":
+                return <ProfileSubpage />;
+            case "Preferences":
+                return <></>;
+            case "Account":
+                return <></>;
+            case "Notifications":
+                return <></>;
+            default:
+                return <></>;
+        }
+    };
 
     return (
         <div className={classes.mainContainer}>
@@ -15,11 +31,7 @@ const SettingsPage = () => {
                     </div>
                 ))}
             </div>
-            <div className={classes.settings}>
-                <div className={classes.top}>
-                    <h2>{activeSubPage}</h2>
-                </div>
-            </div>
+            <div className={classes.settings}>{getActivePage(activeSubPage)}</div>
         </div>
     );
 };
