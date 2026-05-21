@@ -1,0 +1,115 @@
+.modalOverlay {
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.mainContainer {
+    height: 40rem;
+    width: 40rem;
+
+    background-color: var(--secondary-background-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    width: 100%;
+    height: 11rem;
+
+    background-color: var(--tertiary-background-color);
+
+    display: flex;
+}
+
+.pictureDiv {
+    width: 30%;
+    height: 100%;
+    padding-left: 2rem;
+
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 7rem;
+    height: 7rem;
+
+    background-color: white;
+    border-radius: 50%;
+}
+
+.buttonDiv {
+    width: 70%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonDiv > h3 {
+    font-weight: 500;
+
+    position: relative;
+    top: 2.5rem;
+}
+
+.buttonDiv > p {
+    font-size: var(--small-font-size);
+    position: relative;
+    top: 2.5rem;
+}
+
+.bottom {
+    width: 100%;
+    height: calc(100% - 11rem);
+    padding: 1rem 2rem;
+}
+
+.listing {
+    height: 6rem;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+
+    outline: 1px solid red;
+
+    --items-per-screen: 6;
+    --reserved-space: calc(var(--items-per-screen) * 5rem);
+    --margin-size: calc((100% - var(--reserved-space)) / (var(--items-per-screen)));
+}
+
+.listing > * {
+    flex: 0 0 auto;
+}
+
+.pictureOption {
+    height: 5rem;
+    width: 5rem;
+    margin: 0 calc(var(--margin-size) / 2);
+
+    background-color: white;
+    border-radius: 50%;
+}
+
+.pictureOption:last-child {
+    margin-right: 0;
+}
