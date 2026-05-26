@@ -80,6 +80,7 @@
 
 .listing {
     height: 6rem;
+    width: 100%;
 
     display: flex;
     align-items: center;
@@ -93,23 +94,25 @@
     outline: 1px solid red;
 
     --items-per-screen: 6;
-    --reserved-space: calc(var(--items-per-screen) * 5rem);
-    --margin-size: calc((100% - var(--reserved-space)) / (var(--items-per-screen)));
+    --item-diameter: 5rem;
+    --item-container-width: calc(100% / var(--items-per-screen));
 }
 
 .listing > * {
-    flex: 0 0 auto;
+    flex: 0 0 var(--item-container-width);
 }
 
 .pictureOption {
-    height: 5rem;
-    width: 5rem;
-    margin: 0 calc(var(--margin-size) / 2);
+    width: var(--item-container-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.item {
+    height: var(--item-diameter);
+    width: var(--item-diameter);
     background-color: white;
     border-radius: 50%;
 }
 
-.pictureOption:last-child {
-    margin-right: 0;
-}

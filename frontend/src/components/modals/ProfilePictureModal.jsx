@@ -2,6 +2,8 @@ import { useRef, useEffect } from "react";
 
 import classes from "./ProfilePictureModal.module.css";
 
+const colors = ["white", "black", "lightgreen", "grey", "pink", "coral"];
+
 const ProfilePictureModal = ({ closeModal }) => {
     const scrollRef = useRef(null);
     const targetScrollRef = useRef(0);
@@ -12,6 +14,20 @@ const ProfilePictureModal = ({ closeModal }) => {
         if (!el) return;
 
         targetScrollRef.current = el.scrollLeft;
+
+        let snapTimeout;
+
+        const snapToNearestBreakpoint = () => {
+            const itemWidth = el.clientWidth / 6;
+            const currScrollPos = el.scrollLeft;
+            const nearestIndex = Math.round(currScrollPos / itemWidth);
+
+            targetScrollRef.current = nearestIndex * itemWidth;
+
+            if (!animationFrameRef.current) {
+                animationFrameRef.current = requestAnimationFrame(animateScroll);
+            }
+        };
 
         const animateScroll = () => {
             // Get distance between user scroll and actual element scroll
@@ -32,6 +48,8 @@ const ProfilePictureModal = ({ closeModal }) => {
         const handleWheel = (e) => {
             e.preventDefault();
 
+            clearTimeout(snapTimeout);
+
             // Calculator higher energy scroll, speed, and maxScrollPosition (upper bound of scroll)
             const horizontalDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
             const speed = 0.5;
@@ -42,6 +60,8 @@ const ProfilePictureModal = ({ closeModal }) => {
                 maxScrollPosition,
                 Math.max(0, targetScrollRef.current + horizontalDelta * speed),
             );
+
+            snapTimeout = setTimeout(snapToNearestBreakpoint, 150);
 
             // Create new frames if no frames exist
             if (!animationFrameRef.current) {
@@ -76,21 +96,21 @@ const ProfilePictureModal = ({ closeModal }) => {
                     <div>
                         <p>Classic</p>
                         <div className={classes.listing} ref={scrollRef}>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
-                            <div className={classes.pictureOption}></div>
+                            {colors.map((color, index) => (
+                                <div key={index} className={classes.pictureOption}>
+                                    <div className={classes.item}></div>
+                                </div>
+                            ))}
+                            {colors.map((color, index) => (
+                                <div key={index} className={classes.pictureOption}>
+                                    <div className={classes.item}></div>
+                                </div>
+                            ))}
+                            {colors.map((color, index) => (
+                                <div key={index} className={classes.pictureOption}>
+                                    <div className={classes.item}></div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
