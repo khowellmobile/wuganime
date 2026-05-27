@@ -60,6 +60,8 @@
 
     display: flex;
     flex-direction: column;
+
+    position: relative;
 }
 
 .buttonDiv > h3 {
@@ -73,6 +75,17 @@
     font-size: var(--small-font-size);
     position: relative;
     top: 2.5rem;
+}
+
+.buttonDiv > img {
+    width: 2rem;
+    height: 2rem;
+
+    cursor: pointer;
+
+    position: absolute;
+    right: 0rem;
+    top: 0rem;
 }
 
 .bottom {

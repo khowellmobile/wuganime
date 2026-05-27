@@ -39,9 +39,11 @@ const ProfileDropdown = () => {
     return (
         <div className={classes.mainContainer}>
             <div className={classes.top} onClick={() => setIsExpanded((prev) => !prev)} style={isExpanded ? style : {}}>
-                <div className={`${classes.icon} ${classes.iconSm}`}>
-                    <p>{ctxUserData?.username?.charAt(0).toUpperCase() ?? ""}</p>
-                </div>
+                <div
+                    className={`${classes.avatar} ${classes.avatarSm}`}
+                    style={{ backgroundImage: `url(/src/assets/avatars/${ctxUserData?.avatar_key}.webp)` }}
+                />
+
                 <img src={downChevron} className={classes.dwnChev} />
             </div>
             {isExpanded && (
@@ -49,9 +51,12 @@ const ProfileDropdown = () => {
                     <div className={classes.anchor}>
                         <div className={classes.dropdownContent}>
                             <div className={classes.nameSection}>
-                                <div className={`${classes.icon} ${classes.iconLg}`}>
-                                    <p>{ctxUserData?.username?.charAt(0).toUpperCase() ?? ""}</p>
-                                </div>
+                                <div
+                                    className={`${classes.avatar} ${classes.avatarLg}`}
+                                    style={{
+                                        backgroundImage: `url(/src/assets/avatars/${ctxUserData?.avatar_key}.webp)`,
+                                    }}
+                                />
                                 <div className={classes.name}>
                                     <h3>
                                         {ctxUserData?.username?.charAt(0).toUpperCase() +

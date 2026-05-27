@@ -5,6 +5,7 @@ import classes from "./ProfileSubpage.module.css";
 import { useAuth } from "../../hooks/UseAuth";
 import Input from "../../components/utilities/Input";
 import ProfilePictureModal from "../../components/modals/ProfilePictureModal";
+import editIcon from "../../assets/pen-icon.svg";
 
 const ProfileSubpage = () => {
     const { ctxUserData } = useAuth();
@@ -18,8 +19,13 @@ const ProfileSubpage = () => {
 
             <div className={classes.mainContainer}>
                 <div className={classes.top}>
-                    <div className={classes.icon} onClick={() => setIsExpanded(true)}>
-                        <p>{ctxUserData?.username?.charAt(0).toUpperCase() ?? ""}</p>
+                    <div
+                        className={classes.avatar}
+                        style={{ backgroundImage: `url(/src/assets/avatars/${ctxUserData?.avatar_key}.webp)` }}
+                    >
+                        <div className={classes.pen} onClick={() => setIsExpanded(true)}>
+                            <img src={editIcon} />
+                        </div>
                     </div>
                 </div>
                 <div className={classes.options}>

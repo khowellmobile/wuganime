@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 
 import classes from "./ProfilePictureModal.module.css";
-import AvatarList from "../misc/AvatarList";
+
 import { useAuth } from "../../hooks/useAuth";
+import AvatarList from "../misc/AvatarList";
+import cancelIcon from "../../assets/cancel-icon.svg";
 
 const avatarLists = (() => {
     const avatarModules = import.meta.glob("../../assets/avatars/*.webp", {
@@ -65,6 +67,7 @@ const ProfilePictureModal = ({ closeModal }) => {
                     <div className={classes.buttonDiv}>
                         <h3>Choose Your Profile Picture</h3>
                         <p>This will be public and can be changed at any time</p>
+                        <img src={cancelIcon} onClick={closeModal}/>
                     </div>
                 </div>
                 <div className={classes.bottom}>

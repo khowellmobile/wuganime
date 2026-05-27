@@ -15,11 +15,19 @@ const AvatarList = ({ avatars, title, onSelect }) => {
         let snapTimeout;
 
         const snapToNearestBreakpoint = () => {
-            const itemWidth = el.clientWidth / 6;
-            const currScrollPos = el.scrollLeft;
-            const nearestIndex = Math.round(currScrollPos / itemWidth);
+            const firstItem = el.firstElementChild;
+            const secondItem = firstItem?.nextElementSibling;
+            if (!firstItem) return;
 
-            targetScrollRef.current = nearestIndex * itemWidth;
+            // Calculate width of elements
+            const step = secondItem
+                ? secondItem.offsetLeft - firstItem.offsetLeft
+                : firstItem.getBoundingClientRect().width;
+
+            // Determine target 
+            const maxScrollPosition = Math.max(0, el.scrollWidth - el.clientWidth);
+            const nearestIndex = Math.round(targetScrollRef.current / step);
+            targetScrollRef.current = Math.min(maxScrollPosition, Math.max(0, nearestIndex * step));
 
             if (!animationFrameRef.current) {
                 animationFrameRef.current = requestAnimationFrame(animateScroll);
@@ -27,18 +35,16 @@ const AvatarList = ({ avatars, title, onSelect }) => {
         };
 
         const animateScroll = () => {
-            // Get distance between user scroll and actual element scroll
             const distance = targetScrollRef.current - el.scrollLeft;
 
-            // If distance is small enough then snap to proper place and end recursion
-            if (Math.abs(distance) < 3) {
+            if (Math.abs(distance) <= 2) {
                 el.scrollLeft = targetScrollRef.current;
                 animationFrameRef.current = null;
                 return;
             }
 
-            // Move element scroll 18% of the way and get next frame
-            el.scrollLeft += distance * 0.18;
+            const delta = Math.sign(distance) * Math.max(1, Math.abs(distance) * 0.09);
+            el.scrollLeft += delta;
             animationFrameRef.current = requestAnimationFrame(animateScroll);
         };
 
@@ -58,7 +64,7 @@ const AvatarList = ({ avatars, title, onSelect }) => {
                 Math.max(0, targetScrollRef.current + horizontalDelta * speed),
             );
 
-            snapTimeout = setTimeout(snapToNearestBreakpoint, 150);
+            snapTimeout = setTimeout(snapToNearestBreakpoint, 300);
 
             // Create new frames if no frames exist
             if (!animationFrameRef.current) {
@@ -71,6 +77,7 @@ const AvatarList = ({ avatars, title, onSelect }) => {
         // Clean up on unmount
         return () => {
             el.removeEventListener("wheel", handleWheel);
+            clearTimeout(snapTimeout);
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);
             }

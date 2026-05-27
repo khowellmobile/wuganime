@@ -11,6 +11,12 @@
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
 
+    mask-image:
+        linear-gradient(to bottom, transparent 0, black 0.7rem, black calc(100% - 0.7rem), transparent 100%),
+        linear-gradient(to right, transparent 0, black 0.7rem, black calc(100% - 0.7rem), transparent 100%);
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+
     --items-per-screen: 6;
     --item-diameter: 5rem;
     --item-container-width: calc(100% / var(--items-per-screen));
