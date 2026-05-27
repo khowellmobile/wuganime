@@ -39,4 +39,14 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 50%;
+
+    transition: transform 0.2s ease-in-out;
+}
+
+.item:hover {
+    transform: scale(1.1);
+}
+
+.item:active {
+    transform: scale(0.9);
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import classes from "./AvatarList.module.css";
 
-const AvatarList = ({ avatars, title }) => {
+const AvatarList = ({ avatars, title, onSelect }) => {
     const scrollRef = useRef(null);
     const targetScrollRef = useRef(0);
     const animationFrameRef = useRef(null);
@@ -83,7 +83,12 @@ const AvatarList = ({ avatars, title }) => {
             <div className={classes.listing} ref={scrollRef}>
                 {avatars.map((url, index) => (
                     <div key={index} className={classes.pictureOption}>
-                        <div className={classes.item} style={{ backgroundImage: `url(${url})` }}></div>
+                        {console.log(url)}
+                        <div
+                            className={classes.item}
+                            style={{ backgroundImage: `url(${url})` }}
+                            onClick={() => onSelect(url)}
+                        ></div>
                     </div>
                 ))}
             </div>
