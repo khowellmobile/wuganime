@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 
 import classes from "./ProfilePictureModal.module.css";
 import AvatarList from "../misc/AvatarList";
+import { useAuth } from "../../hooks/useAuth";
 
 const avatarLists = (() => {
     const avatarModules = import.meta.glob("../../assets/avatars/*.webp", {
@@ -20,7 +21,8 @@ const avatarLists = (() => {
         if (fileName.startsWith("mask")) {
             groupedAvatars.mask.push({
                 order: Number(fileName.match(/\d+/)?.[0] ?? Number.MAX_SAFE_INTEGER),
-                url,
+                url: url,
+                avatarKey: fileName.slice(0, -5),
             });
             return;
         }
@@ -28,7 +30,8 @@ const avatarLists = (() => {
         if (fileName.startsWith("bird")) {
             groupedAvatars.bird.push({
                 order: Number(fileName.match(/\d+/)?.[0] ?? Number.MAX_SAFE_INTEGER),
-                url,
+                url: url,
+                avatarKey: fileName.slice(0, -5),
             });
         }
     });
@@ -37,16 +40,19 @@ const avatarLists = (() => {
     groupedAvatars.bird.sort((a, b) => a.order - b.order);
 
     return {
-        mask: groupedAvatars.mask.map((avatar) => avatar.url),
-        bird: groupedAvatars.bird.map((avatar) => avatar.url),
+        mask: groupedAvatars.mask,
+        bird: groupedAvatars.bird,
     };
 })();
 
 const ProfilePictureModal = ({ closeModal }) => {
-    const [avatarUrl, setAvatarUrl] = useState("/src/assets/avatars/bird6.webp");
+    const { updateUser, ctxUserData } = useAuth();
 
-    const onSelect = (url) => {
-        setAvatarUrl(url);
+    const [avatarUrl, setAvatarUrl] = useState(`/src/assets/avatars/${ctxUserData.avatar_key}.webp`);
+
+    const onSelect = (avatar) => {
+        const { success, data } = updateUser({ avatar_key: avatar.avatarKey });
+        setAvatarUrl(avatar.url);
     };
 
     return (

@@ -81,13 +81,12 @@ const AvatarList = ({ avatars, title, onSelect }) => {
         <div>
             <p>{title}</p>
             <div className={classes.listing} ref={scrollRef}>
-                {avatars.map((url, index) => (
+                {avatars.map((avatar, index) => (
                     <div key={index} className={classes.pictureOption}>
-                        {console.log(url)}
                         <div
                             className={classes.item}
-                            style={{ backgroundImage: `url(${url})` }}
-                            onClick={() => onSelect(url)}
+                            style={{ backgroundImage: `url(${avatar.url})` }}
+                            onClick={() => onSelect(avatar)}
                         ></div>
                     </div>
                 ))}

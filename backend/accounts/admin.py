@@ -7,9 +7,9 @@ from .models import CustomUser
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
-        ("Profile", {"fields": ("profile_picture_url",)}),
+        ("Profile", {"fields": ("avatar_key",)}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ("Profile", {"fields": ("profile_picture_url",)}),
+        ("Profile", {"fields": ("avatar_key",)}),
     )
-    list_display = UserAdmin.list_display + ("profile_picture_url",)
+    list_display = UserAdmin.list_display + ("avatar_key",)

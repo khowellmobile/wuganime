@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "first_name",
             "last_name",
-            "profile_picture_url",
+            "avatar_key",
             "is_active",
             "date_joined",
             "last_login",

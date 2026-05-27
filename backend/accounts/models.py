@@ -3,4 +3,4 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-	profile_picture_url = models.URLField(blank=True, null=True)
+	avatar_key = models.CharField(max_length=32, blank=True, null=True)
