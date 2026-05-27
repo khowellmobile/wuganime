@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Tag(models.Model):
@@ -49,7 +49,7 @@ class UserAnime(models.Model):
         UP_NEXT = "UP_NEXT", "Up Next"
         DNF = "DNF", "Did Not Finish"
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     status = models.CharField(
         max_length=20, choices=UserStatus.choices, blank=True, null=True
