@@ -11,7 +11,7 @@ const ProfileSubpage = () => {
     const { ctxUserData } = useAuth();
 
     const [username, setUsername] = useState(ctxUserData?.username ?? "unknown");
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     return (
         <>
