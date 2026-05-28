@@ -1,0 +1,83 @@
+.mainContainer {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0 0.5rem 0.5rem 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sepH {
+    width: 95%;
+    height: 1px;
+
+    background-color: var(--quarternary-color);
+}
+
+.emailContainer,
+.passwordContainer {
+    width: 100%;
+    height: 40%;
+    padding: 1rem 5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top,
+.mid,
+.bot {
+    width: 100%;
+
+    /* outline: 1px solid red */
+}
+
+.top,
+.bot {
+    text-align: center;
+}
+
+.top > h2 {
+    margin-bottom: 1rem;
+
+    font-family: "poppins";
+    font-weight: 500;
+    font-size: var(--large-header-font-size);
+}
+
+.mid > .label {
+    font-weight: 500;
+    font-size: var(--small-font-size);
+    color: var(--secondary-text-color);
+}
+
+.bot > p {
+    margin-bottom: 1rem;
+
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+}
+
+.deleteContainer {
+    width: 100%;
+    padding: 1rem 5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deleteContainer > h3 {
+    font-weight: 500;
+}
+
+.deleteContainer > p {
+    color: rgb(255, 75, 75);
+    font-size: 0.8rem;
+}
