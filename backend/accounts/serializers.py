@@ -25,7 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             "id",
-            "username",
             "date_joined",
             "last_login",
         )
