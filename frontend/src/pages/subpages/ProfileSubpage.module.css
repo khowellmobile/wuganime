@@ -56,17 +56,45 @@
 .options {
     width: 100%;
     padding: 3.5rem 1rem 1rem 1rem;
+
+    /* outline: 1px solid red; */
 }
 
 .usernameDiv {
     height: 5rem;
+    margin-bottom: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* outline: 1px solid yellow; */
+}
+
+.usernameDiv > p {
+    color: var(--secondary-text-color);
+    font-size: var(--small-font-size);
+    font-weight: 400;
+}
+
+.nameDiv {
+    height: 5rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    /* outline: 1px solid green; */
+}
+
+.nameDiv > div {
+    width: calc(50% - 0.5rem);
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.usernameDiv > p {
+.nameDiv > div > p {
     color: var(--secondary-text-color);
     font-size: var(--small-font-size);
     font-weight: 400;

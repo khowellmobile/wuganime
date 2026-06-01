@@ -11,6 +11,8 @@ const ProfileSubpage = () => {
     const { ctxUserData } = useAuth();
 
     const [username, setUsername] = useState(ctxUserData?.username ?? "unknown");
+    const [firstName, setFirstName] = useState(ctxUserData?.first_name ?? "unknown");
+    const [lastName, setLastName] = useState(ctxUserData?.last_name ?? "unknown");
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -40,6 +42,32 @@ const ProfileSubpage = () => {
                             }}
                         />
                         <p>This is open to the public and will been listed as your name when reviewing animes</p>
+                    </div>
+                    <div className={classes.nameDiv}>
+                        <div>
+                            <p>First Name</p>
+                            <Input
+                                type="text"
+                                name="username"
+                                value={firstName}
+                                onChange={(e) => {
+                                    setFirstName(e.value);
+                                }}
+                            />
+                            <p></p>
+                        </div>
+                        <div>
+                            <p>Last Name</p>
+                            <Input
+                                type="text"
+                                name="username"
+                                value={lastName}
+                                onChange={(e) => {
+                                    setLastName(e.value);
+                                }}
+                            />
+                            <p></p>
+                        </div>
                     </div>
                 </div>
             </div>
