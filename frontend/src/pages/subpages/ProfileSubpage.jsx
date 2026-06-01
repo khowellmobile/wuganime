@@ -68,7 +68,7 @@ const ProfileSubpage = () => {
                     </div>
                 </div>
                 <div className={classes.options}>
-                    {hasChanges && <Button onClick={() => {}} text={"Save"} />}
+                    {hasChanges && <Button onClick={saveData} text={"Save"} />}
                     <div className={classes.usernameDiv}>
                         <p>Username</p>
                         <Input
