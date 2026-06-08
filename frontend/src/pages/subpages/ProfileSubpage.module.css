@@ -46,6 +46,7 @@
     position: relative;
     top: 65%;
     left: 60%;
+    z-index: 1;
 }
 
 .pen > img {

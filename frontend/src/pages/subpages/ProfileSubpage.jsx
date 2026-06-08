@@ -49,7 +49,6 @@ const ProfileSubpage = () => {
     const saveData = async () => {
         if (!hasChanges) return;
         const response = await updateUser(payload);
-        console.log(response);
     };
 
     return (
