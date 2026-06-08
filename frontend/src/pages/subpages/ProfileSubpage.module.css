@@ -16,35 +16,60 @@
     background-color: var(--tertiary-background-color);
 }
 
-.icon {
+.avatar {
     width: 5rem;
     height: 5rem;
 
-    border-radius: 50%;
     background-color: white;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
 
     position: relative;
     top: calc(10rem - 2.5rem);
     left: 1rem;
 }
 
-.icon > p {
-    color: black;
-    font-size: 2rem;
-    font-weight: 400;
+.pen {
+    width: 2rem;
+    height: 2rem;
+
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    top: 65%;
+    left: 60%;
+    z-index: 1;
+}
+
+.pen > img {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .options {
     width: 100%;
     padding: 3.5rem 1rem 1rem 1rem;
+
+    position: relative;
+}
+
+.options > button {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
 }
 
 .usernameDiv {
     height: 5rem;
+    margin-bottom: 1rem;
 
     display: flex;
     flex-direction: column;
@@ -52,6 +77,27 @@
 }
 
 .usernameDiv > p {
+    color: var(--secondary-text-color);
+    font-size: var(--small-font-size);
+    font-weight: 400;
+}
+
+.nameDiv {
+    height: 5rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.nameDiv > div {
+    width: calc(50% - 0.5rem);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nameDiv > div > p {
     color: var(--secondary-text-color);
     font-size: var(--small-font-size);
     font-weight: 400;

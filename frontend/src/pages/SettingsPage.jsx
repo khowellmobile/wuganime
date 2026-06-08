@@ -1,6 +1,7 @@
 import { useState } from "react";
 import classes from "./SettingsPage.module.css";
 import ProfileSubpage from "./subpages/ProfileSubpage";
+import AccountSubpage from "./subpages/AccountSubpage";
 
 const subPages = ["Profile", "Preferences", "Account", "Notifications"];
 
@@ -14,7 +15,7 @@ const SettingsPage = () => {
             case "Preferences":
                 return <></>;
             case "Account":
-                return <></>;
+                return <AccountSubpage/>;
             case "Notifications":
                 return <></>;
             default:

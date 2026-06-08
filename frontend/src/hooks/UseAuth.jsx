@@ -57,10 +57,23 @@ export function useAuth() {
         }
     };
 
+    const updateUser = async (profile) => {
+        try {
+            const updatedProfile = await api.put("/api/profile/", {
+                ...profile,
+            });
+            setCtxUserData(updatedProfile);
+            return { success: true, data: updatedProfile };
+        } catch (e) {
+            return { success: false, error: e?.message || "Unable to fetch update profile." };
+        }
+    };
+
     return {
         login,
         logout,
         getUser,
+        updateUser,
         ctxUserData,
         isAuthenticated,
     };
