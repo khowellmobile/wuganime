@@ -7,7 +7,7 @@ const AnimeCtx = createContext({
 });
 
 export function AnimeCtxProvider(props) {
-    const { animeList, isLoading, mutate } = useFetchAnime();
+    const { animeList, isLoading, refreshAnime } = useFetchAnime();
 
     const getAnime = useCallback(
         (id) => {
@@ -20,7 +20,7 @@ export function AnimeCtxProvider(props) {
         ctxAnimeList: animeList,
         getAnime,
         isLoading,
-        refreshAnime: mutate,
+        refreshAnime,
     };
 
     return <AnimeCtx.Provider value={context}>{props.children}</AnimeCtx.Provider>;
