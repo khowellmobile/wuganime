@@ -6,7 +6,6 @@ from django.core.management.base import BaseCommand, CommandError
 
 from anime.models import Anime
 
-
 TYPE_MAP = {
     "TV": "TV",
     "MOVIE": "MOVIE",
@@ -31,7 +30,14 @@ def _build_url(base_url, params):
     merged = {**existing_params, **params}
     query = urlencode(merged, doseq=True)
     return urlunparse(
-        (parsed.scheme, parsed.netloc, parsed.path, parsed.params, query, parsed.fragment)
+        (
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            parsed.params,
+            query,
+            parsed.fragment,
+        )
     )
 
 
@@ -159,7 +165,9 @@ class Command(BaseCommand):
             params = json.loads(options["params"])
             headers = json.loads(options["headers"])
         except json.JSONDecodeError as exc:
-            raise CommandError(f"Invalid JSON for --params or --headers: {exc}") from exc
+            raise CommandError(
+                f"Invalid JSON for --params or --headers: {exc}"
+            ) from exc
 
         if not isinstance(params, dict) or not isinstance(headers, dict):
             raise CommandError("--params and --headers must be JSON objects.")
@@ -179,7 +187,9 @@ class Command(BaseCommand):
                 with urlopen(request, timeout=timeout) as response:
                     payload = json.loads(response.read().decode("utf-8"))
             except Exception as exc:
-                raise CommandError(f"Failed to fetch or parse API response: {exc}") from exc
+                raise CommandError(
+                    f"Failed to fetch or parse API response: {exc}"
+                ) from exc
 
             page_items = _pluck_list(payload, results_key=results_key)
             if not page_items:
