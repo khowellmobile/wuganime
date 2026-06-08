@@ -11,10 +11,12 @@
 }
 
 .left {
+    width: 30rem;
+    height: 100%;
     padding-left: 1rem;
 
     display: flex;
-    align-items: center;
+    align-items: center;;
 }
 
 .left > p {
@@ -37,9 +39,16 @@
     height: 100%;
 }
 
+.middle {
+    width: calc(100% - 60rem);
+    height: 100%;
+}
+
 .right {
+    width: 30rem;
     height: 100%;
 
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
