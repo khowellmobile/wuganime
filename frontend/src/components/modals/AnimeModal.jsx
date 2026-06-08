@@ -22,11 +22,9 @@ const VALUES_TO_LABELS = {
     UNCATEGORIZED: "Uncategorized",
 };
 
-const AnimeModal = ({ id, closeModal }) => {
+const AnimeModal = ({ anime, closeModal }) => {
     const { setStatus } = useUserAnime();
     const { getAnime } = useUserAnime();
-
-    const anime = getAnime(id);
 
     const activeLabel = VALUES_TO_LABELS[anime?.user_status] ?? VALUES_TO_LABELS.UNCATEGORIZED;
 

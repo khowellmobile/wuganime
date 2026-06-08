@@ -25,7 +25,7 @@ const Tag = ({ tag }) => {
 
     return (
         <div className={classes.tag} style={style}>
-            <p style={textStyle}>#{tag?.name}</p>
+            <p style={textStyle}>#{tag?.name.toLowerCase()}</p>
         </div>
     );
 };

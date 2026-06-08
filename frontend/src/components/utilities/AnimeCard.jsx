@@ -4,14 +4,12 @@ import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "./Tag";
 
-const AnimeCard = ({ id }) => {
+const AnimeCard = ({ anime }) => {
     const { showModal } = useModal();
     const { getAnime } = useUserAnime();
 
-    const anime = getAnime(id);
-
     const handleClick = () => {
-        showModal(AnimeModal, { id: id });
+        showModal(AnimeModal, { anime: anime });
     };
 
     return (
