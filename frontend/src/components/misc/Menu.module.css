@@ -1,0 +1,25 @@
+.mainContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link {
+    width: 10rem;
+    height: 100%;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.25s all ease;
+}
+
+.link:hover {
+    background-color: var(--secondary-background-color);
+}

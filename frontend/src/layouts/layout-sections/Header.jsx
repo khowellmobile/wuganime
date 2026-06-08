@@ -4,6 +4,7 @@ import DashIcon from "../../assets/dash-icon.svg";
 import SearchBox from "../../components/utilities/SearchBox";
 import Dropdown from "../../components/utilities/Dropdown";
 import ProfileDropdown from "../../components/misc/ProfileDropdown";
+import Menu from "../../components/misc/Menu";
 
 const Header = () => {
     return (
@@ -16,6 +17,9 @@ const Header = () => {
                     <strong>React</strong>App
                 </p>
                 <SearchBox type="text" name="search" value={""} placeholder={"Search"} />
+            </div>
+            <div className={classes.middle}>
+                <Menu />
             </div>
             <div className={classes.right}>
                 <ProfileDropdown />
