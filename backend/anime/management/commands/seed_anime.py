@@ -1,10 +1,11 @@
 import json
+from hashlib import md5
 from urllib.parse import urlencode, urlparse, parse_qsl, urlunparse
 from urllib.request import Request, urlopen
 
 from django.core.management.base import BaseCommand, CommandError
 
-from anime.models import Anime
+from anime.models import Anime, Tag
 
 TYPE_MAP = {
     "TV": "TV",
@@ -116,6 +117,51 @@ def _extract_image_url(item):
     return None
 
 
+def _normalize_tag_name(value):
+    if value is None:
+        return None
+
+    normalized = " ".join(str(value).split()).strip()
+    return normalized or None
+
+
+def _extract_jikan_tag_names(item):
+    tag_names = []
+
+    for key in ("genres", "themes", "demographics"):
+        raw_values = item.get(key)
+        if not isinstance(raw_values, list):
+            continue
+
+        for raw_value in raw_values:
+            if not isinstance(raw_value, dict):
+                continue
+
+            name = _normalize_tag_name(raw_value.get("name"))
+            if name:
+                tag_names.append(name)
+
+    deduped = []
+    seen = set()
+    for name in tag_names:
+        lowered = name.casefold()
+        if lowered in seen:
+            continue
+        seen.add(lowered)
+        deduped.append(name)
+
+    return deduped
+
+
+def _has_jikan_taxonomy(item):
+    return any(key in item for key in ("genres", "themes", "demographics"))
+
+
+def _generate_tag_color(tag_name):
+    digest = md5(tag_name.encode("utf-8")).hexdigest()
+    return f"#{digest[:6]}"
+
+
 class Command(BaseCommand):
     help = "Seed Anime rows from a JSON API endpoint."
 
@@ -214,6 +260,11 @@ class Command(BaseCommand):
         created = 0
         updated = 0
         skipped = 0
+        created_tag_names = set()
+        reused_tag_names = set()
+        tag_cache = {
+            tag.name.casefold(): tag for tag in Tag.objects.all().only("id", "name", "color")
+        }
 
         for item in items:
             if not isinstance(item, dict):
@@ -238,6 +289,8 @@ class Command(BaseCommand):
 
             # Remove keys with None so we do not overwrite existing values with nulls.
             defaults = {k: v for k, v in defaults.items() if v is not None}
+            should_sync_tags = _has_jikan_taxonomy(item)
+            tag_names = _extract_jikan_tag_names(item) if should_sync_tags else []
 
             if external_id is None:
                 anime, was_created = Anime.objects.get_or_create(
@@ -248,6 +301,25 @@ class Command(BaseCommand):
                     for key, value in defaults.items():
                         setattr(anime, key, value)
                     anime.save(update_fields=list(defaults.keys()) + ["updated_at"])
+
+                if should_sync_tags:
+                    tag_objects = []
+                    for tag_name in tag_names:
+                        tag_key = tag_name.casefold()
+                        tag = tag_cache.get(tag_key)
+                        if tag is None:
+                            tag, _ = Tag.objects.get_or_create(
+                                name=tag_name,
+                                defaults={"color": _generate_tag_color(tag_name)},
+                            )
+                            tag_cache[tag_key] = tag
+                            created_tag_names.add(tag.name)
+                        else:
+                            reused_tag_names.add(tag.name)
+                        tag_objects.append(tag)
+
+                    anime.tags.set(tag_objects)
+
                 created += int(was_created)
                 updated += int(not was_created)
                 continue
@@ -256,11 +328,35 @@ class Command(BaseCommand):
                 external_id=external_id,
                 defaults={**defaults, "external_id": external_id, "title": title},
             )
+
+            if should_sync_tags:
+                tag_objects = []
+                for tag_name in tag_names:
+                    tag_key = tag_name.casefold()
+                    tag = tag_cache.get(tag_key)
+                    if tag is None:
+                        tag, _ = Tag.objects.get_or_create(
+                            name=tag_name,
+                            defaults={"color": _generate_tag_color(tag_name)},
+                        )
+                        tag_cache[tag_key] = tag
+                        created_tag_names.add(tag.name)
+                    else:
+                        reused_tag_names.add(tag.name)
+                    tag_objects.append(tag)
+
+                anime.tags.set(tag_objects)
+
             created += int(was_created)
             updated += int(not was_created)
 
         self.stdout.write(
             self.style.SUCCESS(
                 f"Done. Processed={len(items)} Created={created} Updated={updated} Skipped={skipped}"
+            )
+        )
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Tags synced. Created={len(created_tag_names)} Reused={len(reused_tag_names)}"
             )
         )
