@@ -54,7 +54,7 @@ const CardList = ({ title, list }) => {
         <div className={classes.mainContainer}>
             <h2>{title}</h2>
             <div className={classes.listing} ref={scrollRef}>
-                {list?.length > 0 && list.map((value, index) => <AnimeCard key={`${value}-${index}`} anime={value} />)}
+                {list?.length > 0 && list.map((value, index) => <AnimeCard key={`${value}-${index}`} animeObj={value} />)}
             </div>
         </div>
     );

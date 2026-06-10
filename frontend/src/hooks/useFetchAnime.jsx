@@ -1,6 +1,7 @@
 import useSWR from "swr";
 
-import { ApiError, api } from "../Client";
+import { api } from "../Client";
+import { normalizeAnimeList } from "../utils/animeNormalizer";
 import { useAuth } from "./useAuth";
 
 export function useFetchAnime({ tags = [], page = 1, pageSize = 20 } = {}) {
@@ -15,7 +16,8 @@ export function useFetchAnime({ tags = [], page = 1, pageSize = 20 } = {}) {
 
     const { data, mutate, error } = useSWR(isAuthenticated ? key : null, ([base, qs]) => api.get(`${base}?${qs}`));
 
-    const animeList = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
+    const animeListRaw = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
+    const animeList = normalizeAnimeList(animeListRaw);
 
     return {
         animeList: animeList,

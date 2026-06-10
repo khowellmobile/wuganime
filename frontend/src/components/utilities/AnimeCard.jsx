@@ -1,12 +1,10 @@
 import { useModal } from "../../contexts/ModalCtx";
-import { useUserAnime } from "../../hooks/useUserAnime";
 import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "./Tag";
 
 const AnimeCard = ({ anime }) => {
     const { showModal } = useModal();
-    const { getAnime } = useUserAnime();
 
     const handleClick = () => {
         showModal(AnimeModal, { anime: anime });

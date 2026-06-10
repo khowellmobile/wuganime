@@ -29,7 +29,7 @@ const AnimeModal = ({ anime, closeModal }) => {
     const activeLabel = VALUES_TO_LABELS[anime?.user_status] ?? VALUES_TO_LABELS.UNCATEGORIZED;
 
     const changeLabel = (option) => {
-        if (anime?.user_status !== option.value) setStatus(id, option.value);
+        if (anime?.user_status !== option.value) setStatus(anime.id, option.value);
     };
 
     return (

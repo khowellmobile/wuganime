@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import CardList from "../components/misc/CardList";
 import AnimeCard from "../components/utilities/AnimeCard";
 import { useFetchAnime } from "../hooks/useFetchAnime";
@@ -11,23 +12,29 @@ const HomePage = () => {
         animeList: animeList1,
         isLoading: isLoading1,
         refreshAnime: refreshAnime1,
-    } = useFetchAnime({ tags: ["drama"] });
+    } = useFetchAnime({ tags: ["Drama"] });
     const {
         animeList: animeList2,
         isLoading: isLoading2,
         refreshAnime: refreshAnime2,
-    } = useFetchAnime({ tags: ["Drama"] });
+    } = useFetchAnime({ tags: ["Adventure"] });
     const {
         animeList: animeList3,
         isLoading: isLoading3,
         refreshAnime: refreshAnime3,
-    } = useFetchAnime({ tags: ["drama"] });
+    } = useFetchAnime({ tags: ["Action"] });
 
-    console.log(animeList1);
+    useEffect(() => {
+        console.log(userAnime);
+    }, [userAnime]);
+
+    useEffect(() => {
+        console.log(animeList1);
+    }, [animeList1]);
 
     return (
         <div className={classes.mainContainer}>
-            <CardList title={"To Watch"} list={animeList1} />
+            <CardList title={"To Watch"} list={userAnime} />
             <CardList title={"Drama"} list={animeList1} />
             <CardList title={"Adventure"} list={animeList2} />
             <CardList title={"Action"} list={animeList3} />
