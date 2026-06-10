@@ -24,14 +24,6 @@ const HomePage = () => {
         refreshAnime: refreshAnime3,
     } = useFetchAnime({ tags: ["Action"] });
 
-    useEffect(() => {
-        console.log(userAnime);
-    }, [userAnime]);
-
-    useEffect(() => {
-        console.log(animeList1);
-    }, [animeList1]);
-
     return (
         <div className={classes.mainContainer}>
             <CardList title={"To Watch"} list={userAnime} />
