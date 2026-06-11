@@ -1,8 +1,8 @@
 import useSWR from "swr";
-import { useEffect, useState, useCallback } from "react";
+import { useCallback } from "react";
 
 import { api } from "../Client";
-import { useAnime } from "./useAnime";
+import { normalizeAnimeList } from "../utils/animeNormalizer";
 import { useAuth } from "./useAuth";
 
 export function useUserAnime() {
@@ -10,18 +10,17 @@ export function useUserAnime() {
 
     const { data, mutate, error } = useSWR(isAuthenticated ? ["/api/user-anime/"] : null, ([url]) => api.get(url));
 
-    const userAnime = data || [];
+    const userAnime = normalizeAnimeList(data);
 
     const getAnime = useCallback(
         (id) => {
-            const userAnimeItem = userAnime.find((item) => item.anime === id);
-            return { ...userAnimeItem?.anime_details, user_status: userAnimeItem?.status } || null;
+            return userAnime.find((item) => item.id === id) || null;
         },
         [userAnime],
     );
 
     const getIdsByStatus = (status) => {
-        return userAnime.filter((item) => item.status === status).map((item) => item.anime);
+        return userAnime.filter((item) => item.user_status === status).map((item) => item.id);
     };
 
     const setStatus = async (animeId, status, extraData = {}) => {

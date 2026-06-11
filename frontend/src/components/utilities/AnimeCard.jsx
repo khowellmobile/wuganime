@@ -1,17 +1,13 @@
 import { useModal } from "../../contexts/ModalCtx";
-import { useUserAnime } from "../../hooks/useUserAnime";
 import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "./Tag";
 
-const AnimeCard = ({ id }) => {
+const AnimeCard = ({ anime }) => {
     const { showModal } = useModal();
-    const { getAnime } = useUserAnime();
-
-    const anime = getAnime(id);
 
     const handleClick = () => {
-        showModal(AnimeModal, { id: id });
+        showModal(AnimeModal, { anime: anime });
     };
 
     return (
@@ -24,7 +20,11 @@ const AnimeCard = ({ id }) => {
                 <div className={classes.suppItems}>
                     <p>{anime?.stars}</p>
                     <div className={classes.tags}>
-                        {anime?.tags?.length > 0 && anime?.tags.map((tag, index) => <Tag tag={tag} key={index} />)}
+                        {anime?.tags?.slice(0, 3).map((tag, index) => (
+                            <Tag tag={tag} key={index} />
+                        ))}
+
+                        {anime?.tags?.length > 3 && <span>+{anime.tags.length - 3}</span>}
                     </div>
                 </div>
             </section>

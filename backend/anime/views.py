@@ -3,6 +3,7 @@ from django.db.models import Prefetch
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from .models import Anime, UserAnime
 from .serializers import (
     AnimeSerializer,
@@ -10,6 +11,11 @@ from .serializers import (
     UserAnimeSerializer,
     UserAnimeStatusMutationSerializer,
 )
+
+class AnimePagination(PageNumberPagination):
+    page_size = 20
+    page_size_query_param = "page_size"
+    max_page_size = 100
 
 
 class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
@@ -21,10 +27,15 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Anime.objects.all().prefetch_related("tags")
     serializer_class = AnimeSerializer
     permission_classes = [permissions.AllowAny]
+    pagination_class = AnimePagination
 
     def get_queryset(self):
-        queryset = Anime.objects.all().prefetch_related("tags")
+        queryset = Anime.objects.all().prefetch_related("tags").order_by("id")
         user = self.request.user
+
+        tag_values = self.request.query_params.getlist("tag")
+        if tag_values:
+            queryset = queryset.filter(tags__name__in=tag_values).distinct()
 
         if user.is_authenticated:
             queryset = queryset.prefetch_related(

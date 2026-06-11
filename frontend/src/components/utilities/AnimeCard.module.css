@@ -1,5 +1,5 @@
 .mainContainer {
-    width: 15rem;
+    width: 16rem;
     height: 20rem;
 
     border-radius: 0.25rem;
@@ -7,7 +7,7 @@
 
 .pictureSection {
     width: 100%;
-    height: 65%;
+    height: 60%;
     border-radius: 0.25rem 0.25rem 0 0;
 
     background-color: #3434476c;
@@ -15,7 +15,7 @@
 
 .textSection {
     width: 100%;
-    height: 35%;
+    height: 40%;
     padding: 0.5rem;
     border-radius: 0 0 0.25rem 0.25rem;
 
@@ -49,4 +49,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem;
+}
+
+.tags > span {
+    padding: 0.25rem;
+    
+    font-size: var(--small-font-size);
+    background-color: var(--primary-color);
+    color: var(--primary-background-color);
+    border-radius: 0.25rem;
 }
