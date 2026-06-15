@@ -24,18 +24,25 @@ export function useUserAnime() {
     };
 
     const setStatus = async (animeId, status, extraData = {}) => {
+        let response;
         try {
-            await api.post("/api/user-anime/set-status/", {
+            response = await api.post("/api/user-anime/set-status/", {
                 anime: animeId,
-                status: status,
+                status,
                 ...extraData,
             });
-
-            // Re-fetch the anime list so the UI updates globally
-            await mutate();
         } catch (err) {
             console.error("Failed to update status", err);
+            return { success: false, message: "Status Change Failed" };
         }
+
+        try {
+            await mutate();
+        } catch (err) {
+            console.warn("Status saved but list refresh failed", err);
+        }
+
+        return { success: true, message: "Status Change Successful", status: response.status };
     };
 
     return { getAnime, userAnime, mutate, setStatus };

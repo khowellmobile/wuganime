@@ -1,4 +1,4 @@
-import { act, useState } from "react";
+import { useEffect, useState } from "react";
 
 import classes from "./AnimeModal.module.css";
 
@@ -24,13 +24,21 @@ const VALUES_TO_LABELS = {
 
 const AnimeModal = ({ anime, closeModal }) => {
     const { setStatus } = useUserAnime();
-    const { getAnime } = useUserAnime();
 
-    const activeLabel = VALUES_TO_LABELS[anime?.user_status] ?? VALUES_TO_LABELS.UNCATEGORIZED;
+    const [activeStatus, setActiveStatus] = useState(anime?.user_status ?? "UNCATEGORIZED");
 
-    const changeLabel = (option) => {
-        if (anime?.user_status !== option.value) setStatus(anime.id, option.value);
+    const changeLabel = async (option) => {
+        if (activeStatus !== option.value) {
+            const res = await setStatus(anime.id, option.value);
+            if (res.success) {
+                setActiveStatus(res?.status);
+            }
+        }
     };
+
+    useEffect(() => {
+        setActiveStatus(anime?.user_status ?? "UNCATEGORIZED");
+    }, [anime]);
 
     return (
         <div className={classes.modalOverlay} onClick={closeModal}>
@@ -45,7 +53,11 @@ const AnimeModal = ({ anime, closeModal }) => {
                                 {anime?.tags?.length > 0 &&
                                     anime?.tags.map((tag, index) => <Tag tag={tag} key={index} />)}
                             </div>
-                            <Dropdown options={ANIME_STATUS_OPTIONS} onSelect={changeLabel} label={activeLabel} />
+                            <Dropdown
+                                options={ANIME_STATUS_OPTIONS}
+                                onSelect={changeLabel}
+                                label={VALUES_TO_LABELS[activeStatus]}
+                            />
                         </div>
                     </div>
                     <div className={classes.bottomDiv}>
