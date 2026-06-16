@@ -7,7 +7,7 @@ import CardList from "../components/misc/CardList";
 const ListsPage = () => {
     const { getUserAnimesByStatus } = useUserAnime();
 
-    const Watching = getUserAnimesByStatus("WATCHING");
+    const watchingList = getUserAnimesByStatus("WATCHING");
     const upNextList = getUserAnimesByStatus("UP_NEXT");
     const toWatchList = getUserAnimesByStatus("TO_WATCH");
     const watchedList = getUserAnimesByStatus("WATCHED");
@@ -15,7 +15,7 @@ const ListsPage = () => {
 
     return (
         <div className={classes.mainContainer}>
-            <CardList title={"Watching"} list={upNextList} />
+            <CardList title={"Watching"} list={watchingList} />
             <CardList title={"Up Next"} list={upNextList} />
             <CardList title={"To Watch"} list={toWatchList} />
             <CardList title={"Watched"} list={watchedList} />

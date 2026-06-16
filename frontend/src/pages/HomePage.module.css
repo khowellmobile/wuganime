@@ -7,5 +7,5 @@
 }
 
 .mainContainer > div:not(:last-child) {
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
