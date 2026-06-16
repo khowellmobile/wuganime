@@ -7,6 +7,7 @@ import Dropdown from "../utilities/Dropdown";
 import { useUserAnime } from "../../hooks/useUserAnime";
 
 const ANIME_STATUS_OPTIONS = [
+    { label: "Watching", value: "WATCHING" },
     { label: "Watched", value: "WATCHED" },
     { label: "To Watch", value: "TO_WATCH" },
     { label: "Up Next", value: "UP_NEXT" },
@@ -15,6 +16,7 @@ const ANIME_STATUS_OPTIONS = [
 ];
 
 const VALUES_TO_LABELS = {
+    WATCHING: "Watching",
     WATCHED: "Watched",
     TO_WATCH: "To Watch",
     UP_NEXT: "Up Next",

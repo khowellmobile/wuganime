@@ -1,6 +1,9 @@
 import { useRef, useEffect } from "react";
-import AnimeCard from "../utilities/AnimeCard";
+
 import classes from "./CardList.module.css";
+
+import AnimeCard from "../cards/AnimeCard";
+import NoResultCard from "../cards/NoResultCard"
 
 const CardList = ({ title, list }) => {
     const scrollRef = useRef(null);
@@ -54,7 +57,11 @@ const CardList = ({ title, list }) => {
         <div className={classes.mainContainer}>
             <h2>{title}</h2>
             <div className={classes.listing} ref={scrollRef}>
-                {list?.length > 0 && list.map((value, index) => <AnimeCard key={`${value}-${index}`} anime={value} />)}
+                {list?.length > 0 ? (
+                    list.map((value, index) => <AnimeCard key={`${value}-${index}`} anime={value} />)
+                ) : (
+                    <NoResultCard />
+                )}
             </div>
         </div>
     );

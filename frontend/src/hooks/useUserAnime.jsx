@@ -19,8 +19,8 @@ export function useUserAnime() {
         [userAnime],
     );
 
-    const getIdsByStatus = (status) => {
-        return userAnime.filter((item) => item.user_status === status).map((item) => item.id);
+    const getUserAnimesByStatus = (status) => {
+        return normalizeAnimeList(userAnime.filter((item) => item.user_status === status));
     };
 
     const setStatus = async (animeId, status, extraData = {}) => {
@@ -45,5 +45,5 @@ export function useUserAnime() {
         return { success: true, message: "Status Change Successful", status: response.status };
     };
 
-    return { getAnime, userAnime, mutate, setStatus };
+    return { getAnime, userAnime, mutate, setStatus, getUserAnimesByStatus };
 }

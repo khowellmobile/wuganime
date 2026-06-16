@@ -44,6 +44,7 @@ class Anime(models.Model):
 
 class UserAnime(models.Model):
     class UserStatus(models.TextChoices):
+        WATCHING = "WATCHING", "Watching"
         WATCHED = "WATCHED", "Watched"
         TO_BE_WATCHED = "TO_WATCH", "To Watch"
         UP_NEXT = "UP_NEXT", "Up Next"
