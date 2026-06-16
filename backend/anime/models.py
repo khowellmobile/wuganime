@@ -57,11 +57,13 @@ class UserAnime(models.Model):
     )
     episodes_watched = models.PositiveIntegerField(default=0)
     score = models.PositiveIntegerField(null=True, blank=True)
+    last_changed_at = models.DateTimeField(auto_now=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ("user", "anime")
+        ordering = ("-last_changed_at", "-id")
 
     def __str__(self):
         return f"{self.user.username} - {self.anime.title}"

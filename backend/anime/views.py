@@ -67,7 +67,7 @@ class UserAnimeViewSet(viewsets.ModelViewSet):
         status_param = self.request.query_params.get("status")
         if status_param:
             qs = qs.filter(status=status_param)
-        return qs
+        return qs.order_by("-last_changed_at", "-id")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
