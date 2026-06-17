@@ -64,6 +64,7 @@ class UserAnimeSerializer(serializers.ModelSerializer):
             "status",
             "episodes_watched",
             "score",
+            "last_changed_at",
             "updated_at",
         ]
 
