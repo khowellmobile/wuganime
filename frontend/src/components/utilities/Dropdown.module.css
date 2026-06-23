@@ -1,7 +1,6 @@
 .mainContainer {
     width: 12rem;
     height: 2rem;
-    margin-top: 0.5rem; /* TO BE REMOVED */
 
     user-select: none;
     cursor: pointer;

@@ -23,6 +23,14 @@ export function useUserAnime() {
         return normalizeAnimeList(userAnime.filter((item) => item.user_status === status));
     };
 
+    const getUserAnimeSortedByStatus = () => {
+        const order = ["WATCHING", "UP_NEXT", "TO_WATCH", "WATCHED", "DNF"];
+
+        return [...userAnime].sort((a, b) => {
+            return order.indexOf(a.user_status) - order.indexOf(b.user_status);
+        });
+    };
+
     const setStatus = async (animeId, status, extraData = {}) => {
         let response;
         try {
@@ -45,5 +53,5 @@ export function useUserAnime() {
         return { success: true, message: "Status Change Successful", status: response.status };
     };
 
-    return { getAnime, userAnime, mutate, setStatus, getUserAnimesByStatus };
+    return { getAnime, userAnime, mutate, setStatus, getUserAnimesByStatus, getUserAnimeSortedByStatus };
 }
