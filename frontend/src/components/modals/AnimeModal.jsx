@@ -46,7 +46,7 @@ const AnimeModal = ({ anime, closeModal }) => {
         <div className={classes.modalOverlay} onClick={closeModal}>
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
                 <div className={classes.leftDiv}>
-                    <div className={classes.topDiv}>
+                    <div className={classes.animeInfoDiv}>
                         <div className={classes.picture}></div>
                         <div className={classes.properties}>
                             <h2>{anime?.title}</h2>
@@ -62,7 +62,7 @@ const AnimeModal = ({ anime, closeModal }) => {
                             />
                         </div>
                     </div>
-                    <div className={classes.bottomDiv}>
+                    <div className={classes.descDiv}>
                         <p>{anime?.synopsis}</p>
                     </div>
                 </div>

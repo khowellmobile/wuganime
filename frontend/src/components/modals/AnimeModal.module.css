@@ -34,14 +34,12 @@
     align-items: center;
 }
 
-.topDiv {
+.animeInfoDiv {
     width: 100%;
     height: 50%;
     padding: 1rem;
 
     display: flex;
-
-    /* outline: 1px solid red; */
 }
 
 .picture {
@@ -66,12 +64,14 @@
 }
 
 .tags {
+    padding-bottom: 0.5rem; /* For consistent spacing w/ dropdown */
+
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem;
 }
 
-.bottomDiv {
+.descDiv {
     width: 100%;
     height: 50%;
     padding: 1rem;
@@ -80,11 +80,9 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-
-    /* outline: 1px solid blue; */
 }
 
-.bottomDiv > p {
+.descDiv > p {
     font-size: var(--base-font-size);
 }
 
