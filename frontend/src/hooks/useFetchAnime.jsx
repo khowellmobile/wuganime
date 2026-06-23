@@ -4,13 +4,36 @@ import { api } from "../Client";
 import { normalizeAnimeList } from "../utils/animeNormalizer";
 import { useAuth } from "./useAuth";
 
-export function useFetchAnime({ tags = [], page = 1, pageSize = 20 } = {}) {
+export function useFetchAnime({
+    tags = [],
+    searchTerm = "",
+    typeFilter = "",
+    statusFilter = "",
+    page = 1,
+    pageSize = 20,
+} = {}) {
     const { isAuthenticated } = useAuth();
 
     const query = new URLSearchParams();
     tags.forEach((t) => query.append("tag", t));
     query.set("page", String(page));
     query.set("page_size", String(pageSize));
+
+    const normalizedSearch = searchTerm.trim();
+    const normalizedType = typeFilter.trim();
+    const normalizedStatus = statusFilter.trim();
+
+    if (normalizedSearch) {
+        query.append("search", normalizedSearch);
+    }
+
+    if (normalizedType) {
+        query.append("type", normalizedType);
+    }
+
+    if (normalizedStatus) {
+        query.append("status", normalizedStatus);
+    }
 
     const key = ["/api/anime/", query.toString()];
 
