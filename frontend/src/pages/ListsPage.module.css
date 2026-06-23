@@ -5,6 +5,8 @@
 
     overflow-y: auto;
 
+    position: relative;
+
     --watching-color: #06b5d4af;
     --up_next-color: #a78bfa9f;
     --to_watch-color: #3a5d8fd3;
@@ -76,7 +78,7 @@
 }
 
 .altViewItem:hover {
-    filter: brightness(1.5);
+    background-color: var(--hover-color);
 }
 
 .watching {
