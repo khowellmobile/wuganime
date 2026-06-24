@@ -1,0 +1,45 @@
+.mainContainer {
+    width: 100%;
+    height: 100%;
+    padding: 1rem 10rem;
+
+    overflow-y: auto;
+}
+
+.tools {
+    width: 100%;
+    height: 5rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filters {
+    height: 100%;
+    padding-left: 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter > p {
+    font-size: 0.8rem;
+}
+
+.results {
+    width: 100%;
+    height: calc(100% - 5rem);
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+}
