@@ -17,7 +17,7 @@ const SearchPage = () => {
     const [tagLabel, setTagLabel] = useState({ label: "None", value: "" });
 
     const shouldSearch = useMemo(() => debouncedTerm.trim().length > 0, [debouncedTerm]);
-    
+
     const {
         animeList: animelist,
         isLoading: isLoading,
