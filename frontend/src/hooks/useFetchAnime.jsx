@@ -11,6 +11,7 @@ export function useFetchAnime({
     statusFilter = "",
     page = 1,
     pageSize = 20,
+    enabled = true,
 } = {}) {
     const { isAuthenticated } = useAuth();
 
@@ -35,16 +36,17 @@ export function useFetchAnime({
         query.append("status", normalizedStatus);
     }
 
-    const key = ["/api/anime/", query.toString()];
+    const shouldFetch = isAuthenticated && enabled;
+    const key = shouldFetch ? ["/api/anime/", query.toString()] : null;
 
-    const { data, mutate, error } = useSWR(isAuthenticated ? key : null, ([base, qs]) => api.get(`${base}?${qs}`));
+    const { data, mutate, error } = useSWR(key, ([base, qs]) => api.get(`${base}?${qs}`));
 
     const animeListRaw = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
     const animeList = normalizeAnimeList(animeListRaw);
 
     return {
         animeList: animeList,
-        isLoading: !error && !data,
+        isLoading: shouldFetch && !error && !data,
         pageCount: data?.count ?? animeList.length,
         nextPageUrl: data?.next ?? null,
         prevPageUrl: data?.previous ?? null,

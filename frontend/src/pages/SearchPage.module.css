@@ -44,3 +44,40 @@
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     grid-gap: 0.5rem;
 }
+
+.noResDisplay {
+    width: 100%;
+    height: calc(100% - 5rem);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noResDisplay > p {
+    color: rgba(255, 255, 255, 0.363);
+    font-size: 1.3rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(-135deg); /* Starts at -135 for 90 degree offset */
+    }
+    50% {
+        transform: rotate(-45deg);
+    }
+    100% {
+        transform: rotate(225deg);
+    }
+}
+
+.icon {
+    height: 10%;
+
+    opacity: .5;
+
+    position: absolute;
+
+    animation: spin 2s linear infinite;
+    -webkit-animation: spin 2s linear infinite;
+}
