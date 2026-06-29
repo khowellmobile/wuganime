@@ -16,7 +16,6 @@ const Header = () => {
                 <p>
                     <strong>React</strong>App
                 </p>
-                <SearchBox type="text" name="search" value={""} placeholder={"Search"} />
             </div>
             <div className={classes.middle}>
                 <Menu />
