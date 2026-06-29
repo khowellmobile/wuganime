@@ -10,8 +10,8 @@ const Menu = () => {
             <div className={classes.link} onClick={() => navigate("/app/home")}>
                 <p>Home</p>
             </div>
-            <div className={classes.link} onClick={() => navigate("/app/settings")}>
-                <p>Recomended</p>
+            <div className={classes.link} onClick={() => navigate("/app/search")}>
+                <p>Search</p>
             </div>
             <div className={classes.link} onClick={() => navigate("/app/lists")}>
                 <p>Lists</p>

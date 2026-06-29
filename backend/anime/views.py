@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -11,6 +11,7 @@ from .serializers import (
     UserAnimeSerializer,
     UserAnimeStatusMutationSerializer,
 )
+
 
 class AnimePagination(PageNumberPagination):
     page_size = 20
@@ -33,9 +34,39 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = Anime.objects.all().prefetch_related("tags").order_by("id")
         user = self.request.user
 
+        search_term = self.request.query_params.get("search")
+        if search_term:
+            search_term = search_term.strip()
+            if search_term:
+                search_query = (
+                    Q(title__icontains=search_term)
+                    | Q(tags__name__icontains=search_term)
+                    | Q(synopsis__icontains=search_term)
+                )
+                if search_term.isdigit():
+                    search_query = search_query | Q(external_id=int(search_term))
+                queryset = queryset.filter(search_query)
+
+        type_filter = self.request.query_params.get("type")
+        if type_filter:
+            if type_filter in Anime.TypeChoices.values:
+                queryset = queryset.filter(type=type_filter)
+            else:
+                return queryset.none()
+
+        status_filter = self.request.query_params.get("status")
+        if status_filter:
+            if status_filter in Anime.StatusChoices.values:
+                queryset = queryset.filter(status=status_filter)
+            else:
+                return queryset.none()
+
         tag_values = self.request.query_params.getlist("tag")
         if tag_values:
             queryset = queryset.filter(tags__name__in=tag_values).distinct()
+
+        if search_term:
+            queryset = queryset.distinct()
 
         if user.is_authenticated:
             queryset = queryset.prefetch_related(

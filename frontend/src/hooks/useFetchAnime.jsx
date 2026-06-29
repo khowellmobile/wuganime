@@ -4,7 +4,15 @@ import { api } from "../Client";
 import { normalizeAnimeList } from "../utils/animeNormalizer";
 import { useAuth } from "./useAuth";
 
-export function useFetchAnime({ tags = [], page = 1, pageSize = 20 } = {}) {
+export function useFetchAnime({
+    tags = [],
+    searchTerm = "",
+    typeFilter = "",
+    statusFilter = "",
+    page = 1,
+    pageSize = 20,
+    enabled = true,
+} = {}) {
     const { isAuthenticated } = useAuth();
 
     const query = new URLSearchParams();
@@ -12,16 +20,33 @@ export function useFetchAnime({ tags = [], page = 1, pageSize = 20 } = {}) {
     query.set("page", String(page));
     query.set("page_size", String(pageSize));
 
-    const key = ["/api/anime/", query.toString()];
+    const normalizedSearch = searchTerm.trim();
+    const normalizedType = typeFilter.trim();
+    const normalizedStatus = statusFilter.trim();
 
-    const { data, mutate, error } = useSWR(isAuthenticated ? key : null, ([base, qs]) => api.get(`${base}?${qs}`));
+    if (normalizedSearch) {
+        query.append("search", normalizedSearch);
+    }
+
+    if (normalizedType) {
+        query.append("type", normalizedType);
+    }
+
+    if (normalizedStatus) {
+        query.append("status", normalizedStatus);
+    }
+
+    const shouldFetch = isAuthenticated && enabled;
+    const key = shouldFetch ? ["/api/anime/", query.toString()] : null;
+
+    const { data, mutate, error } = useSWR(key, ([base, qs]) => api.get(`${base}?${qs}`));
 
     const animeListRaw = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
     const animeList = normalizeAnimeList(animeListRaw);
 
     return {
         animeList: animeList,
-        isLoading: !error && !data,
+        isLoading: shouldFetch && !error && !data,
         pageCount: data?.count ?? animeList.length,
         nextPageUrl: data?.next ?? null,
         prevPageUrl: data?.previous ?? null,
