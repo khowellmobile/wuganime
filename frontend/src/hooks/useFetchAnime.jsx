@@ -33,7 +33,7 @@ export function useFetchAnime({
     }
 
     if (normalizedStatus) {
-        query.append("status", normalizedStatus);
+        query.append("user_status", normalizedStatus);
     }
 
     const shouldFetch = isAuthenticated && enabled;
