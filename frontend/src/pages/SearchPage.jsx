@@ -68,11 +68,15 @@ const SearchPage = () => {
 
                     <div className={classes.filter}>
                         <p>Status</p>
-                        <Dropdown options={statusOptions} onSelect={onFilterSelect("status")} label={statusLabel?.label} />
+                        <Dropdown
+                            options={statusOptions}
+                            onSelect={onFilterSelect("status")}
+                            label={statusLabel?.label}
+                        />
                     </div>
                     <div className={classes.filter}>
                         <p>Tag</p>
-                        <Dropdown options={tagOptions} onSelect={onFilterSelect("tag")} label={tagLabel?.label} />
+                        <Dropdown options={tagOptions} onSelect={onFilterSelect("tags")} label={tagLabel?.label} />
                     </div>
                 </div>
             </div>

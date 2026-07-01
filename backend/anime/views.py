@@ -47,17 +47,14 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
                     search_query = search_query | Q(external_id=int(search_term))
                 queryset = queryset.filter(search_query)
 
-        type_filter = self.request.query_params.get("type")
-        if type_filter:
-            if type_filter in Anime.TypeChoices.values:
-                queryset = queryset.filter(type=type_filter)
-            else:
-                return queryset.none()
-
-        status_filter = self.request.query_params.get("status")
-        if status_filter:
-            if status_filter in Anime.StatusChoices.values:
-                queryset = queryset.filter(status=status_filter)
+        user_status_filter = self.request.query_params.get("user_status")
+        if not user.is_authenticated:
+            return queryset.none()
+        if user_status_filter:
+            if user_status_filter in UserAnime.UserStatus.values:
+                queryset = queryset.filter(
+                    useranime__user=user, useranime__status=user_status_filter
+                )
             else:
                 return queryset.none()
 
