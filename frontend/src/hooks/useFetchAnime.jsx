@@ -16,7 +16,10 @@ export function useFetchAnime({
     const { isAuthenticated } = useAuth();
 
     const query = new URLSearchParams();
-    tags.forEach((t) => query.append("tag", t));
+    tags
+        .map((t) => String(t).trim())
+        .filter(Boolean)
+        .forEach((t) => query.append("tags", t));
     query.set("page", String(page));
     query.set("page_size", String(pageSize));
 
