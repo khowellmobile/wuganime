@@ -129,3 +129,11 @@
     width: 1.5rem;
     height: 1.5rem;
 }
+
+@media (max-width: 768px) {
+    .dropdownContent {
+        width: 100vw;
+        height: calc(100dvh - 5rem);
+        right: 0;
+    }
+}
