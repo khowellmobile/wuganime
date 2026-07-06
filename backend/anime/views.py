@@ -58,7 +58,7 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
             else:
                 return queryset.none()
 
-        tag_values = self.request.query_params.getlist("tag")
+        tag_values = self.request.query_params.getlist("tags")
         if tag_values:
             queryset = queryset.filter(tags__name__in=tag_values).distinct()
 

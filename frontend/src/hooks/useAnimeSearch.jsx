@@ -15,7 +15,12 @@ export function useAnimeSearch() {
         animeList: animelist,
         isLoading,
         refreshAnime,
-    } = useFetchAnime({ searchTerm: debouncedTerm, statusFilter: filters?.status?.value, enabled: shouldSearch });
+    } = useFetchAnime({
+        searchTerm: debouncedTerm,
+        statusFilter: filters?.status?.value,
+        tags: filters?.tags?.value ? [filters.tags.value] : [],
+        enabled: shouldSearch,
+    });
 
     const trimmedSearch = searchTerm.trim();
     const trimmedDebounced = debouncedTerm.trim();
@@ -34,7 +39,11 @@ export function useAnimeSearch() {
         { label: "Did Not Finish", value: "DNF" },
         { label: "None", value: "" },
     ];
-    const tagOptions = [{ label: "Action" }, { label: "Drama" }, { label: "None" }];
+    const tagOptions = [
+        { label: "Action", value: "Action" },
+        { label: "Drama", value: "Drama" },
+        { label: "None", value: "" },
+    ];
 
     const onSearchChange = (e) => {
         setSearchTerm(e.target.value);
