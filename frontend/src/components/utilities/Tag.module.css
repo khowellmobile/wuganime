@@ -1,7 +1,10 @@
 .tag {
     height: 1rem;
     width: fit-content;
+    max-width: 100%;
+    min-width: 0;
     padding: 0.7rem 0.4rem;
+    flex: 0 1 auto;
 
     border-radius: 1rem;
     cursor: pointer;
@@ -14,6 +17,20 @@
 .tag p {
     font-size: var(--small-font-size);
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     user-select: none;
+}
+
+@media (max-width: 768px) {
+    .tag {
+        height: 0.5rem;
+        padding: 0.5rem 0.2rem;
+    }
+
+    .tag p {
+        font-size: 0.5rem;
+    }
 }
