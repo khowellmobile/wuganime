@@ -9,3 +9,16 @@
 .mainContainer > div:not(:last-child) {
     margin-bottom: 2rem;
 }
+
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .mainContainer {
+        padding: 1rem 1rem;
+    }
+}
+
