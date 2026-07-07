@@ -58,11 +58,7 @@ const SearchPage = () => {
     return (
         <div className={classes.mainContainer}>
             <div className={classes.tools}>
-                <SearchBox
-                    onChange={onSearchChange}
-                    customStyle={{ width: "25rem", fontSize: "0.8rem" }}
-                    placeholder={"Search"}
-                />
+                <SearchBox onChange={onSearchChange} customStyle={{ fontSize: "0.8rem" }} placeholder={"Search"} />
                 <div className={classes.filters}>
                     <p>Filter By:</p>
 

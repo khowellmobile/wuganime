@@ -43,6 +43,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     grid-gap: 0.5rem;
+    align-content: start;
+    align-items: start;
 }
 
 .noResDisplay {
@@ -74,10 +76,31 @@
 .icon {
     height: 10%;
 
-    opacity: .5;
+    opacity: 0.5;
 
     position: absolute;
 
     animation: spin 2s linear infinite;
     -webkit-animation: spin 2s linear infinite;
+}
+
+@media (max-width: 1024px) {
+    .filters {
+        display: none;
+        padding: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 1rem 2rem;
+    }
+
+    .results {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+        grid-gap: 0.5rem;
+        align-content: start;
+        align-items: start;
+    }
 }
