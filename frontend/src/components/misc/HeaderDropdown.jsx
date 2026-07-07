@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import classes from "./ProfileDropdown.module.css";
+import classes from "./HeaderDropdown.module.css";
 
 import downChevron from "../../assets/chevron-down-icon-white.svg";
 import settingsIcon from "../../assets/settings-icon.svg";
@@ -16,7 +16,11 @@ const optionList = [
     { name: "Logout", icon: logoutIcon, route: "/" },
 ];
 
-const ProfileDropdown = () => {
+const navigationOptionList = [
+    
+]
+
+const HeaderDropdown = (variant = "") => {
     const navigate = useNavigate();
 
     const { logout, ctxUserData } = useAuth();
@@ -81,4 +85,4 @@ const ProfileDropdown = () => {
     );
 };
 
-export default ProfileDropdown;
+export default HeaderDropdown;

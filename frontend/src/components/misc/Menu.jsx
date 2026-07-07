@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import classes from "./Menu.module.css";
 
-const Menu = () => {
+const Menu = (variant) => {
     const navigate = useNavigate();
 
     return (
