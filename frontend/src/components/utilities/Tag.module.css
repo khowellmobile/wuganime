@@ -1,6 +1,6 @@
 .tag {
     height: 1rem;
-    width: fit-content;
+    width: auto;
     max-width: 100%;
     min-width: 0;
     padding: 0.7rem 0.4rem;
@@ -15,8 +15,10 @@
 }
 
 .tag p {
+    max-width: 100%;
     font-size: var(--small-font-size);
     font-weight: 500;
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

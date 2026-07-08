@@ -12,7 +12,13 @@
 }
 
 .listing {
+    --cards-per-view: 6;
+    --gap: 1rem;
+    --card-min: 13rem;
+
     display: flex;
+    align-items: flex-start;
+    gap: var(--gap);
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-behavior: auto;
@@ -22,9 +28,30 @@
 }
 
 .listing > * {
-    flex: 0 0 auto;
+    flex: 0 0
+        clamp(
+            var(--card-min),
+            calc((100% - (var(--cards-per-view) - 1) * var(--gap)) / var(--cards-per-view)),
+            var(--card-max, 100rem)
+        );
 }
 
-.listing > div:not(:last-child) {
-    margin-right: 1rem;
+@media (max-width: 1064px) {
+    .listing {
+        --cards-per-view: 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .listing {
+        --cards-per-view: 2;
+        --card-min: 10rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .listing {
+        --cards-per-view: 2;
+        --card-min: 8rem;
+    }
 }
