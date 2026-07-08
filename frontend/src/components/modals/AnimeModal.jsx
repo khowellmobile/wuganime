@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 import classes from "./AnimeModal.module.css";
 
+import { useUserAnime } from "../../hooks/useUserAnime";
 import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
-import { useUserAnime } from "../../hooks/useUserAnime";
+import exitIcon from "../../assets/cancel-icon.svg";
 
 const ANIME_STATUS_OPTIONS = [
     { label: "Watching", value: "WATCHING" },
@@ -47,6 +48,9 @@ const AnimeModal = ({ anime, closeModal }) => {
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
                 <div className={classes.leftDiv}>
                     <div className={classes.animeInfoDiv}>
+                        <div className={classes.exitDiv} onClick={closeModal}>
+                            <img className={classes.icon} src={exitIcon} />
+                        </div>
                         <div className={classes.picture}></div>
                         <div className={classes.properties}>
                             <h2>{anime?.title}</h2>
