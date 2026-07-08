@@ -1,8 +1,14 @@
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 const ModalCtx = createContext(null);
 
 export const ModalCtxProvider = ({ children }) => {
+    const location = useLocation();
+    const isFirstRenderRef = useRef(true);
+    const prevUrlRef = useRef(`${location.pathname}${location.search}${location.hash}`);
+
     const [modal, setModal] = useState({
         isVisible: false,
         content: null,
@@ -37,6 +43,21 @@ export const ModalCtxProvider = ({ children }) => {
             props: {},
         });
     }, []);
+
+    useEffect(() => {
+        const currentUrl = `${location.pathname}${location.search}${location.hash}`;
+
+        if (isFirstRenderRef.current) {
+            isFirstRenderRef.current = false;
+            prevUrlRef.current = currentUrl;
+            return;
+        }
+
+        if (prevUrlRef.current !== currentUrl) {
+            closeModal();
+            prevUrlRef.current = currentUrl;
+        }
+    }, [location.pathname, location.search, location.hash, closeModal]);
 
     const contextValue = { showModal, closeModal };
 

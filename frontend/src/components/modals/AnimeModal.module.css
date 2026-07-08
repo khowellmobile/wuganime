@@ -4,10 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 10;
 
     position: fixed;
-    top: 0;
+    top: 5rem; /* leave nav area free */
     left: 0;
     right: 0;
     bottom: 0;
@@ -17,6 +17,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: relative;
+    bottom: 5rem;
+}
+
+.exitDiv {
+    width: 2.5rem;
+    height: 2.5rem;
+
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    
+    position: absolute;
+    top: -3px;
+    right: -3px;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
 }
 
 .leftDiv {
@@ -98,4 +119,71 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .exitDiv {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    .leftDiv {
+        margin: 0rem;
+    }
+
+    .rightDiv {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .modalOverlay {
+        top: 5rem; /* leave nav area free */
+        height: calc(100vh - 5rem);
+    }
+
+    .mainContainer {
+        width: 100%;
+        height: 100%;
+        top: 0;
+    }
+
+    .leftDiv {
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem;
+        margin: 0;
+
+        justify-content: flex-start;
+    }
+
+    .animeInfoDiv {
+        flex-direction: column;
+    }
+
+    .picture {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .properties {
+        width: 100%;
+        height: auto;
+        padding: 0;
+
+        gap: 0.25rem;
+    }
+
+    .properties > h2 {
+        font-size: var(--base-font-size);
+    }
+
+    .descDiv {
+        flex: 1 0 auto;
+    }
+
+    .rightDiv {
+        display: none;
+    }
 }
