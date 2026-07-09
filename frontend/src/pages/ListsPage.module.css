@@ -1,7 +1,7 @@
 .mainContainer {
     width: 100%;
     height: 100%;
-    padding: 1rem 10rem;
+    padding: 1rem 8%;
 
     overflow-y: auto;
 
@@ -12,6 +12,12 @@
     --to_watch-color: #3a5d8fd3;
     --watched-color: #22c55ec5;
     --dnf-color: #6b728059;
+}
+
+.mainContainer > button {
+    position: absolute;
+    right: 8%;
+    top: 0.5rem;
 }
 
 .mainContainer > div:not(:last-child) {
@@ -45,14 +51,14 @@
 
 .tools {
     width: 50%;
+    margin-bottom: 1rem;
 
     display: flex;
-    align-items: center;
-
-    margin-bottom: 1rem;
+    align-items: end;
+    justify-content: space-between;
 }
 
-.tools > p {
+.tools p {
     font-size: var(--small-font-size);
     padding-right: 0.5rem;
 }
@@ -68,7 +74,7 @@
 
 .altViewItem {
     width: 50%;
-    height: 2rem;
+    height: auto;
     padding: 0.5rem 1rem;
 
     cursor: pointer;
@@ -95,4 +101,51 @@
 }
 .dnf {
     background-color: var(--dnf-color);
+}
+
+@media (max-width: 1024px) {
+    .mainContainer {
+        padding: 1rem 2rem;
+    }
+
+    .colorMap {
+        width: 100%;
+    }
+
+    .tools {
+        width: 100%;
+    }
+
+    .altViewItem {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContainer > button {
+        height: 2rem;
+        padding: 0 1rem;
+
+        right: 1rem;
+    }
+
+    .colorMap {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .colorMapItem {
+        justify-content: flex-start;
+    }
+
+    .tools > button {
+        height: 2rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .mainContainer {
+        padding: 1rem 1rem;
+    }
 }
