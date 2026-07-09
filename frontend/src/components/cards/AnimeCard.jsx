@@ -3,7 +3,6 @@ import { useModal } from "../../contexts/ModalCtx";
 import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "../utilities/Tag";
-import AnimeModalMobile from "../modals/AnimeModalMobile";
 
 const AnimeCard = ({ anime }) => {
     const { showModal } = useModal();

@@ -45,14 +45,12 @@ const ListsPage = () => {
 
     return (
         <div className={classes.mainContainer}>
-            <Button
-                onClick={() => setIsAltActive((prev) => !prev)}
-                text={"Switch to Alt View"}
-                customStyle={{ position: "absolute", right: "10rem" }}
-            />
-
-            {isAltActive ? (
+            {!isAltActive ? (
                 <>
+                    <Button
+                        onClick={() => setIsAltActive((prev) => !prev)}
+                        text={isAltActive ? "Default View" : "Alt View"}
+                    />
                     <CardList title={"Watching"} list={watchingList} />
                     <CardList title={"Up Next"} list={upNextList} />
                     <CardList title={"To Watch"} list={toWatchList} />
@@ -84,8 +82,14 @@ const ListsPage = () => {
                         </div>
                     </div>
                     <div className={classes.tools}>
-                        <p>Sort By:</p>
-                        <Dropdown options={sortOptions} onSelect={handleDropdownClick} label={activeSort} />
+                        <div>
+                            <p>Sort By:</p>
+                            <Dropdown options={sortOptions} onSelect={handleDropdownClick} label={activeSort} />
+                        </div>
+                        <Button
+                            onClick={() => setIsAltActive((prev) => !prev)}
+                            text={isAltActive ? "Default View" : "Alt View"}
+                        />
                     </div>
                     {activeList?.length > 0 &&
                         activeList.map((value, index) => (
