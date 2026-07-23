@@ -91,3 +91,9 @@
 .dropdownContent > p:hover {
     background-color: var(--hover-color);
 }
+
+@media (max-width: 768px) {
+    .mainContainer:hover {
+        box-shadow: none;
+    }
+}

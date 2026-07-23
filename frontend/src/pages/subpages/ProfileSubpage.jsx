@@ -91,7 +91,6 @@ const ProfileSubpage = () => {
                                     changeField("firstName", e.target.value);
                                 }}
                             />
-                            <p></p>
                         </div>
                         <div>
                             <p>Last Name</p>
@@ -103,7 +102,6 @@ const ProfileSubpage = () => {
                                     changeField("lastName", e.target.value);
                                 }}
                             />
-                            <p></p>
                         </div>
                     </div>
                 </div>
