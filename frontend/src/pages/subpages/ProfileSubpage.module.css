@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
 
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: 0.5rem;
     overflow: hidden;
 
     display: flex;
@@ -101,4 +101,18 @@
     color: var(--secondary-text-color);
     font-size: var(--small-font-size);
     font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        border-radius: 0.5rem;
+    }
+
+    .options input {
+        font-size: 0.8rem;
+    }
+
+    .options > .nameDiv {
+        height: 3rem;
+    }
 }
