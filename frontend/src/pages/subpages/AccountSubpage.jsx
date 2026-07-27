@@ -19,7 +19,7 @@ const AccountSubpage = () => {
                 </div>
                 <div className={classes.mid}>
                     <p className={classes.label}>Current Email</p>
-                    <p>WugWug@gmail.com</p>
+                    <p className={classes.value}>WugWug@gmail.com</p>
                 </div>
                 <div className={classes.bot}>
                     <p>
@@ -36,8 +36,8 @@ const AccountSubpage = () => {
                     <p>Change the password you use to login. Remember to keep it secure.</p>
                 </div>
                 <div className={classes.mid}>
-                    <p className={classes.label}>Current Email</p>
-                    <p>WugWug@gmail.com</p>
+                    <p className={classes.label}>Current Password</p>
+                    <p className={classes.value}>****************</p>
                 </div>
                 <div className={classes.bot}>
                     <p>
