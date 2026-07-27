@@ -32,12 +32,12 @@
     background-color: var(--tertiary-background-color);
 
     display: flex;
+    justify-content: start;
 }
 
 .pictureDiv {
-    width: 30%;
     height: 100%;
-    padding-left: 2rem;
+    margin-left: 2rem;
 
     display: flex;
     align-items: center;
@@ -45,7 +45,7 @@
 
 .avatar {
     width: 7rem;
-    height: 7rem;
+    aspect-ratio: 1/1;
 
     background-color: white;
     background-position: center;
@@ -55,8 +55,9 @@
 }
 
 .buttonDiv {
-    width: 70%;
+    flex: 1;
     height: 100%;
+    padding-left: 2rem;
 
     display: flex;
     flex-direction: column;
@@ -92,4 +93,18 @@
     width: 100%;
     height: calc(100% - 11rem);
     padding: 1rem 2rem;
+}
+
+@media (max-width: 1024px) {
+    .avatar {
+        flex: 0 1 6rem;
+    }
+
+    .buttonDiv {
+        width: 50%;
+    }
+
+    .buttonDiv > h3 {
+        font-size: var(--medium-font-size);
+    }
 }

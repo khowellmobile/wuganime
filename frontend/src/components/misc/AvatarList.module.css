@@ -56,3 +56,38 @@
 .item:active {
     transform: scale(0.9);
 }
+
+@media (max-width: 550px) {
+    .listing {
+        --items-per-screen: 5;
+        --item-diameter: 5rem;
+    }
+}
+
+@media (max-width: 475px) {
+    .listing {
+        --items-per-screen: 5;
+        --item-diameter: 4.5rem;
+    }
+}
+
+@media (max-width: 425px) {
+    .listing {
+        --items-per-screen: 4;
+        --item-diameter: 4.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .listing {
+        --items-per-screen: 4;
+        --item-diameter: 4rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .listing {
+        --items-per-screen: 4;
+        --item-diameter: 3.75rem;
+    }
+}
