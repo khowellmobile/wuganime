@@ -18,6 +18,7 @@ class AnimeAdmin(admin.ModelAdmin):
         "type",
         "episodes",
         "status",
+        "image_url",
         "created_at",
     )
     search_fields = ("title",)

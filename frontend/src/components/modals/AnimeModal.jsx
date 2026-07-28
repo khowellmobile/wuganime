@@ -6,6 +6,7 @@ import { useUserAnime } from "../../hooks/useUserAnime";
 import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
 import exitIcon from "../../assets/cancel-icon.svg";
+import NoImageDisplay from "../misc/NoImageDisplay";
 
 const ANIME_STATUS_OPTIONS = [
     { label: "Watching", value: "WATCHING" },
@@ -29,6 +30,7 @@ const AnimeModal = ({ anime, closeModal }) => {
     const { setStatus } = useUserAnime();
 
     const [activeStatus, setActiveStatus] = useState(anime?.user_status ?? "UNCATEGORIZED");
+    const [hasImageError, setHasImageError] = useState(false);
 
     const changeLabel = async (option) => {
         if (activeStatus !== option.value) {
@@ -41,7 +43,10 @@ const AnimeModal = ({ anime, closeModal }) => {
 
     useEffect(() => {
         setActiveStatus(anime?.user_status ?? "UNCATEGORIZED");
+        setHasImageError(false);
     }, [anime]);
+
+    console.log(anime);
 
     return (
         <div className={classes.modalOverlay} onClick={closeModal}>
@@ -51,7 +56,13 @@ const AnimeModal = ({ anime, closeModal }) => {
                         <div className={classes.exitDiv} onClick={closeModal}>
                             <img className={classes.icon} src={exitIcon} />
                         </div>
-                        <div className={classes.picture}></div>
+                        <div className={classes.picture}>
+                            {!hasImageError && anime?.image_url ? (
+                                <img className={classes.animeImg} src={anime.image_url} />
+                            ) : (
+                                <NoImageDisplay />
+                            )}
+                        </div>
                         <div className={classes.properties}>
                             <h2>{anime?.title}</h2>
                             <p>{anime?.stars}</p>
