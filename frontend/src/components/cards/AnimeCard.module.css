@@ -1,26 +1,38 @@
 .mainContainer {
     width: 100%;
     min-width: 0;
-
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1 / 2;
 
     border-radius: 0.25rem;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .pictureSection {
     width: 100%;
-    height: 60%;
-    border-radius: 0.25rem 0.25rem 0 0;
+    height: 74%;
 
     background-color: #3434476c;
+    overflow: hidden;
+}
+
+.animeImg {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: top center;
+
+    display: block;
 }
 
 .textSection {
     width: 100%;
     min-width: 0;
-    height: 40%;
+    height: 26%;
     padding: 0.5rem;
-    border-radius: 0 0 0.25rem 0.25rem;
 
     background-color: var(--secondary-background-color);
     overflow-x: hidden;
@@ -50,12 +62,14 @@
 }
 
 .tags {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0.25rem;
     min-width: 0;
+
     overflow: hidden;
+
+    display: flex;
     align-items: center;
+    gap: 0.25rem;
+    flex-wrap: nowrap;
 }
 
 .tags > span {
@@ -74,7 +88,7 @@
 @media (max-width: 768px) {
     .mainContainer {
         width: 100%;
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 1 / 2;
     }
 
     .title {
@@ -82,9 +96,10 @@
     }
 
     .tags {
-        flex-wrap: nowrap;
-        overflow: hidden;
         min-width: 0;
+        overflow: hidden;
+
+        flex-wrap: nowrap;
         align-items: center;
     }
 

@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
+
 import { useModal } from "../../contexts/ModalCtx";
 import AnimeModal from "../modals/AnimeModal";
 import classes from "./AnimeCard.module.css";
 import Tag from "../utilities/Tag";
+import NoImageDisplay from "../misc/NoImageDisplay";
 
 const AnimeCard = ({ anime }) => {
     const { showModal } = useModal();
+
     const [isMobile, setIsMobile] = useState(() => {
         if (typeof window === "undefined") return false;
         return window.matchMedia("(max-width: 768px)").matches;
     });
+    const [hasImageError, setHasImageError] = useState(false);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -34,7 +38,18 @@ const AnimeCard = ({ anime }) => {
 
     return (
         <div className={classes.mainContainer} onClick={handleClick}>
-            <section className={classes.pictureSection}></section>
+            <section className={classes.pictureSection}>
+                {!hasImageError && anime?.image_url ? (
+                    <img
+                        className={classes.animeImg}
+                        src={anime.image_url}
+                        alt={anime?.title ?? "Anime poster"}
+                        onError={() => setHasImageError(true)}
+                    />
+                ) : (
+                    <NoImageDisplay />
+                )}
+            </section>
             <section className={classes.textSection}>
                 <div className={`${classes.titleDiv} ${classes.lineClamp}`}>
                     <p className={classes.title}>{anime?.title}</p>

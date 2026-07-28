@@ -14,7 +14,7 @@
 .listing {
     --cards-per-view: 6;
     --gap: 1rem;
-    --card-min: 13rem;
+    --card-min: 11rem;
 
     display: flex;
     align-items: flex-start;
@@ -38,20 +38,20 @@
 
 @media (max-width: 1064px) {
     .listing {
-        --cards-per-view: 3;
+        --cards-per-view: 4;
     }
 }
 
 @media (max-width: 768px) {
     .listing {
         --cards-per-view: 2;
-        --card-min: 10rem;
+        --card-min: 9rem;
     }
 }
 
 @media (max-width: 400px) {
     .listing {
         --cards-per-view: 2;
-        --card-min: 8rem;
+        --card-min: 7.5rem;
     }
 }
