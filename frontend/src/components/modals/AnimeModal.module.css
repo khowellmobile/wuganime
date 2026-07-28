@@ -57,7 +57,6 @@
 
 .animeInfoDiv {
     width: 100%;
-    height: 50%;
     padding: 1rem;
 
     display: flex;
@@ -72,7 +71,7 @@
 .picture > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
 }
@@ -101,9 +100,8 @@
 
 .descDiv {
     width: 100%;
-    height: 50%;
-    padding: 1rem;
-    padding-bottom: 0; /* Parent handles bottom padding */
+    height: 100%;
+    padding: 0 1rem;
 
     display: flex;
     flex-direction: column;
