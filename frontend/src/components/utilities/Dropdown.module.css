@@ -76,6 +76,7 @@
     position: absolute;
     top: 2.25rem;
     right: 0px;
+    z-index: 10;
 }
 
 .dropdownContent > p {
