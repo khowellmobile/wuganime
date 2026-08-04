@@ -70,7 +70,7 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
                 Prefetch(
                     "useranime_set",
                     queryset=UserAnime.objects.filter(user=user).only(
-                        "anime_id", "status"
+                        "anime_id", "status", "episodes_watched"
                     ),
                     to_attr="request_user_relations",
                 )

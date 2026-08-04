@@ -5,7 +5,7 @@ from .models import Anime, UserAnime, Tag
 # Register your models here.
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ("name","color")
+    list_display = ("name", "color")
     search_fields = ("name",)
 
 
@@ -32,6 +32,13 @@ class AnimeAdmin(admin.ModelAdmin):
 
 @admin.register(UserAnime)
 class UserAnimeAdmin(admin.ModelAdmin):
-    list_display = ("user", "anime", "status", "score", "created_at")
+    list_display = (
+        "user",
+        "anime",
+        "status",
+        "episodes_watched",
+        "score",
+        "created_at",
+    )
     search_fields = ("user__username", "anime__title")
     list_filter = ("status", "score")

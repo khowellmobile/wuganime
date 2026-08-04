@@ -46,7 +46,7 @@ const AnimeModal = ({ anime, closeModal }) => {
         setHasImageError(false);
     }, [anime]);
 
-    console.log(anime);
+    /* console.log(anime); */
 
     return (
         <div className={classes.modalOverlay} onClick={closeModal}>
@@ -75,6 +75,7 @@ const AnimeModal = ({ anime, closeModal }) => {
                                 onSelect={changeLabel}
                                 label={VALUES_TO_LABELS[activeStatus]}
                             />
+                            <p>{anime?.episodes_watched}</p>
                         </div>
                     </div>
                     <div className={classes.descDiv}>
