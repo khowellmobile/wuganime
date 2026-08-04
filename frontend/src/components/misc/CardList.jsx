@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 import classes from "./CardList.module.css";
 
 import AnimeCard from "../cards/AnimeCard";
-import NoResultCard from "../cards/NoResultCard"
+import NoResultCard from "../cards/NoResultCard";
 
 const CardList = ({ title, list }) => {
     const scrollRef = useRef(null);
@@ -15,6 +15,8 @@ const CardList = ({ title, list }) => {
         if (!el) return;
 
         targetScrollRef.current = el.scrollLeft;
+
+        const isDesktopInput = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
         const animateScroll = () => {
             const distance = targetScrollRef.current - el.scrollLeft;
@@ -30,6 +32,8 @@ const CardList = ({ title, list }) => {
         };
 
         const handleWheel = (e) => {
+            if (!isDesktopInput) return;
+
             e.preventDefault();
 
             const horizontalDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;

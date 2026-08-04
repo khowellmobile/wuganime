@@ -76,7 +76,7 @@ const SearchPage = () => {
                     </div>
                 </div>
             </div>
-            {renderResults()}
+            <div className={classes.resultsWrapper}>{renderResults()}</div>
         </div>
     );
 };
