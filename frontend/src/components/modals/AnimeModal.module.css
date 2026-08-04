@@ -98,6 +98,58 @@
     gap: 0.25rem;
 }
 
+.counterLabel {
+    font-size: var(--small-font-size);
+    margin-top: 0.5rem; /* For consistent spacing w/ dropdown */
+}
+
+.episodeCounter {
+    width: 7rem;
+    height: 2rem;
+
+    background-color: var(--secondary-background-color);
+    border-radius: 0.25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.episodeCounter > p {
+    padding: 0.25rem 0.5rem;
+
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.episodeCounter > div {
+    height: 100%;
+    padding: 0.25rem;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.episodeCounter > div:hover {
+    background-color: var(--hover-color);
+}
+
+.episodeCounter > div:first-child > img {
+    transform: rotate(90deg);
+}
+
+.episodeCounter > div:last-child > img {
+    transform: rotate(-90deg);
+}
+
+.chev {
+    width: 1rem;
+    height: 1rem;
+}
+
 .descDiv {
     width: 100%;
     height: 100%;

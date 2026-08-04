@@ -6,6 +6,7 @@ import { useUserAnime } from "../../hooks/useUserAnime";
 import Tag from "../utilities/Tag";
 import Dropdown from "../utilities/Dropdown";
 import exitIcon from "../../assets/cancel-icon.svg";
+import chevDown from "../../assets/chevron-down-icon-white.svg";
 import NoImageDisplay from "../misc/NoImageDisplay";
 
 const ANIME_STATUS_OPTIONS = [
@@ -46,8 +47,6 @@ const AnimeModal = ({ anime, closeModal }) => {
         setHasImageError(false);
     }, [anime]);
 
-    /* console.log(anime); */
-
     return (
         <div className={classes.modalOverlay} onClick={closeModal}>
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
@@ -75,7 +74,18 @@ const AnimeModal = ({ anime, closeModal }) => {
                                 onSelect={changeLabel}
                                 label={VALUES_TO_LABELS[activeStatus]}
                             />
-                            <p>{anime?.episodes_watched}</p>
+                            <p className={classes.counterLabel}>Episodes Watched:</p>
+                            <div className={classes.episodeCounter}>
+                                <div>
+                                    <img className={classes.chev} src={chevDown} />
+                                </div>
+                                <p>
+                                    {anime?.episodes_watched} / {anime?.episodes}
+                                </p>
+                                <div>
+                                    <img className={classes.chev} src={chevDown} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={classes.descDiv}>
