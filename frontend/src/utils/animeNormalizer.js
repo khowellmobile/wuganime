@@ -18,6 +18,7 @@ export function normalizeAnime(rawAnime) {
         ...sourceAnime,
         id: animeId,
         user_status: sourceAnime.user_status ?? rawAnime.status ?? UNCATEGORIZED_STATUS,
+        episodes_watched: rawAnime.episodes_watched ?? sourceAnime.episodes_watched ?? 0,
     };
 }
 

@@ -31,25 +31,37 @@ class AnimeSerializer(serializers.ModelSerializer):
 
 class AnimeWithUserStatusSerializer(AnimeSerializer):
     user_status = serializers.SerializerMethodField()
+    episodes_watched = serializers.SerializerMethodField()
 
     class Meta(AnimeSerializer.Meta):
-        fields = AnimeSerializer.Meta.fields + ["user_status"]
+        fields = AnimeSerializer.Meta.fields + ["user_status", "episodes_watched"]
 
-    def get_user_status(self, obj):
+    def _get_user_relation(self, obj):
         request = self.context.get("request")
         if not request or not request.user.is_authenticated:
-            return "UNCATEGORIZED"
+            return None
 
         prefetched = getattr(obj, "request_user_relations", None)
         if prefetched is not None:
-            if not prefetched:
-                return "UNCATEGORIZED"
-            return prefetched[0].status or "UNCATEGORIZED"
+            return prefetched[0] if prefetched else None
 
-        relation = UserAnime.objects.filter(user=request.user, anime=obj).only("status").first()
+        return (
+            UserAnime.objects.filter(user=request.user, anime=obj)
+            .only("status", "episodes_watched")
+            .first()
+        )
+
+    def get_user_status(self, obj):
+        relation = self._get_user_relation(obj)
         if relation is None:
             return "UNCATEGORIZED"
         return relation.status or "UNCATEGORIZED"
+
+    def get_episodes_watched(self, obj):
+        relation = self._get_user_relation(obj)
+        if relation is None:
+            return 0
+        return relation.episodes_watched
 
 
 class UserAnimeSerializer(serializers.ModelSerializer):
@@ -72,7 +84,7 @@ class UserAnimeSerializer(serializers.ModelSerializer):
 class UserAnimeStatusMutationSerializer(serializers.Serializer):
     anime = serializers.PrimaryKeyRelatedField(queryset=Anime.objects.all())
     status = serializers.ChoiceField(
-        choices=[*UserAnime.UserStatus.values, "UNCATEGORIZED"]
+        choices=[*UserAnime.UserStatus.values, "UNCATEGORIZED"], required=False
     )
     episodes_watched = serializers.IntegerField(required=False, min_value=0)
     score = serializers.IntegerField(required=False, min_value=0, allow_null=True)

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../hooks/UseAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 import classes from "./Dropdown.module.css";
 

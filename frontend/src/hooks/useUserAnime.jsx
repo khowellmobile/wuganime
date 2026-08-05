@@ -31,27 +31,26 @@ export function useUserAnime() {
         });
     };
 
-    const setStatus = async (animeId, status, extraData = {}) => {
+    const updateUserAnime = async (animeId, data) => {
         let response;
         try {
-            response = await api.post("/api/user-anime/set-status/", {
+            response = await api.post("/api/user-anime/update-useranime/", {
                 anime: animeId,
-                status,
-                ...extraData,
+                ...data,
             });
         } catch (err) {
-            console.error("Failed to update status", err);
-            return { success: false, message: "Status Change Failed" };
+            console.error("Failed to update UserAnime", err);
+            return { success: false, message: "UserAnime Change Failed" };
         }
 
         try {
             await mutate();
         } catch (err) {
-            console.warn("Status saved but list refresh failed", err);
+            console.warn("UserAnime saved but list refresh failed", err);
         }
 
-        return { success: true, message: "Status Change Successful", status: response.status };
+        return { success: true, message: "UserAnime Change Successful", anime_status: response.status };
     };
 
-    return { getAnime, userAnime, mutate, setStatus, getUserAnimesByStatus, getUserAnimeSortedByStatus };
+    return { getAnime, userAnime, mutate, updateUserAnime, getUserAnimesByStatus, getUserAnimeSortedByStatus };
 }
