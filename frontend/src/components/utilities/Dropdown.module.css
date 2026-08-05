@@ -1,6 +1,5 @@
 .mainContainer {
     width: 12rem;
-    height: 2rem;
 
     user-select: none;
     cursor: pointer;
@@ -96,5 +95,28 @@
 @media (max-width: 768px) {
     .mainContainer:hover {
         box-shadow: none;
+    }
+
+    .display {
+        height: 3rem;
+    }
+
+    .display > p {
+        font-size: 0.8rem;
+    }
+
+    .arrow {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .dropdownContent {
+        top: 3.25rem;
+    }
+
+    .dropdownContent > p {
+        padding: 0.75rem 0.5rem;
+
+        font-size: 0.8rem;
     }
 }
