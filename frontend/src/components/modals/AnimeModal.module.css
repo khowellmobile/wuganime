@@ -226,7 +226,7 @@
     .picture {
         width: 100%;
         height: auto;
-        max-height: 45vh;
+        max-height: 40vh;
         margin-bottom: 1rem;
         display: flex;
         justify-content: center;
@@ -252,7 +252,7 @@
     }
 
     .episodeCounter {
-        width: 10rem;
+        width: 12rem;
         height: 3rem;
     }
 
