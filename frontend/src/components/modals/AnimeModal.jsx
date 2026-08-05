@@ -28,16 +28,16 @@ const VALUES_TO_LABELS = {
 };
 
 const AnimeModal = ({ anime, closeModal }) => {
-    const { setStatus } = useUserAnime();
+    const { updateUserAnime } = useUserAnime();
 
     const [activeStatus, setActiveStatus] = useState(anime?.user_status ?? "UNCATEGORIZED");
     const [hasImageError, setHasImageError] = useState(false);
 
     const changeLabel = async (option) => {
         if (activeStatus !== option.value) {
-            const res = await setStatus(anime.id, option.value);
+            const res = await updateUserAnime(anime.id, { status: option.value });
             if (res.success) {
-                setActiveStatus(res?.status);
+                setActiveStatus(res?.anime_status);
             }
         }
     };

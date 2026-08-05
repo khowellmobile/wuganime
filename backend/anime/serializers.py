@@ -84,7 +84,7 @@ class UserAnimeSerializer(serializers.ModelSerializer):
 class UserAnimeStatusMutationSerializer(serializers.Serializer):
     anime = serializers.PrimaryKeyRelatedField(queryset=Anime.objects.all())
     status = serializers.ChoiceField(
-        choices=[*UserAnime.UserStatus.values, "UNCATEGORIZED"]
+        choices=[*UserAnime.UserStatus.values, "UNCATEGORIZED"], required=False
     )
     episodes_watched = serializers.IntegerField(required=False, min_value=0)
     score = serializers.IntegerField(required=False, min_value=0, allow_null=True)

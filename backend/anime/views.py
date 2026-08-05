@@ -100,39 +100,68 @@ class UserAnimeViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    @action(detail=False, methods=["post"], url_path="set-status")
-    def set_status(self, request):
+    @action(detail=False, methods=["post"], url_path="update-useranime")
+    def update_useranime(self, request):
         serializer = UserAnimeStatusMutationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         anime = serializer.validated_data["anime"]
-        desired_status = serializer.validated_data["status"]
+        desired_status = serializer.validated_data.get("status")
 
+        user_anime = UserAnime.objects.filter(
+            user=request.user,
+            anime=anime,
+        ).first()
+
+        """ Remove the UserAnime record if the desired status is UNCATEGORIZED. """
         if desired_status == "UNCATEGORIZED":
-            deleted_count, _ = UserAnime.objects.filter(
-                user=request.user, anime=anime
-            ).delete()
+            if user_anime:
+                user_anime.delete()
+
             return Response(
                 {
                     "anime": anime.id,
                     "status": "UNCATEGORIZED",
-                    "deleted": bool(deleted_count),
+                    "deleted": bool(user_anime),
                 },
                 status=status.HTTP_200_OK,
             )
 
-        defaults = {"status": desired_status}
+        """ Update or create the UserAnime record with the provided fields. """
+        updates = {}
+        if "status" in serializer.validated_data:
+            updates["status"] = serializer.validated_data["status"]
         if "episodes_watched" in serializer.validated_data:
-            defaults["episodes_watched"] = serializer.validated_data["episodes_watched"]
+            updates["episodes_watched"] = serializer.validated_data["episodes_watched"]
         if "score" in serializer.validated_data:
-            defaults["score"] = serializer.validated_data["score"]
+            updates["score"] = serializer.validated_data["score"]
 
-        with transaction.atomic():
-            user_anime, created = UserAnime.objects.update_or_create(
+        if not updates:
+            return Response(
+                {"detail": "No fields to update."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if user_anime is None:
+            if "status" not in updates:
+                return Response(
+                    {
+                        "detail": "A non-UNCATEGORIZED status is required to create a record."
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            user_anime = UserAnime.objects.create(
                 user=request.user,
                 anime=anime,
-                defaults=defaults,
+                **updates,
             )
+            created = True
+        else:
+            for field, value in updates.items():
+                setattr(user_anime, field, value)
+            user_anime.save()
+            created = False
 
         response_serializer = self.get_serializer(user_anime)
         return Response(
