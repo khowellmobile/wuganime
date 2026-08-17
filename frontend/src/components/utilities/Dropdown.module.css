@@ -120,3 +120,10 @@
         font-size: 0.8rem;
     }
 }
+
+@media (max-height: 850px) {
+    .dropdownContent {
+        height: 25dvh;
+        overflow-y: scroll;
+    }
+}
