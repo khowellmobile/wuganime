@@ -136,4 +136,8 @@
         height: calc(100dvh - 5rem);
         right: 0;
     }
+
+    .option {
+        height: 3rem;
+    }
 }

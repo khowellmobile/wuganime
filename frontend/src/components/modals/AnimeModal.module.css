@@ -257,7 +257,7 @@
     }
 
     .episodeCounter > p {
-        font-size: var(--base-font-size);
+        font-size: 0.9rem;
     }
 
     .episodeCounter > div {
