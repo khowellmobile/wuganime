@@ -1,0 +1,156 @@
+.mainContainer {
+    width: 100%;
+    height: calc(100% - 5rem);
+
+    background-color: var(--background-color);
+    overflow-y: auto;
+
+    position: absolute;
+    z-index: 5;
+    top: 5rem;
+}
+
+.mainContainer > div {
+    border-bottom: 1px solid var(--secondary-background-color);
+}
+
+.toolBar {
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.exit {
+    height: 3rem;
+    width: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+    position: relative;
+    left: 3px;
+}
+
+.exit > img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.genInfo {
+    width: 100%;
+    padding: 1rem;
+
+    display: flex;
+}
+
+.picture {
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+}
+
+.picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+.info {
+    margin-left: 1rem;
+}
+
+.info > h2 {
+    font-size: var(--header-font-size);
+    font-weight: 400;
+}
+
+.info > p {
+    font-size: 0.9rem;
+}
+
+.tagsContainer {
+    width: 100%;
+    padding: 1rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.status {
+    width: 100%;
+    padding: 1rem;
+}
+
+.episodeCounter {
+    width: 50%;
+    height: 3rem;
+    margin-top: 0.5rem;
+
+    background-color: var(--secondary-background-color);
+    border-radius: 0.25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.episodeCounter > p {
+    padding: 0.25rem 0.5rem;
+
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.episodeCounter > div {
+    height: 100%;
+    width: 3rem;
+    padding: 0.25rem;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.episodeCounter > div:active {
+    background-color: var(--hover-color);
+}
+
+.episodeCounter > div:first-child > img {
+    transform: rotate(90deg);
+}
+
+.episodeCounter > div:last-child > img {
+    transform: rotate(-90deg);
+}
+
+.chev {
+    width: 1rem;
+    height: 1rem;
+}
+
+.synopsis {
+    width: 100%;
+    padding: 1rem;
+}
+
+.synopsis > h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.synopsis > p {
+    font-size: 1rem;
+}

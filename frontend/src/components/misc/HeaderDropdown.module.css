@@ -33,7 +33,7 @@
     z-index: 11;
 }
 
-.top:hover {
+.top:active {
     background-color: var(--secondary-background-color);
 }
 

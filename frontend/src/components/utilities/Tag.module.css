@@ -28,11 +28,10 @@
 
 @media (max-width: 768px) {
     .tag {
-        height: 0.5rem;
-        padding: 0.5rem 0.2rem;
+        padding: 0.5rem 0.5rem;
     }
 
     .tag p {
-        font-size: 0.5rem;
+        font-size: 0.7rem;
     }
 }
