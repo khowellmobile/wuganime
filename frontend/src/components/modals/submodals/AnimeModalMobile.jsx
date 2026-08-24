@@ -4,7 +4,6 @@ import { useAnimeModalState } from "../../../hooks/useAnimeModalState";
 import Tag from "../../utilities/Tag";
 import Dropdown from "../../utilities/Dropdown";
 import NoImageDisplay from "../../misc/NoImageDisplay";
-import exitIcon from "../../../assets/cancel-icon.svg";
 import chevDown from "../../../assets/chevron-down-icon-white.svg";
 
 const ANIME_STATUS_OPTIONS = [
@@ -31,6 +30,11 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
 
     return (
         <div className={classes.mainContainer}>
+            <div className={classes.toolBar}>
+                <div className={classes.exit} onClick={closeModal}>
+                    <img src={chevDown} />
+                </div>
+            </div>
             <div className={classes.genInfo}>
                 <div className={classes.picture}>
                     {!hasImageError && anime?.image_url ? (
@@ -41,7 +45,7 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
                 </div>
                 <div className={classes.info}>
                     <h2>{anime?.title}</h2>
-                    <p>Episdoes: {anime?.episodes}</p>
+                    {anime?.episodes && <p>Episdoes: {anime?.episodes}</p>}
                 </div>
             </div>
             <div className={classes.tagsContainer}>
@@ -55,17 +59,19 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
                     onSelect={changeLabel}
                     label={VALUES_TO_LABELS[activeStatus]}
                 />
-                <div className={classes.episodeCounter}>
-                    <div onClick={() => changeEpisodesWatched(episodesWatched - 1)}>
-                        <img className={classes.chev} src={chevDown} />
+                {anime?.episodes && (
+                    <div className={classes.episodeCounter}>
+                        <div onClick={() => changeEpisodesWatched(episodesWatched - 1)}>
+                            <img className={classes.chev} src={chevDown} />
+                        </div>
+                        <p>
+                            {episodesWatched} / {anime?.episodes}
+                        </p>
+                        <div onClick={() => changeEpisodesWatched(episodesWatched + 1)}>
+                            <img className={classes.chev} src={chevDown} />
+                        </div>
                     </div>
-                    <p>
-                        {episodesWatched} / {anime?.episodes}
-                    </p>
-                    <div onClick={() => changeEpisodesWatched(episodesWatched + 1)}>
-                        <img className={classes.chev} src={chevDown} />
-                    </div>
-                </div>
+                )}
             </div>
             <div className={classes.synopsis}>
                 <h2>Description</h2>

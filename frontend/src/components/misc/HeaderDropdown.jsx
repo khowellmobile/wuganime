@@ -7,7 +7,7 @@ import settingsIcon from "../../assets/settings-icon.svg";
 import listsIcon from "../../assets/pen-icon.svg";
 import statsIcon from "../../assets/light-notification-icon.svg";
 import logoutIcon from "../../assets/arrow-left-icon.svg";
-import { useAuth } from "../../hooks/UseAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 const optionList = [
     { name: "Lists", icon: listsIcon, route: "/app/lists" },
@@ -15,10 +15,6 @@ const optionList = [
     { name: "Settings", icon: settingsIcon, route: "/app/settings" },
     { name: "Logout", icon: logoutIcon, route: "/" },
 ];
-
-const navigationOptionList = [
-    
-]
 
 const HeaderDropdown = (variant = "") => {
     const navigate = useNavigate();

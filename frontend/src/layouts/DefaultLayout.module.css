@@ -27,4 +27,16 @@
 .bottomContainer {
     height: 5rem;
     width: 100%;
+
+    background-color: var(--background-color);
+}
+
+@media (max-width: 768px) {
+    .midContainer {
+        height: calc(100vh - 6rem);
+    }
+
+    .bottomContainer {
+        display: none;
+    }
 }

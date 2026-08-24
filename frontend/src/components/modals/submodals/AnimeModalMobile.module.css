@@ -1,17 +1,42 @@
 .mainContainer {
     width: 100%;
-    height: calc(100% - 10rem);
+    height: calc(100% - 5rem);
 
     background-color: var(--background-color);
     overflow-y: auto;
 
     position: absolute;
-    z-index: 100;
+    z-index: 5;
     top: 5rem;
 }
 
 .mainContainer > div {
     border-bottom: 1px solid var(--secondary-background-color);
+}
+
+.toolBar {
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.exit {
+    height: 3rem;
+    width: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+    position: relative;
+    left: 3px;
+}
+
+.exit > img {
+    width: 2rem;
+    height: 2rem;
 }
 
 .genInfo {
@@ -23,7 +48,7 @@
 
 .picture {
     height: 100%;
-    width: 30%;
+    width: 40%;
     overflow: hidden;
 }
 
