@@ -133,7 +133,7 @@
 @media (max-width: 768px) {
     .dropdownContent {
         width: 100vw;
-        height: calc(100dvh - 5rem);
+        height: calc(100dvh - 5rem + 1px);
         right: 0;
     }
 
