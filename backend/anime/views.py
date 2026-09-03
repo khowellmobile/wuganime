@@ -236,9 +236,7 @@ class LibraryViewSet(viewsets.ViewSet):
 
         if search_term:
             queryset = queryset.filter(
-                Q(title__icontains=search_term)
-                | Q(synopsis__icontains=search_term)
-                | Q(synopsis__icontains=search_term)
+                Q(title__icontains=search_term) | Q(synopsis__icontains=search_term)
             )
 
         return queryset

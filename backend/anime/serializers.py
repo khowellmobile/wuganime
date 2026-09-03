@@ -97,7 +97,13 @@ class UserAnimeStatusMutationSerializer(serializers.Serializer):
 
 class CustomAnimeSerializer(serializers.ModelSerializer):
     is_custom = serializers.BooleanField(default=True, read_only=True)
-    user_status = serializers.CharField(source="status")
+    user_status = serializers.ChoiceField(
+        source="status",
+        choices=CustomAnime.UserStatus.choices,
+        required=False,
+        allow_null=True,
+    )
+    is_deleted = serializers.BooleanField(default=False, read_only=True)
 
     class Meta:
         model = CustomAnime
