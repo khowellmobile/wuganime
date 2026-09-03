@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Anime, UserAnime, Tag
+from .models import Anime, UserAnime, Tag, CustomAnime
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -32,9 +32,14 @@ class AnimeSerializer(serializers.ModelSerializer):
 class AnimeWithUserStatusSerializer(AnimeSerializer):
     user_status = serializers.SerializerMethodField()
     episodes_watched = serializers.SerializerMethodField()
+    is_custom = serializers.BooleanField(default=False, read_only=True)
 
     class Meta(AnimeSerializer.Meta):
-        fields = AnimeSerializer.Meta.fields + ["user_status", "episodes_watched"]
+        fields = AnimeSerializer.Meta.fields + [
+            "user_status",
+            "episodes_watched",
+            "is_custom",
+        ]
 
     def _get_user_relation(self, obj):
         request = self.context.get("request")
@@ -88,3 +93,24 @@ class UserAnimeStatusMutationSerializer(serializers.Serializer):
     )
     episodes_watched = serializers.IntegerField(required=False, min_value=0)
     score = serializers.IntegerField(required=False, min_value=0, allow_null=True)
+
+
+class CustomAnimeSerializer(serializers.ModelSerializer):
+    is_custom = serializers.BooleanField(default=True, read_only=True)
+    user_status = serializers.CharField(source="status")
+
+    class Meta:
+        model = CustomAnime
+        fields = [
+            "id",
+            "title",
+            "synopsis",
+            "type",
+            "episodes",
+            "user_status",
+            "episodes_watched",
+            "is_custom",
+            "is_deleted",
+            "created_at",
+            "updated_at",
+        ]
