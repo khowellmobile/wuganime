@@ -26,13 +26,17 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
     Users can list all anime or retrieve a single one.
     """
 
-    queryset = Anime.objects.all().prefetch_related("tags")
+    queryset = Anime.objects.filter(is_deleted=False).prefetch_related("tags")
     serializer_class = AnimeSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     pagination_class = AnimePagination
 
     def get_queryset(self):
-        queryset = Anime.objects.all().prefetch_related("tags").order_by("id")
+        queryset = (
+            Anime.objects.filter(is_deleted=False)
+            .prefetch_related("tags")
+            .order_by("id")
+        )
         user = self.request.user
 
         search_term = self.request.query_params.get("search")
@@ -202,7 +206,11 @@ class LibraryViewSet(viewsets.ViewSet):
     pagination_class = AnimePagination
 
     def _get_anime_queryset(self, request, search_term):
-        queryset = Anime.objects.all().prefetch_related("tags").order_by("id")
+        queryset = (
+            Anime.objects.filter(is_deleted=False)
+            .prefetch_related("tags")
+            .order_by("id")
+        )
 
         if search_term:
             search_query = (
