@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import classes from "./SearchPage.module.css";
 
 import { useFetchLibrary } from "../hooks/useFetchLibrary";
-import Dropdown from "../components/utilities/Dropdown";
+import Button from "../components/utilities/Button";
 import SearchBox from "../components/utilities/SearchBox";
 import AnimeCard from "../components/cards/AnimeCard";
 
@@ -18,10 +18,7 @@ const SearchPage = () => {
 
     const shouldSearch = useMemo(() => debouncedTerm.trim().length > 0, [debouncedTerm]);
 
-    const {
-        libraryList,
-        isLoading,
-    } = useFetchLibrary({
+    const { libraryList, isLoading } = useFetchLibrary({
         searchTerm: debouncedTerm,
         statusFilter: filters.status.value,
         tags: filters.tags.value ? [filters.tags.value] : [],
@@ -79,38 +76,23 @@ const SearchPage = () => {
         if (hasSettledQuery) {
             return (
                 <div className={classes.noResDisplay}>
-                    <p>We couldn't find any anime matching that name.</p>
+                    <p>We couldn't find any anime matching that query.</p>
+                    <Button text={"Add Custom Anime"} onClick={() => {}} />
                 </div>
             );
         }
 
         return (
             <div className={classes.noResDisplay}>
-                        <p>Find your next watch. Search for animes above.</p>
+                <p>Find your next watch. Search for animes above.</p>
             </div>
         );
     };
 
     return (
         <div className={classes.mainContainer}>
-            <div className={classes.tools}>
+            <div className={classes.toolBar}>
                 <SearchBox onChange={onSearchChange} customStyle={{ fontSize: "0.8rem" }} placeholder={"Search"} />
-                <div className={classes.filters}>
-                    <p>Filter By:</p>
-
-                    <div className={classes.filter}>
-                        <p>Status</p>
-                        <Dropdown
-                            options={statusOptions}
-                            onSelect={onFilterSelect("status")}
-                            label={filters.status.label}
-                        />
-                    </div>
-                    <div className={classes.filter}>
-                        <p>Tag</p>
-                        <Dropdown options={tagOptions} onSelect={onFilterSelect("tags")} label={filters.tags.label} />
-                    </div>
-                </div>
             </div>
             <div className={classes.resultsWrapper}>{renderResults()}</div>
         </div>
