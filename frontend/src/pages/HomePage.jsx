@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import CardList from "../components/misc/CardList";
-import { useFetchAnime } from "../hooks/useFetchAnime";
+import { useFetchLibrary } from "../hooks/useFetchLibrary";
 import { useUserAnime } from "../hooks/useUserAnime";
 import classes from "./HomePage.module.css";
 
@@ -8,20 +7,14 @@ const HomePage = () => {
     const { userAnime } = useUserAnime();
 
     const {
-        animeList: animeList1,
-        isLoading: isLoading1,
-        refreshAnime: refreshAnime1,
-    } = useFetchAnime({ tags: ["Drama"] });
+        libraryList: animeList1,
+    } = useFetchLibrary({ tags: ["Drama"] });
     const {
-        animeList: animeList2,
-        isLoading: isLoading2,
-        refreshAnime: refreshAnime2,
-    } = useFetchAnime({ tags: ["Adventure"] });
+        libraryList: animeList2,
+    } = useFetchLibrary({ tags: ["Adventure"] });
     const {
-        animeList: animeList3,
-        isLoading: isLoading3,
-        refreshAnime: refreshAnime3,
-    } = useFetchAnime({ tags: ["Action"] });
+        libraryList: animeList3,
+    } = useFetchLibrary({ tags: ["Action"] });
 
     return (
         <div className={classes.mainContainer}>

@@ -9,20 +9,20 @@ import DefaultLayout from "./layouts/DefaultLayout";
 
 import { AuthCtxProvider } from "./contexts/AuthCtx";
 import { ModalCtxProvider } from "./contexts/ModalCtx";
-import { AnimeCtxProvider } from "./contexts/AnimeCtx";
+import { LibraryCtxProvider } from "./contexts/LibraryCtx";
 
 function App() {
     return (
         <>
             <AuthCtxProvider>
-                <AnimeCtxProvider>
+                <LibraryCtxProvider>
                     <ModalCtxProvider>
                         <Routes>
                             <Route path="/" element={<SplashPage />} />
                             <Route path="/app/*" element={<AuthenticatedApp />} />
                         </Routes>
                     </ModalCtxProvider>
-                </AnimeCtxProvider>
+                </LibraryCtxProvider>
             </AuthCtxProvider>
         </>
     );
