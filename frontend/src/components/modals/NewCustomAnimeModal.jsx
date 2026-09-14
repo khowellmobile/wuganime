@@ -60,7 +60,7 @@ const NewCustomAnimeModal = ({ closeModal }) => {
             synopsis: inputFields.synopsis || undefined,
             episodes: inputFields.episodes === "" ? undefined : Number(inputFields.episodes),
             episodes_watched: inputFields.episodes_watched === "" ? undefined : Number(inputFields.episodes_watched),
-            user_status: inputFields.user_status === "UNCATEGORIZED" ? undefined : inputFields.status,
+            user_status: inputFields.user_status === "UNCATEGORIZED" ? undefined : inputFields.user_status,
         };
 
         const result = await addCustomAnime(fields);

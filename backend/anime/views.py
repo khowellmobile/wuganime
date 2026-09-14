@@ -255,6 +255,9 @@ class LibraryViewSet(viewsets.ViewSet):
         anime_qs = self._get_anime_queryset(request, search_term)
         custom_qs = self._get_custom_anime_queryset(request, search_term)
 
+        if request.query_params.getlist("tags"):
+            custom_qs = custom_qs.none()
+
         user_status_filter = request.query_params.get("user_status")
         if user_status_filter:
             if user_status_filter not in UserAnime.UserStatus.values:
