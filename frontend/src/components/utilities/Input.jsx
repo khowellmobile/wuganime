@@ -67,7 +67,7 @@ const Input = ({ type, name, value, onChange, customStyle, placeholder, isOption
 
     return (
         <input
-            type="text"
+            type={type}
             name={name}
             className={`${classes.input} ${warnUser && classes.warn}`}
             value={unescapeHTML(value)}

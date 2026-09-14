@@ -2,13 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import classes from "./SearchPage.module.css";
 
 import { useFetchLibrary } from "../hooks/useFetchLibrary";
+import { useModal } from "../contexts/ModalCtx";
 import Button from "../components/utilities/Button";
 import SearchBox from "../components/utilities/SearchBox";
 import AnimeCard from "../components/cards/AnimeCard";
+import NewCustomAnimeModal from "../components/modals/NewCustomAnimeModal";
 
 import loadingIcon from "../assets/loading-icon.svg";
 
 const SearchPage = () => {
+    const { showModal } = useModal();
+
     const [searchTerm, setSearchTerm] = useState("");
     const [debouncedTerm, setDebouncedTerm] = useState("");
     const [filters, setFilters] = useState({
@@ -30,23 +34,10 @@ const SearchPage = () => {
     const showLoading = trimmedSearch.length > 0 && (trimmedSearch !== trimmedDebounced || isLoading);
     const hasSettledQuery = trimmedDebounced.length > 0;
 
-    const statusOptions = [
-        { label: "Watching", value: "WATCHING" },
-        { label: "Up Next", value: "UP_NEXT" },
-        { label: "To Watch", value: "TO_WATCH" },
-        { label: "Watched", value: "WATCHED" },
-        { label: "Did Not Finish", value: "DNF" },
-        { label: "None", value: "" },
-    ];
-    const tagOptions = [
-        { label: "Action", value: "Action" },
-        { label: "Drama", value: "Drama" },
-        { label: "None", value: "" },
-    ];
-
     const onSearchChange = (event) => setSearchTerm(event.target.value);
-    const onFilterSelect = (filterKey) => (option) => {
-        setFilters((previous) => ({ ...previous, [filterKey]: option }));
+
+    const handleClick = () => {
+        showModal(NewCustomAnimeModal);
     };
 
     useEffect(() => {
@@ -77,7 +68,7 @@ const SearchPage = () => {
             return (
                 <div className={classes.noResDisplay}>
                     <p>We couldn't find any anime matching that query.</p>
-                    <Button text={"Add Custom Anime"} onClick={() => {}} />
+                    <Button text={"Add Custom Anime"} onClick={handleClick} />
                 </div>
             );
         }
