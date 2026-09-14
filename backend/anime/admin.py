@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Anime, UserAnime, Tag
+from .models import Anime, UserAnime, Tag, CustomAnime
 
 
 # Register your models here.
@@ -42,3 +42,20 @@ class UserAnimeAdmin(admin.ModelAdmin):
     )
     search_fields = ("user__username", "anime__title")
     list_filter = ("status", "score")
+
+
+@admin.register(CustomAnime)
+class CustomAnimeAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "title",
+        "type",
+        "status",
+        "episodes_watched",
+        "episodes",
+        "score",
+        "is_deleted",
+        "created_at",
+    )
+    search_fields = ("user__username", "title")
+    list_filter = ("status", "type", "is_deleted")
