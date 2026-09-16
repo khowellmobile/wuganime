@@ -255,6 +255,7 @@ class LibraryViewSet(viewsets.ViewSet):
         anime_qs = self._get_anime_queryset(request, search_term)
         custom_qs = self._get_custom_anime_queryset(request, search_term)
 
+        """Filter out custom anime if any tags are specified."""
         if request.query_params.getlist("tags"):
             custom_qs = custom_qs.none()
 

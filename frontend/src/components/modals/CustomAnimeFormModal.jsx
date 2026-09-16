@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-import classes from "./NewCustomAnimeModal.module.css";
+import classes from "./CustomAnimeFormModal.module.css";
 
 import { useCustomAnime } from "../../hooks/useCustomAnime";
+import { useModal } from "../../contexts/ModalCtx";
+import AnimeModal from "./AnimeModal";
 import Input from "../utilities/Input";
 import Dropdown from "../utilities/Dropdown";
 import Button from "../utilities/Button";
@@ -25,8 +27,9 @@ const VALUES_TO_LABELS = {
     null: "Uncategorized",
 };
 
-const NewCustomAnimeModal = ({ closeModal }) => {
+const CustomAnimeFormModal = ({ closeModal, anime }) => {
     const { addCustomAnime } = useCustomAnime();
+    const { showModal } = useModal();
 
     const [errTxt, setErrTxt] = useState("");
     const [inputFields, setInputFields] = useState({
@@ -68,7 +71,9 @@ const NewCustomAnimeModal = ({ closeModal }) => {
             setErrTxt(result.message);
             return;
         }
-        closeModal();
+
+        // Current modal is replaced by new modal
+        showModal(AnimeModal, { anime: result?.anime });
     };
 
     return (
@@ -139,4 +144,4 @@ const NewCustomAnimeModal = ({ closeModal }) => {
     );
 };
 
-export default NewCustomAnimeModal;
+export default CustomAnimeFormModal;

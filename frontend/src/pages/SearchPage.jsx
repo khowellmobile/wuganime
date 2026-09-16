@@ -6,7 +6,7 @@ import { useModal } from "../contexts/ModalCtx";
 import Button from "../components/utilities/Button";
 import SearchBox from "../components/utilities/SearchBox";
 import AnimeCard from "../components/cards/AnimeCard";
-import NewCustomAnimeModal from "../components/modals/NewCustomAnimeModal";
+import CustomAnimeFormModal from "../components/modals/CustomAnimeFormModal";
 
 import loadingIcon from "../assets/loading-icon.svg";
 
@@ -37,7 +37,7 @@ const SearchPage = () => {
     const onSearchChange = (event) => setSearchTerm(event.target.value);
 
     const handleClick = () => {
-        showModal(NewCustomAnimeModal);
+        showModal(CustomAnimeFormModal);
     };
 
     useEffect(() => {
