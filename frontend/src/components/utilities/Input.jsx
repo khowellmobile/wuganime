@@ -25,13 +25,12 @@ const Input = ({ type, name, value, onChange, customStyle, placeholder, isOption
         const phoneRegex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
         const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
+        const normalizedValue = value == null ? "" : String(value);
+
         let isValid = true;
-        if (!value || value.trim().length === 0) {
-            if (isOptional) {
-                isValid = true;
-            } else {
-                isValid = false;
-            }
+
+        if (normalizedValue.trim().length === 0) {
+            isValid = isOptional;
         } else {
             switch (type) {
                 case "number":

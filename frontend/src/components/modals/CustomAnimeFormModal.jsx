@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import classes from "./CustomAnimeFormModal.module.css";
 
-import { useCustomAnime } from "../../hooks/useCustomAnime";
+import { useAnimeMutations } from "../../hooks/useAnimeMutations";
 import { useModal } from "../../contexts/ModalCtx";
 import AnimeModal from "./AnimeModal";
 import Input from "../utilities/Input";
@@ -28,7 +28,7 @@ const VALUES_TO_LABELS = {
 };
 
 const CustomAnimeFormModal = ({ closeModal, anime }) => {
-    const { addCustomAnime } = useCustomAnime();
+    const { addCustomAnime, updateCustomAnime } = useAnimeMutations();
     const { showModal } = useModal();
 
     const [errTxt, setErrTxt] = useState("");
@@ -39,6 +39,14 @@ const CustomAnimeFormModal = ({ closeModal, anime }) => {
         episodes_watched: "",
         synopsis: "",
     });
+
+    const isAdd = anime ? false : true;
+
+    useEffect(() => {
+        if (anime) {
+            setInputFields(anime);
+        }
+    }, [anime]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -60,13 +68,19 @@ const CustomAnimeFormModal = ({ closeModal, anime }) => {
 
         const fields = {
             title: inputFields.title.trim(),
-            synopsis: inputFields.synopsis || undefined,
-            episodes: inputFields.episodes === "" ? undefined : Number(inputFields.episodes),
-            episodes_watched: inputFields.episodes_watched === "" ? undefined : Number(inputFields.episodes_watched),
-            user_status: inputFields.user_status === "UNCATEGORIZED" ? undefined : inputFields.user_status,
+            synopsis: inputFields.synopsis || null,
+            episodes: inputFields.episodes === "" ? null : Number(inputFields.episodes),
+            episodes_watched: inputFields.episodes_watched === "" ? 0 : Number(inputFields.episodes_watched),
+            user_status: inputFields.user_status === "UNCATEGORIZED" ? null : inputFields.user_status,
         };
 
-        const result = await addCustomAnime(fields);
+        const result = isAdd
+            ? await addCustomAnime(fields)
+            : await updateCustomAnime({
+                  id: anime.id,
+                  ...fields,
+              });
+
         if (!result.success) {
             setErrTxt(result.message);
             return;
@@ -124,6 +138,7 @@ const CustomAnimeFormModal = ({ closeModal, anime }) => {
                 <textarea
                     className={classes.description}
                     name={"synopsis"}
+                    value={inputFields?.synopsis}
                     onChange={handleInputChange}
                     placeholder="In a land of green trees and wandering rivers..."
                 ></textarea>

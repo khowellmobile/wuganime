@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useUserAnime } from "./useUserAnime";
+import { useAnimeMutations } from "./useAnimeMutations";
 
 const EPISODE_UPDATE_DEBOUNCE_MS = 400;
 
 export function useAnimeModalState(anime) {
-    const { updateUserAnime } = useUserAnime();
+    const { updateUserAnime, updateCustomAnime } = useAnimeMutations();
     const episodeDebounceRef = useRef(null);
 
     const [activeStatus, setActiveStatus] = useState(anime?.user_status ?? "UNCATEGORIZED");
@@ -38,7 +38,9 @@ export function useAnimeModalState(anime) {
                 payload.status = "WATCHING";
             }
 
-            const res = await updateUserAnime(anime.id, payload);
+            const res = anime.is_custom
+                ? await updateCustomAnime({ id: anime.id, ...payload })
+                : await updateUserAnime(anime.id, payload);
 
             if (!res.success) {
                 setEpisodesWatched(anime?.episodes_watched ?? 0);

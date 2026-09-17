@@ -12,9 +12,6 @@ const HomePage = () => {
     const { libraryList: animeList2 } = useFetchLibrary({ tags: ["Adventure"] });
     const { libraryList: animeList3 } = useFetchLibrary({ tags: ["Action"] });
 
-    console.log(animeList1);
-    console.log(customAnime);
-
     return (
         <div className={classes.mainContainer}>
             <CardList title={"Your List"} list={userAnime} />

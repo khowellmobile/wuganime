@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import { useCallback } from "react";
 
 import { api } from "../Client";
 import { normalizeAnimeList } from "../utils/animeNormalizer";
@@ -8,16 +7,9 @@ import { useAuth } from "./useAuth";
 export function useUserAnime() {
     const { isAuthenticated } = useAuth();
 
-    const { data, mutate, error } = useSWR(isAuthenticated ? ["/api/user-anime/"] : null, ([url]) => api.get(url));
+    const { data, mutate } = useSWR(isAuthenticated ? ["/api/user-anime/"] : null, ([url]) => api.get(url));
 
     const userAnime = normalizeAnimeList(data);
-
-    const getAnime = useCallback(
-        (id) => {
-            return userAnime.find((item) => item.id === id) || null;
-        },
-        [userAnime],
-    );
 
     const getUserAnimesByStatus = (status) => {
         return normalizeAnimeList(userAnime.filter((item) => item.user_status === status));
@@ -31,26 +23,5 @@ export function useUserAnime() {
         });
     };
 
-    const updateUserAnime = async (animeId, data) => {
-        let response;
-        try {
-            response = await api.post("/api/user-anime/update-useranime/", {
-                anime: animeId,
-                ...data,
-            });
-        } catch (err) {
-            console.error("Failed to update UserAnime", err);
-            return { success: false, message: "UserAnime Change Failed" };
-        }
-
-        try {
-            await mutate();
-        } catch (err) {
-            console.warn("UserAnime saved but list refresh failed", err);
-        }
-
-        return { success: true, message: "UserAnime Change Successful", anime_status: response.status };
-    };
-
-    return { getAnime, userAnime, mutate, updateUserAnime, getUserAnimesByStatus, getUserAnimeSortedByStatus };
+    return { userAnime, mutate, getUserAnimesByStatus, getUserAnimeSortedByStatus };
 }

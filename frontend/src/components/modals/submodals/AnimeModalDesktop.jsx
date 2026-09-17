@@ -1,6 +1,7 @@
 import classes from "./AnimeModalDesktop.module.css";
 
 import { useAnimeModalState } from "../../../hooks/useAnimeModalState";
+import { useAnimeLookup } from "../../../hooks/useAnimeLookup";
 import { useModal } from "../../../contexts/ModalCtx";
 import Tag from "../../utilities/Tag";
 import Dropdown from "../../utilities/Dropdown";
@@ -32,9 +33,11 @@ const AnimeModalDesktop = ({ anime, closeModal }) => {
     const { activeStatus, episodesWatched, hasImageError, changeLabel, changeEpisodesWatched } =
         useAnimeModalState(anime);
     const { showModal } = useModal();
+    const { getCustomAnime, getUserAnime } = useAnimeLookup();
 
     const handleClick = () => {
-        showModal(CustomAnimeFormModal);
+        const freshAnime = anime.is_custom ? getCustomAnime(anime.id) : getUserAnime(anime.id);
+        showModal(CustomAnimeFormModal, { anime: freshAnime ?? anime });
     };
 
     return (
