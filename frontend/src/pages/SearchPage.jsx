@@ -1,25 +1,49 @@
+import { useEffect, useMemo, useState } from "react";
 import classes from "./SearchPage.module.css";
 
-import { useAnimeSearch } from "../hooks/useAnimeSearch";
-import Dropdown from "../components/utilities/Dropdown";
+import { useFetchLibrary } from "../hooks/useFetchLibrary";
+import { useModal } from "../contexts/ModalCtx";
+import Button from "../components/utilities/Button";
 import SearchBox from "../components/utilities/SearchBox";
 import AnimeCard from "../components/cards/AnimeCard";
+import CustomAnimeFormModal from "../components/modals/CustomAnimeFormModal";
 
 import loadingIcon from "../assets/loading-icon.svg";
 
 const SearchPage = () => {
-    const {
-        animelist,
-        showLoading,
-        hasSettledQuery,
-        searchTerm,
-        onSearchChange,
-        statusLabel,
-        tagLabel,
-        onFilterSelect,
-        statusOptions,
-        tagOptions,
-    } = useAnimeSearch();
+    const { showModal } = useModal();
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [debouncedTerm, setDebouncedTerm] = useState("");
+    const [filters, setFilters] = useState({
+        status: { label: "None", value: "" },
+        tags: { label: "None", value: "" },
+    });
+
+    const shouldSearch = useMemo(() => debouncedTerm.trim().length > 0, [debouncedTerm]);
+
+    const { libraryList, isLoading } = useFetchLibrary({
+        searchTerm: debouncedTerm,
+        statusFilter: filters.status.value,
+        tags: filters.tags.value ? [filters.tags.value] : [],
+        enabled: shouldSearch,
+    });
+
+    const trimmedSearch = searchTerm.trim();
+    const trimmedDebounced = debouncedTerm.trim();
+    const showLoading = trimmedSearch.length > 0 && (trimmedSearch !== trimmedDebounced || isLoading);
+    const hasSettledQuery = trimmedDebounced.length > 0;
+
+    const onSearchChange = (event) => setSearchTerm(event.target.value);
+
+    const handleClick = () => {
+        showModal(CustomAnimeFormModal);
+    };
+
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedTerm(searchTerm), 500);
+        return () => clearTimeout(handler);
+    }, [searchTerm]);
 
     const renderResults = () => {
         if (showLoading) {
@@ -30,10 +54,10 @@ const SearchPage = () => {
             );
         }
 
-        if (animelist?.length > 0) {
+        if (libraryList?.length > 0) {
             return (
                 <div className={classes.results}>
-                    {animelist.map((value, index) => (
+                    {libraryList.map((value, index) => (
                         <AnimeCard key={`${value.id}-${index}`} anime={value} />
                     ))}
                 </div>
@@ -43,7 +67,8 @@ const SearchPage = () => {
         if (hasSettledQuery) {
             return (
                 <div className={classes.noResDisplay}>
-                    <p>We couldn't find any anime matching that name.</p>
+                    <p>We couldn't find any anime matching that query.</p>
+                    <Button text={"Add Custom Anime"} onClick={handleClick} />
                 </div>
             );
         }
@@ -57,24 +82,8 @@ const SearchPage = () => {
 
     return (
         <div className={classes.mainContainer}>
-            <div className={classes.tools}>
+            <div className={classes.toolBar}>
                 <SearchBox onChange={onSearchChange} customStyle={{ fontSize: "0.8rem" }} placeholder={"Search"} />
-                <div className={classes.filters}>
-                    <p>Filter By:</p>
-
-                    <div className={classes.filter}>
-                        <p>Status</p>
-                        <Dropdown
-                            options={statusOptions}
-                            onSelect={onFilterSelect("status")}
-                            label={statusLabel?.label}
-                        />
-                    </div>
-                    <div className={classes.filter}>
-                        <p>Tag</p>
-                        <Dropdown options={tagOptions} onSelect={onFilterSelect("tags")} label={tagLabel?.label} />
-                    </div>
-                </div>
             </div>
             <div className={classes.resultsWrapper}>{renderResults()}</div>
         </div>

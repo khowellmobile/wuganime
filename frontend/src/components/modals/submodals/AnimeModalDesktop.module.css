@@ -26,6 +26,8 @@
     width: 2.5rem;
     height: 2.5rem;
 
+    cursor: pointer;
+
     display: flex;
     justify-content: end;
     align-items: start;
@@ -53,6 +55,19 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    position: relative;
+}
+
+.editIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    cursor: pointer;
+
+    position: absolute;
+    top: 0.1rem;
+    right: 1.75rem;
 }
 
 .animeInfoDiv {
@@ -104,7 +119,7 @@
 }
 
 .episodeCounter {
-    width: 7rem;
+    width: 10rem;
     height: 2rem;
 
     background-color: var(--secondary-background-color);

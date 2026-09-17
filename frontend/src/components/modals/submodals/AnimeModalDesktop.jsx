@@ -1,11 +1,15 @@
 import classes from "./AnimeModalDesktop.module.css";
 
 import { useAnimeModalState } from "../../../hooks/useAnimeModalState";
+import { useAnimeLookup } from "../../../hooks/useAnimeLookup";
+import { useModal } from "../../../contexts/ModalCtx";
 import Tag from "../../utilities/Tag";
 import Dropdown from "../../utilities/Dropdown";
 import NoImageDisplay from "../../misc/NoImageDisplay";
-import exitIcon from "../../../assets/cancel-icon.svg";
 import chevDown from "../../../assets/chevron-down-icon-white.svg";
+import exitIcon from "../../../assets/cancel-icon.svg";
+import editIcon from "../../../assets/pen-icon.svg";
+import CustomAnimeFormModal from "../CustomAnimeFormModal";
 
 const ANIME_STATUS_OPTIONS = [
     { label: "Watching", value: "WATCHING" },
@@ -28,15 +32,23 @@ const VALUES_TO_LABELS = {
 const AnimeModalDesktop = ({ anime, closeModal }) => {
     const { activeStatus, episodesWatched, hasImageError, changeLabel, changeEpisodesWatched } =
         useAnimeModalState(anime);
+    const { showModal } = useModal();
+    const { getCustomAnime, getUserAnime } = useAnimeLookup();
+
+    const handleClick = () => {
+        const freshAnime = anime.is_custom ? getCustomAnime(anime.id) : getUserAnime(anime.id);
+        showModal(CustomAnimeFormModal, { anime: freshAnime ?? anime });
+    };
 
     return (
         <div className={classes.modalOverlay} onClick={closeModal}>
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
                 <div className={classes.leftDiv}>
+                    <img class={classes.editIcon} src={editIcon} onClick={handleClick} alt="Edit Icon" />
+                    <div className={classes.exitDiv} onClick={closeModal}>
+                        <img className={classes.icon} src={exitIcon} />
+                    </div>
                     <div className={classes.animeInfoDiv}>
-                        <div className={classes.exitDiv} onClick={closeModal}>
-                            <img className={classes.icon} src={exitIcon} />
-                        </div>
                         <div className={classes.picture}>
                             {!hasImageError && anime?.image_url ? (
                                 <img className={classes.animeImg} src={anime.image_url} />

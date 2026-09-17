@@ -4,7 +4,7 @@ import { api } from "../Client";
 import { normalizeAnimeList } from "../utils/animeNormalizer";
 import { useAuth } from "./useAuth";
 
-export function useFetchAnime({
+export function useFetchLibrary({
     tags = [],
     searchTerm = "",
     typeFilter = "",
@@ -40,19 +40,21 @@ export function useFetchAnime({
     }
 
     const shouldFetch = isAuthenticated && enabled;
-    const key = shouldFetch ? ["/api/anime/", query.toString()] : null;
+    const key = shouldFetch ? ["/api/library/", query.toString()] : null;
 
     const { data, mutate, error } = useSWR(key, ([base, qs]) => api.get(`${base}?${qs}`));
 
-    const animeListRaw = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
-    const animeList = normalizeAnimeList(animeListRaw);
+    const libraryListRaw = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
+    const libraryList = normalizeAnimeList(libraryListRaw);
 
     return {
-        animeList: animeList,
+        libraryList,
         isLoading: shouldFetch && !error && !data,
-        pageCount: data?.count ?? animeList.length,
+        pageCount: data?.count ?? libraryList.length,
         nextPageUrl: data?.next ?? null,
         prevPageUrl: data?.previous ?? null,
-        refreshAnime: mutate,
+        refreshLibrary: mutate,
     };
 }
+
+export default useFetchLibrary;
