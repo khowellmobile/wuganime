@@ -46,9 +46,11 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
                 <div className={classes.tool} style={{ transform: "rotate(90deg)" }} onClick={closeModal}>
                     <img src={chevDown} />
                 </div>
-                <div className={classes.tool} onClick={handleClick}>
-                    <img src={editIcon} />
-                </div>
+                {anime.is_custom && (
+                    <div className={classes.tool} onClick={handleClick}>
+                        <img src={editIcon} />
+                    </div>
+                )}
             </div>
             <div className={classes.genInfo}>
                 <div className={classes.picture}>

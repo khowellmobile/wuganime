@@ -44,7 +44,7 @@ const AnimeModalDesktop = ({ anime, closeModal }) => {
         <div className={classes.modalOverlay} onClick={closeModal}>
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
                 <div className={classes.leftDiv}>
-                    <img class={classes.editIcon} src={editIcon} onClick={handleClick} alt="Edit Icon" />
+                    {anime.is_custom && <img class={classes.editIcon} src={editIcon} onClick={handleClick} alt="Edit Icon" />}
                     <div className={classes.exitDiv} onClick={closeModal}>
                         <img className={classes.icon} src={exitIcon} />
                     </div>
