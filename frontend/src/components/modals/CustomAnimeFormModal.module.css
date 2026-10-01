@@ -113,3 +113,28 @@
     display: flex;
     gap: 0.5rem;
 }
+
+@media (max-width: 768px) {
+    .mainContainer {
+        height: 100%;
+    }
+
+    .animeInfoDiv {
+        height: fit-content;
+        flex-direction: column;
+    }
+
+    .properties {
+        width: 100%;
+        height: fit-content;
+        padding-left: 0;
+    }
+
+    .properties input {
+        height: 3rem;
+    }
+
+    .toolbar {
+        margin-top: auto;
+    }
+}

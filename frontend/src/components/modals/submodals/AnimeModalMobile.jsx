@@ -1,10 +1,14 @@
 import classes from "./AnimeModalMobile.module.css";
 
 import { useAnimeModalState } from "../../../hooks/useAnimeModalState";
+import { useAnimeLookup } from "../../../hooks/useAnimeLookup";
+import { useModal } from "../../../contexts/ModalCtx";
 import Tag from "../../utilities/Tag";
 import Dropdown from "../../utilities/Dropdown";
 import NoImageDisplay from "../../misc/NoImageDisplay";
 import chevDown from "../../../assets/chevron-down-icon-white.svg";
+import editIcon from "../../../assets/pen-icon.svg";
+import CustomAnimeFormModal from "../CustomAnimeFormModal";
 
 const ANIME_STATUS_OPTIONS = [
     { label: "Watching", value: "WATCHING" },
@@ -28,12 +32,25 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
     const { activeStatus, episodesWatched, hasImageError, changeLabel, changeEpisodesWatched } =
         useAnimeModalState(anime);
 
+    const { showModal } = useModal();
+    const { getCustomAnime, getUserAnime } = useAnimeLookup();
+
+    const handleClick = () => {
+        const freshAnime = anime.is_custom ? getCustomAnime(anime.id) : getUserAnime(anime.id);
+        showModal(CustomAnimeFormModal, { anime: freshAnime ?? anime });
+    };
+
     return (
         <div className={classes.mainContainer}>
             <div className={classes.toolBar}>
-                <div className={classes.exit} onClick={closeModal}>
+                <div className={classes.tool} style={{ transform: "rotate(90deg)" }} onClick={closeModal}>
                     <img src={chevDown} />
                 </div>
+                {anime.is_custom && (
+                    <div className={classes.tool} onClick={handleClick}>
+                        <img src={editIcon} />
+                    </div>
+                )}
             </div>
             <div className={classes.genInfo}>
                 <div className={classes.picture}>
@@ -45,7 +62,7 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
                 </div>
                 <div className={classes.info}>
                     <h2>{anime?.title}</h2>
-                    {anime?.episodes && <p>Episdoes: {anime?.episodes}</p>}
+                    {anime?.episodes && <p>Episodes: {anime?.episodes}</p>}
                 </div>
             </div>
             <div className={classes.tagsContainer}>
