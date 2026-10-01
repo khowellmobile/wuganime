@@ -4,6 +4,7 @@ import classes from "./CustomAnimeFormModal.module.css";
 
 import { useAnimeMutations } from "../../hooks/useAnimeMutations";
 import { useModal } from "../../contexts/ModalCtx";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import AnimeModal from "./AnimeModal";
 import Input from "../utilities/Input";
 import Dropdown from "../utilities/Dropdown";
@@ -30,6 +31,7 @@ const VALUES_TO_LABELS = {
 const CustomAnimeFormModal = ({ closeModal, anime }) => {
     const { addCustomAnime, updateCustomAnime } = useAnimeMutations();
     const { showModal } = useModal();
+    const isMobile = useIsMobile(768);
 
     const [errTxt, setErrTxt] = useState("");
     const [inputFields, setInputFields] = useState({
@@ -94,9 +96,11 @@ const CustomAnimeFormModal = ({ closeModal, anime }) => {
         <div className={classes.modalOverlay} onClick={closeModal}>
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
                 <div className={classes.animeInfoDiv}>
-                    <div className={classes.picture}>
-                        <p>{inputFields.title}</p>
-                    </div>
+                    {!isMobile && (
+                        <div className={classes.picture}>
+                            <p>{inputFields.title}</p>
+                        </div>
+                    )}
                     <div className={classes.properties}>
                         <Input
                             type={"text"}
