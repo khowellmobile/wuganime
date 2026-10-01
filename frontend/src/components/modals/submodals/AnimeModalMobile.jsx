@@ -60,7 +60,7 @@ const AnimeModalMobile = ({ anime, closeModal }) => {
                 </div>
                 <div className={classes.info}>
                     <h2>{anime?.title}</h2>
-                    {anime?.episodes && <p>Episdoes: {anime?.episodes}</p>}
+                    {anime?.episodes && <p>Episodes: {anime?.episodes}</p>}
                 </div>
             </div>
             <div className={classes.tagsContainer}>
