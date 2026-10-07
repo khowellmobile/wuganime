@@ -22,19 +22,18 @@
     justify-content: space-between;
 }
 
-.exit {
+.tool {
     height: 3rem;
     width: 3rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: rotate(90deg);
     position: relative;
     left: 3px;
 }
 
-.exit > img {
+.tool > img {
     width: 2rem;
     height: 2rem;
 }

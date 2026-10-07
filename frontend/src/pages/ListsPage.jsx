@@ -1,8 +1,7 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 
 import classes from "./ListsPage.module.css";
 
-import { useFetchAnime } from "../hooks/useFetchAnime";
 import { useUserAnime } from "../hooks/useUserAnime";
 import { useModal } from "../contexts/ModalCtx";
 import CardList from "../components/misc/CardList";
