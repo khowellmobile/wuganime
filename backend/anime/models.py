@@ -29,6 +29,7 @@ class Anime(models.Model):
         max_length=50, choices=TypeChoices.choices, null=True, blank=True
     )
     episodes = models.IntegerField(null=True, blank=True)
+    seasons = models.IntegerField(null=True, blank=True)
     status = models.CharField(
         max_length=50, choices=StatusChoices.choices, null=True, blank=True
     )
@@ -56,6 +57,7 @@ class UserAnime(models.Model):
         max_length=20, choices=UserStatus.choices, blank=True, null=True
     )
     episodes_watched = models.PositiveIntegerField(default=0)
+    seasons_watched = models.PositiveIntegerField(default=0)
     score = models.PositiveIntegerField(null=True, blank=True)
     last_changed_at = models.DateTimeField(auto_now=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -84,10 +86,12 @@ class CustomAnime(models.Model):
         max_length=50, choices=Anime.TypeChoices.choices, null=True, blank=True
     )
     episodes = models.IntegerField(null=True, blank=True)
+    seasons = models.IntegerField(null=True, blank=True)
     status = models.CharField(
         max_length=20, choices=UserStatus.choices, blank=True, null=True
     )
     episodes_watched = models.PositiveIntegerField(default=0)
+    seasons_watched = models.PositiveIntegerField(default=0)
     score = models.PositiveIntegerField(null=True, blank=True)
     last_changed_at = models.DateTimeField(auto_now=True, db_index=True)
     is_deleted = models.BooleanField(default=False)

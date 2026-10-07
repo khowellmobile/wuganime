@@ -20,6 +20,7 @@ class AnimeSerializer(serializers.ModelSerializer):
             "tags",
             "type",
             "episodes",
+            "seasons",
             "status",
             "image_url",
             "external_id",
@@ -32,12 +33,14 @@ class AnimeSerializer(serializers.ModelSerializer):
 class AnimeWithUserStatusSerializer(AnimeSerializer):
     user_status = serializers.SerializerMethodField()
     episodes_watched = serializers.SerializerMethodField()
+    seasons_watched = serializers.SerializerMethodField()
     is_custom = serializers.BooleanField(default=False, read_only=True)
 
     class Meta(AnimeSerializer.Meta):
         fields = AnimeSerializer.Meta.fields + [
             "user_status",
             "episodes_watched",
+            "seasons_watched",
             "is_custom",
         ]
 
@@ -52,7 +55,7 @@ class AnimeWithUserStatusSerializer(AnimeSerializer):
 
         return (
             UserAnime.objects.filter(user=request.user, anime=obj)
-            .only("status", "episodes_watched")
+            .only("status", "episodes_watched", "seasons_watched")
             .first()
         )
 
@@ -68,6 +71,12 @@ class AnimeWithUserStatusSerializer(AnimeSerializer):
             return 0
         return relation.episodes_watched
 
+    def get_seasons_watched(self, obj):
+        relation = self._get_user_relation(obj)
+        if relation is None:
+            return 0
+        return relation.seasons_watched
+
 
 class UserAnimeSerializer(serializers.ModelSerializer):
     anime_details = AnimeSerializer(source="anime", read_only=True)
@@ -80,6 +89,7 @@ class UserAnimeSerializer(serializers.ModelSerializer):
             "anime_details",
             "status",
             "episodes_watched",
+            "seasons_watched",
             "score",
             "last_changed_at",
             "updated_at",
@@ -92,6 +102,7 @@ class UserAnimeStatusMutationSerializer(serializers.Serializer):
         choices=[*UserAnime.UserStatus.values, "UNCATEGORIZED"], required=False
     )
     episodes_watched = serializers.IntegerField(required=False, min_value=0)
+    seasons_watched = serializers.IntegerField(required=False, min_value=0)
     score = serializers.IntegerField(required=False, min_value=0, allow_null=True)
 
 
@@ -113,8 +124,10 @@ class CustomAnimeSerializer(serializers.ModelSerializer):
             "synopsis",
             "type",
             "episodes",
+            "seasons",
             "user_status",
             "episodes_watched",
+            "seasons_watched",
             "is_custom",
             "is_deleted",
             "created_at",

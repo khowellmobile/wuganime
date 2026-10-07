@@ -73,7 +73,7 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
                 Prefetch(
                     "useranime_set",
                     queryset=UserAnime.objects.filter(user=user).only(
-                        "anime_id", "status", "episodes_watched"
+                        "anime_id", "status", "episodes_watched", "seasons_watched"
                     ),
                     to_attr="request_user_relations",
                 )
@@ -136,6 +136,8 @@ class UserAnimeViewSet(viewsets.ModelViewSet):
             updates["status"] = serializer.validated_data["status"]
         if "episodes_watched" in serializer.validated_data:
             updates["episodes_watched"] = serializer.validated_data["episodes_watched"]
+        if "seasons_watched" in serializer.validated_data:
+            updates["seasons_watched"] = serializer.validated_data["seasons_watched"]
         if "score" in serializer.validated_data:
             updates["score"] = serializer.validated_data["score"]
 
@@ -226,7 +228,7 @@ class LibraryViewSet(viewsets.ViewSet):
             Prefetch(
                 "useranime_set",
                 queryset=UserAnime.objects.filter(user=request.user).only(
-                    "anime_id", "status", "episodes_watched"
+                    "anime_id", "status", "episodes_watched", "seasons_watched"
                 ),
                 to_attr="request_user_relations",
             )
