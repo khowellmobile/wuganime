@@ -43,10 +43,8 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
         if search_term:
             search_term = search_term.strip()
             if search_term:
-                search_query = (
-                    Q(title__icontains=search_term)
-                    | Q(tags__name__icontains=search_term)
-                    | Q(synopsis__icontains=search_term)
+                search_query = Q(title__icontains=search_term) | Q(
+                    tags__name__icontains=search_term
                 )
                 if search_term.isdigit():
                     search_query = search_query | Q(external_id=int(search_term))
@@ -213,10 +211,8 @@ class LibraryViewSet(viewsets.ViewSet):
         )
 
         if search_term:
-            search_query = (
-                Q(title__icontains=search_term)
-                | Q(tags__name__icontains=search_term)
-                | Q(synopsis__icontains=search_term)
+            search_query = Q(title__icontains=search_term) | Q(
+                tags__name__icontains=search_term
             )
             if search_term.isdigit():
                 search_query = search_query | Q(external_id=int(search_term))
@@ -243,9 +239,7 @@ class LibraryViewSet(viewsets.ViewSet):
         ).order_by("id")
 
         if search_term:
-            queryset = queryset.filter(
-                Q(title__icontains=search_term) | Q(synopsis__icontains=search_term)
-            )
+            queryset = queryset.filter(Q(title__icontains=search_term))
 
         return queryset
 
