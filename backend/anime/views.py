@@ -1,5 +1,7 @@
 from django.db import transaction
+from django.core.cache import cache
 from django.db.models import Prefetch, Q
+from anime.services import anime_api
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -83,6 +85,27 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_serializer_class(self):
         return AnimeWithUserStatusSerializer
+
+    def list(self, request, *args, **kwargs):
+        search = (request.query_params.get("search") or "").strip()
+        page = request.query_params.get("page", "1")
+
+        # Only check the API on page 1 and if the DB has no match
+        if search and page == "1" and not self.get_queryset().exists():
+            cache_key = f"anime-search:{search.casefold()}"
+            if cache.add(
+                cache_key, 1, 60 * 60
+            ):  # False if this term was searched within the last hour
+                try:
+                    tag_cache = {}
+                    for item in anime_api.search(search):
+                        normalized = anime_api.normalize(item)
+                        if normalized:
+                            anime_api.upsert_anime(normalized, tag_cache=tag_cache)
+                except anime_api.AnimeApiError:
+                    cache.delete(cache_key)  # allow a retry if the API failed
+
+        return super().list(request, *args, **kwargs)
 
 
 class UserAnimeViewSet(viewsets.ModelViewSet):

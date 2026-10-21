@@ -207,6 +207,21 @@ def fetch_pages(
     return items
 
 
+JIKAN_SEARCH_URL = "https://api.jikan.moe/v4/anime"
+
+
+def search(query, limit=10, timeout=5):
+    """Search the API by title. Returns raw items; raises AnimeApiError on failure."""
+    url = _build_url(JIKAN_SEARCH_URL, {"q": query, "limit": limit})
+    request = Request(url, headers={"User-Agent": "wuganime/1.0"})
+    try:
+        with urlopen(request, timeout=timeout) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except Exception as exc:
+        raise AnimeApiError(f"Search failed: {exc}") from exc
+    return _pluck_list(payload)
+
+
 def normalize(item):
     """Convert one raw API item into model-ready data, or None if unusable."""
     if not isinstance(item, dict):

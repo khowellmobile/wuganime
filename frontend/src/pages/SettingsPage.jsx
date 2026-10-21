@@ -65,19 +65,6 @@ const SettingsPage = () => {
             </div>
         </div>
     );
-
-    /* return (
-        <div className={classes.mainContainer}>
-            <div className={classes.menu}>
-                {subPages.map((page, index) => (
-                    <div onClick={() => setActiveSubPage(page)} key={index}>
-                        <h3>{page}</h3>
-                    </div>
-                ))}
-            </div>
-            <div className={classes.settings}>{getActivePage(activeSubPage)}</div>
-        </div>
-    ); */
 };
 
 export default SettingsPage;
