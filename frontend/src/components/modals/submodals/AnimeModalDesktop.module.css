@@ -22,19 +22,15 @@
     bottom: 5rem;
 }
 
-.exitDiv {
-    width: 2.5rem;
-    height: 2.5rem;
+.tools {
+    width: 100%;
+    height: 2rem;
 
     cursor: pointer;
 
     display: flex;
     justify-content: end;
-    align-items: start;
-
-    position: absolute;
-    top: -3px;
-    right: -3px;
+    align-items: center;
 }
 
 .icon {
@@ -43,8 +39,8 @@
 }
 
 .leftDiv {
-    width: 35rem;
-    height: 30rem;
+    width: 40rem;
+    height: 35rem;
     padding-bottom: 1rem;
     margin-right: 0.5rem;
 
@@ -55,8 +51,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
-    position: relative;
 }
 
 .editIcon {
@@ -64,15 +58,11 @@
     height: 1.5rem;
 
     cursor: pointer;
-
-    position: absolute;
-    top: 0.1rem;
-    right: 1.75rem;
 }
 
 .animeInfoDiv {
     width: 100%;
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
 
     display: flex;
 }
