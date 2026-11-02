@@ -44,8 +44,8 @@ const AnimeModalDesktop = ({ anime, closeModal }) => {
         <div className={classes.modalOverlay} onClick={closeModal}>
             <div className={classes.mainContainer} onClick={(e) => e.stopPropagation()}>
                 <div className={classes.leftDiv}>
-                    {anime.is_custom && <img class={classes.editIcon} src={editIcon} onClick={handleClick} alt="Edit Icon" />}
-                    <div className={classes.exitDiv} onClick={closeModal}>
+                    <div className={classes.tools} onClick={closeModal}>
+                        {anime.is_custom && <img class={classes.editIcon} src={editIcon} onClick={handleClick} alt="Edit Icon" />}
                         <img className={classes.icon} src={exitIcon} />
                     </div>
                     <div className={classes.animeInfoDiv}>
@@ -86,7 +86,6 @@ const AnimeModalDesktop = ({ anime, closeModal }) => {
                         <p>{anime?.synopsis}</p>
                     </div>
                 </div>
-                <div className={classes.rightDiv}></div>
             </div>
         </div>
     );
