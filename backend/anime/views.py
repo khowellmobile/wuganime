@@ -1,7 +1,5 @@
-from django.db import transaction
-from django.core.cache import cache
 from django.db.models import Prefetch, Q
-from anime.services import anime_api
+from anime.services import anime_api, anime_catalog
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -87,24 +85,10 @@ class AnimeViewSet(viewsets.ReadOnlyModelViewSet):
         return AnimeWithUserStatusSerializer
 
     def list(self, request, *args, **kwargs):
-        search = (request.query_params.get("search") or "").strip()
+        search_term = (request.query_params.get("search") or "").strip()
         page = request.query_params.get("page", "1")
-
-        # Only check the API on page 1 and if the DB has no match
-        if search and page == "1" and not self.get_queryset().exists():
-            cache_key = f"anime-search:{search.casefold()}"
-            if cache.add(
-                cache_key, 1, 60 * 60
-            ):  # False if this term was searched within the last hour
-                try:
-                    tag_cache = {}
-                    for item in anime_api.search(search):
-                        normalized = anime_api.normalize(item)
-                        if normalized:
-                            anime_api.upsert_anime(normalized, tag_cache=tag_cache)
-                except anime_api.AnimeApiError:
-                    cache.delete(cache_key)  # allow a retry if the API failed
-
+        if search_term and page == "1" and not self.get_queryset().exists():
+            anime_api.search_and_normalize(search_term, limit=10)
         return super().list(request, *args, **kwargs)
 
 
@@ -288,14 +272,29 @@ class LibraryViewSet(viewsets.ViewSet):
             )
             custom_qs = custom_qs.filter(status=user_status_filter)
 
-        anime_data = AnimeWithUserStatusSerializer(
-            anime_qs, many=True, context={"request": request}
-        ).data
-        custom_data = CustomAnimeSerializer(custom_qs, many=True).data
-
-        combined = sorted(
-            [*anime_data, *custom_data], key=lambda item: item["title"].lower()
+        combined = None
+        can_fallback = (
+            search_term
+            and request.query_params.get("page", "1") == "1"
+            and not request.query_params.getlist("tags")
+            and not user_status_filter
         )
+
+        if can_fallback and not anime_qs.exists() and not custom_qs.exists():
+            try:
+                results = anime_api.search_and_normalize(search_term, limit=10)
+            except anime_api.AnimeApiError:
+                results = []
+            combined = [anime_api.to_preview_item(r) for r in results]
+
+        if combined is None:
+            anime_data = AnimeWithUserStatusSerializer(
+                anime_qs, many=True, context={"request": request}
+            ).data
+            custom_data = CustomAnimeSerializer(custom_qs, many=True).data
+            combined = sorted(
+                [*anime_data, *custom_data], key=lambda item: item["title"].lower()
+            )
 
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(combined, request, view=self)

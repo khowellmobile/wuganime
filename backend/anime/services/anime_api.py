@@ -1,8 +1,6 @@
 import json
-from hashlib import md5
 from urllib.parse import urlencode, urlparse, parse_qsl, urlunparse
 from urllib.request import Request, urlopen
-from anime.models import Anime, Tag
 
 
 class AnimeApiError(Exception):
@@ -159,11 +157,6 @@ def _has_jikan_taxonomy(item):
     return any(key in item for key in ("genres", "themes", "demographics"))
 
 
-def _generate_tag_color(tag_name):
-    digest = md5(tag_name.encode("utf-8")).hexdigest()
-    return f"#{digest[:6]}"
-
-
 def fetch_pages(
     base_url,
     limit,
@@ -210,8 +203,8 @@ def fetch_pages(
 JIKAN_SEARCH_URL = "https://api.jikan.moe/v4/anime"
 
 
-def search(query, limit=10, timeout=5):
-    """Search the API by title. Returns raw items; raises AnimeApiError on failure."""
+def search_and_normalize(query, limit=10, timeout=5):
+    """Search the API by title. Returns normalized items; raises AnimeApiError on failure."""
     url = _build_url(JIKAN_SEARCH_URL, {"q": query, "limit": limit})
     request = Request(url, headers={"User-Agent": "wuganime/1.0"})
     try:
@@ -219,7 +212,11 @@ def search(query, limit=10, timeout=5):
             payload = json.loads(response.read().decode("utf-8"))
     except Exception as exc:
         raise AnimeApiError(f"Search failed: {exc}") from exc
-    return _pluck_list(payload)
+    return [
+        normalized
+        for item in _pluck_list(payload)
+        if (normalized := normalize(item)) is not None
+    ]
 
 
 def normalize(item):
@@ -252,28 +249,30 @@ def normalize(item):
     }
 
 
-def upsert_anime(normalized, tag_cache=None):
-    """Create or update an Anime from normalize() output. Returns (anime, was_created)."""
-    anime, was_created = Anime.objects.update_or_create(
-        external_id=normalized["external_id"],
-        defaults=normalized["fields"],
-    )
+def to_preview_item(normalized):
+    """Shape normalize() output like a serialized Anime, for unsaved API results."""
+    from hashlib import md5
 
-    tag_names = normalized["tag_names"]
-    if tag_names is not None:  # None means no tag info.
-        if tag_cache is None:
-            tag_cache = {}
-        tags = []
-        for name in tag_names:
-            key = name.casefold()
-            tag = tag_cache.get(key)
-            if tag is None:
-                tag, _ = Tag.objects.get_or_create(
-                    name=name,
-                    defaults={"color": _generate_tag_color(name)},
-                )
-                tag_cache[key] = tag
-            tags.append(tag)
-        anime.tags.set(tags)
-
-    return anime, was_created
+    return {
+        "id": None,
+        "external_id": normalized["external_id"],
+        "tags": [
+            {
+                "id": None,
+                "name": t,
+                "color": f"#{md5(t.encode('utf-8')).hexdigest()[:6]}",
+            }
+            for t in (normalized["tag_names"] or [])
+        ],
+        "synopsis": None,
+        "type": None,
+        "episodes": None,
+        "status": None,
+        "image_url": None,
+        **normalized["fields"],
+        "user_status": "UNCATEGORIZED",
+        "episodes_watched": 0,
+        "is_custom": False,
+        "is_deleted": False,
+        "from_api": True,
+    }
